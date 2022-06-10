@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ShoppingList</string>
+    <string name="search">Ricerca</string>
+    <string name="page_title">page_title</string>
+    <string name="settings">Impostazioni</string>
+    <string name="list_title">Nome Lista</string>
+</resources>
