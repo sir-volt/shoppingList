@@ -13,5 +13,6 @@
         android:id="@+id/recycler_view"
         android:layout_marginTop="?attr/actionBarSize"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/card_layout"/>
+        tools:listitem="@layout/search_card_layout"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
