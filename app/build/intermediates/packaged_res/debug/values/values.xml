@@ -7,7 +7,11 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="white">#FFFFFFFF</color>
+    <string name="add_to_cart">Add To Cart</string>
     <string name="app_name">ShoppingList</string>
+    <string name="image_of_item">Image Of Item</string>
+    <string name="item_price">Price of Item</string>
+    <string name="item_title">Item Title</string>
     <string name="list_title">List Name</string>
     <string name="page_title">Page Title</string>
     <string name="search">Search</string>

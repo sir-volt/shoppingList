@@ -1,5 +1,13 @@
 [
     {
+        "merged": "com.example.shoppinglist.app-merged_res-25:/layout_search_items_to_buy.xml.flat",
+        "source": "com.example.shoppinglist.app-main-27:/layout/search_items_to_buy.xml"
+    },
+    {
+        "merged": "com.example.shoppinglist.app-merged_res-25:/layout_search_card_layout.xml.flat",
+        "source": "com.example.shoppinglist.app-main-27:/layout/search_card_layout.xml"
+    },
+    {
         "merged": "com.example.shoppinglist.app-merged_res-25:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
         "source": "com.example.shoppinglist.app-main-27:/mipmap-xxhdpi/ic_launcher_round.webp"
     },

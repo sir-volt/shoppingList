@@ -1590,6 +1590,7 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with <ns2:g example="Mail" id="application_name">%s</ns2:g></string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
+    <string name="add_to_cart">Add To Cart</string>
     <string name="androidx_startup" translatable="false">androidx.startup</string>
     <string name="app_name">ShoppingList</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
@@ -1606,6 +1607,9 @@
     <string name="fab_transformation_sheet_behavior" translatable="false">com.google.android.material.transformation.FabTransformationSheetBehavior</string>
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
     <string description="Content description for an icon that appears in the title area of a dialog" name="icon_content_description">Dialog Icon</string>
+    <string name="image_of_item">Image Of Item</string>
+    <string name="item_price">Price of Item</string>
+    <string name="item_title">Item Title</string>
     <string name="item_view_role_description">Tab</string>
     <string name="list_title">List Name</string>
     <string name="m3_ref_typeface_brand_display_regular" translatable="false">sans-serif</string>

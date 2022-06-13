@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="add_to_cart">Aggiungi al Carrello</string>
     <string name="app_name">ShoppingList</string>
+    <string name="image_of_item">Immagine di Oggetto</string>
+    <string name="item_price">Prezzo di Oggetto</string>
+    <string name="item_title">Titolo di Oggetto</string>
     <string name="list_title">Nome Lista</string>
     <string name="page_title">page_title</string>
     <string name="search">Ricerca</string>
