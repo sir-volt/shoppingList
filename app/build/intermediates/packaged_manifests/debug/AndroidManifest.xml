@@ -21,6 +21,9 @@
         android:theme="@style/Theme.ShoppingList" >
         <activity
             android:name="com.example.shoppinglist.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.shoppinglist.LoginSignupActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

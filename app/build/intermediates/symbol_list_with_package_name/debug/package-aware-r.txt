@@ -2445,6 +2445,7 @@ drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
+drawable button_bg
 drawable design_fab_background
 drawable design_ic_visibility
 drawable design_ic_visibility_off
@@ -2463,6 +2464,7 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_search_white_24dp
+drawable login_bg
 drawable m3_appbar_background
 drawable m3_popupmenu_background_overlay
 drawable m3_radiobutton_ripple
@@ -2609,6 +2611,7 @@ id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
+id btn_register
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -2685,10 +2688,15 @@ id easeOut
 id east
 id edit_query
 id elastic
+id email_text
 id end
 id endToStart
 id enterAlways
 id enterAlwaysCollapsed
+id et_email
+id et_name
+id et_password
+id et_repassword
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -2752,6 +2760,9 @@ id linear
 id listMode
 id list_item
 id list_textview
+id login_button
+id login_here
+id login_signup_viewPager
 id masked
 id match_constraint
 id match_parent
@@ -2848,6 +2859,7 @@ id position
 id postLayout
 id progress_circular
 id progress_horizontal
+id pw_text
 id radio
 id ratio
 id rectangles
@@ -2972,6 +2984,7 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id tv_logo
 id unchecked
 id uniform
 id unlabeled
@@ -3079,6 +3092,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_login_signup
 layout activity_main
 layout card_layout
 layout custom_dialog
@@ -3097,6 +3111,8 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout fragment_login
+layout fragment_signup
 layout home
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
@@ -3205,6 +3221,8 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string action_sign_in
+string action_sign_in_short
 string add_to_cart
 string androidx_startup
 string app_name
@@ -3220,13 +3238,17 @@ string error_icon_content_description
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
+string go_to_login
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
 string image_of_item
+string invalid_password
+string invalid_username
 string item_price
 string item_title
 string item_view_role_description
 string list_title
+string login_failed
 string m3_ref_typeface_brand_display_regular
 string m3_ref_typeface_brand_medium
 string m3_ref_typeface_brand_regular
@@ -3314,10 +3336,16 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string prompt_confirm_password
+string prompt_email
+string prompt_password
+string prompt_username
+string register
 string search
 string search_menu_title
 string settings
 string status_bar_notification_info_overflow
+string welcome
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style AndroidThemeColorAccentYellow
@@ -3790,6 +3818,7 @@ style TextAppearance_MaterialComponents_Tooltip
 style TextAppearance_Widget_AppCompat_ExpandedMenu_Item
 style TextAppearance_Widget_AppCompat_Toolbar_Subtitle
 style TextAppearance_Widget_AppCompat_Toolbar_Title
+style Theme_App_LoginButton
 style Theme_App_Toolbar
 style Theme_AppCompat
 style Theme_AppCompat_CompactMenu

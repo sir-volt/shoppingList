@@ -8,4 +8,16 @@
     <string name="item_title">Item Title</string>
     <string name="item_price">Price of Item</string>
     <string name="add_to_cart">Add To Cart</string>
+    <string name="prompt_email" translatable="false">Email</string>
+    <string name="prompt_password" translatable="false">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="register">Register</string>
+    <string name="prompt_username">User name</string>
+    <string name="prompt_confirm_password">Confirm your password</string>
+    <string name="go_to_login" >Already have an account? Login here</string>
 </resources>

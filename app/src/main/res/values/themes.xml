@@ -12,9 +12,19 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
     </style>
 
     <style name="Theme.App.Toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
         <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+
+    <!--Non riesco a far funzionare sta roba ma la tengo comunque, non si sa mai-->
+    <style name="Theme.App.LoginButton" parent="ThemeOverlay.Material3.Button">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:startColor">@color/teal_200</item>
+        <item name="android:endColor">@color/purple_700</item>
+        <item name="android:radius">50dp</item>
     </style>
 </resources>
