@@ -9,4 +9,6 @@
     <string name="item_title">Titolo di Oggetto</string>
     <string name="item_price">Prezzo di Oggetto</string>
     <string name="add_to_cart">Aggiungi al Carrello</string>
+    <string name="create_new_item">Crea Nuovo Oggetto</string>
+
 </resources>
