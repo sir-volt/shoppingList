@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 public class LoginSignupActivity extends AppCompatActivity {
 
+
+    //TODO: forse dovrei sostituirlo con ViewPager2 e FragmentStateAdapter
     class AuthenticationPagerAdapter extends FragmentPagerAdapter {
         private ArrayList<Fragment> fragmentList = new ArrayList<>();
 
@@ -44,7 +46,7 @@ public class LoginSignupActivity extends AppCompatActivity {
 
         AuthenticationPagerAdapter pagerAdapter = new AuthenticationPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(new LoginFragment());
-        pagerAdapter.addFragment(new RegisterFragment());
+        pagerAdapter.addFragment(new SignupFragment());
         viewPager.setAdapter(pagerAdapter);
 
         FragmentManager fragmentManager = getSupportFragmentManager();

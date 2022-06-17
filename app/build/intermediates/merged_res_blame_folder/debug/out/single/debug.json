@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-merged_res-25:\\layout_activity_login_signup.xml.flat",
+        "source": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-main-27:\\layout\\activity_login_signup.xml"
+    },
+    {
         "merged": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-merged_res-25:\\layout_card_layout.xml.flat",
         "source": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-main-27:\\layout\\card_layout.xml"
     },
@@ -60,6 +64,10 @@
         "source": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-main-27:\\layout\\search_card_layout.xml"
     },
     {
+        "merged": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-merged_res-25:\\layout_fragment_signup.xml.flat",
+        "source": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-main-27:\\layout\\fragment_signup.xml"
+    },
+    {
         "merged": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-merged_res-25:\\layout_activity_login.xml.flat",
         "source": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-main-27:\\layout\\activity_login.xml"
     },
@@ -76,12 +84,12 @@
         "source": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-main-27:\\layout\\topbar.xml"
     },
     {
-        "merged": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-merged_res-25:\\mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-main-27:\\mipmap-mdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-merged_res-25:\\layout_fragment_login.xml.flat",
+        "source": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-main-27:\\layout\\fragment_login.xml"
     },
     {
-        "merged": "com.example.shoppinglist.app-merged_res-25:/layout_activity_login_signup.xml.flat",
-        "source": "com.example.shoppinglist.app-main-27:/layout/activity_login_signup.xml"
+        "merged": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-merged_res-25:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-main-27:\\mipmap-mdpi\\ic_launcher.webp"
     },
     {
         "merged": "C:\\Users\\megab\\.gradle\\daemon\\7.3.3\\com.example.shoppinglist.app-merged_res-25:\\mipmap-xhdpi_ic_launcher_round.webp.flat",

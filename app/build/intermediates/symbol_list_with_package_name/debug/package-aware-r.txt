@@ -2611,7 +2611,6 @@ id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
-id btn_register
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -2693,10 +2692,6 @@ id end
 id endToStart
 id enterAlways
 id enterAlwaysCollapsed
-id et_email
-id et_name
-id et_password
-id et_repassword
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -2849,6 +2844,7 @@ id parent
 id parentPanel
 id parentRelative
 id parent_matrix
+id password_text
 id password_toggle
 id path
 id pathRelative
@@ -2864,6 +2860,7 @@ id radio
 id ratio
 id rectangles
 id recycler_view
+id repassword_text
 id reverseSawtooth
 id right
 id rightToLeft
@@ -2900,6 +2897,7 @@ id shortcut
 id showCustom
 id showHome
 id showTitle
+id signup_button
 id sin
 id single_card
 id skipCollapsed
@@ -2990,6 +2988,7 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id username_text
 id vertical_only
 id view_offset_helper
 id view_transition
@@ -3239,6 +3238,7 @@ string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
 string go_to_login
+string go_to_signup
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
 string image_of_item
@@ -3248,6 +3248,7 @@ string item_price
 string item_title
 string item_view_role_description
 string list_title
+string login
 string login_failed
 string m3_ref_typeface_brand_display_regular
 string m3_ref_typeface_brand_medium
@@ -3340,10 +3341,10 @@ string prompt_confirm_password
 string prompt_email
 string prompt_password
 string prompt_username
-string register
 string search
 string search_menu_title
 string settings
+string signup
 string status_bar_notification_info_overflow
 string welcome
 style AlertDialog_AppCompat

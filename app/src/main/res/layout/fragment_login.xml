@@ -60,13 +60,13 @@
         android:layout_marginHorizontal="40dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/button_bg"
-        android:text="Login"
+        android:text="@string/login"
         app:backgroundTint="@null" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Crea un account"
+        android:text="@string/go_to_signup"
         android:textAlignment="center"/>
 
 
