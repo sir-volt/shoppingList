@@ -18,7 +18,7 @@ public abstract class UserDatabase extends RoomDatabase {
     private static UserDatabase INSTANCE;
     static final ExecutorService executor = Executors.newFixedThreadPool(4);
 
-    static UserDatabase getUserDatabase(final Context context){
+    public static UserDatabase getUserDatabase(Context context){
 
         if(INSTANCE == null){
             synchronized (UserDatabase.class){
@@ -29,4 +29,6 @@ public abstract class UserDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
+
+    public abstract UserDAO userDAO();
 }
