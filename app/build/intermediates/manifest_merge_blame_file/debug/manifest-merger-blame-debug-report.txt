@@ -74,6 +74,15 @@
 44                android:value="androidx.startup" />
 44-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\megab\.gradle\caches\transforms-3\8eef53d9995d138e5396bc0361630197\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
 45        </provider>
-46    </application>
-47
-48</manifest>
+46
+47        <service
+47-->[androidx.room:room-runtime:2.4.2] C:\Users\megab\.gradle\caches\transforms-3\4a3b5f33337ded1b81c553095eeef74a\transformed\room-runtime-2.4.2\AndroidManifest.xml:25:9-28:40
+48            android:name="androidx.room.MultiInstanceInvalidationService"
+48-->[androidx.room:room-runtime:2.4.2] C:\Users\megab\.gradle\caches\transforms-3\4a3b5f33337ded1b81c553095eeef74a\transformed\room-runtime-2.4.2\AndroidManifest.xml:26:13-74
+49            android:directBootAware="true"
+49-->[androidx.room:room-runtime:2.4.2] C:\Users\megab\.gradle\caches\transforms-3\4a3b5f33337ded1b81c553095eeef74a\transformed\room-runtime-2.4.2\AndroidManifest.xml:27:13-43
+50            android:exported="false" />
+50-->[androidx.room:room-runtime:2.4.2] C:\Users\megab\.gradle\caches\transforms-3\4a3b5f33337ded1b81c553095eeef74a\transformed\room-runtime-2.4.2\AndroidManifest.xml:28:13-37
+51    </application>
+52
+53</manifest>

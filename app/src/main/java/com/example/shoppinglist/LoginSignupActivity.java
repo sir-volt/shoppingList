@@ -1,5 +1,6 @@
 package com.example.shoppinglist;
 
+import android.app.Application;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -46,7 +47,7 @@ public class LoginSignupActivity extends AppCompatActivity {
 
         AuthenticationPagerAdapter pagerAdapter = new AuthenticationPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(new LoginFragment());
-        pagerAdapter.addFragment(new SignupFragment());
+        pagerAdapter.addFragment(new SignupFragment(getApplication()));
         viewPager.setAdapter(pagerAdapter);
 
         FragmentManager fragmentManager = getSupportFragmentManager();

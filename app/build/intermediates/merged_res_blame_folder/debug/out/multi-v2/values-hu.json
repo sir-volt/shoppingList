@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.shoppinglist.app-mergeDebugResources-23:/values-hu/values-hu.xml",
+            "outputFile": "com.example.shoppinglist.app-mergeDebugResources-26:/values-hu/values-hu.xml",
             "map": [
                 {
                     "source": "C:\\Users\\megab\\.gradle\\caches\\transforms-3\\69592bd19cec1de513dd3643bec51fc2\\transformed\\appcompat-1.4.1\\res\\values-hu\\values-hu.xml",

@@ -1,5 +1,6 @@
 package com.example.shoppinglist;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.example.shoppinglist.DataBase.UserDAO;
 import com.example.shoppinglist.DataBase.UserDatabase;
+import com.example.shoppinglist.DataBase.UserRepository;
 
 public class SignupFragment extends Fragment {
 
@@ -23,9 +25,11 @@ public class SignupFragment extends Fragment {
 
     private Button b1;
     private EditText usernameText, emailText, passwordText, repeatPasswordText;
+    private final UserRepository repository;
 
-    public SignupFragment(){
-
+    public SignupFragment(Application application){
+        Log.e(LOG_TAG, "Constructor");
+        repository = new UserRepository(application);
     }
 
     @Nullable
@@ -58,20 +62,9 @@ public class SignupFragment extends Fragment {
                         userEntity.setName(usernameText.getText().toString());
                         if(validateInput(userEntity)){
                             //Posso inserire i dati nel database
-                            UserDatabase userDatabase = UserDatabase.getUserDatabase(activity.getApplicationContext());
-                            UserDAO userDAO = userDatabase.userDAO();
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    userDAO.registerUser(userEntity);
-                                    activity.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(activity.getApplicationContext(), "User registered correctly", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                            });
+                            repository.registerUser(userEntity);
+                            Toast.makeText(activity.getApplicationContext(), "User registered correctly", Toast.LENGTH_SHORT).show();
+
                         } else {
                             Toast.makeText(activity.getApplicationContext(), "Please, fill all of the fields", Toast.LENGTH_SHORT).show();
                         }

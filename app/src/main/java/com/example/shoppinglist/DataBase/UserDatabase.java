@@ -15,12 +15,13 @@ import java.util.concurrent.Executors;
 public abstract class UserDatabase extends RoomDatabase {
 
     private static final String dbName = "listappdatabase";
-    private static UserDatabase INSTANCE;
+    private static volatile UserDatabase INSTANCE;
     static final ExecutorService executor = Executors.newFixedThreadPool(4);
+    public abstract UserDAO userDAO();
 
-    public static UserDatabase getUserDatabase(Context context){
-
+    public static UserDatabase getDatabase(final Context context){
         if(INSTANCE == null){
+            //Synchronized per evitare istanze multiple
             synchronized (UserDatabase.class){
                 if(INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(), UserDatabase.class, dbName).build();
@@ -30,5 +31,4 @@ public abstract class UserDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    public abstract UserDAO userDAO();
 }
