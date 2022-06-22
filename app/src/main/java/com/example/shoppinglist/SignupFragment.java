@@ -14,10 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.shoppinglist.DataBase.UserDAO;
 import com.example.shoppinglist.DataBase.UserDatabase;
 import com.example.shoppinglist.DataBase.UserRepository;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.List;
 
 public class SignupFragment extends Fragment {
 
@@ -28,7 +33,6 @@ public class SignupFragment extends Fragment {
     private final UserRepository repository;
 
     public SignupFragment(Application application){
-        Log.e(LOG_TAG, "Constructor");
         repository = new UserRepository(application);
     }
 
@@ -50,28 +54,34 @@ public class SignupFragment extends Fragment {
             passwordText = view.findViewById(R.id.password_text);
             repeatPasswordText = view.findViewById(R.id.repassword_text);
 
+
             b1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //TODO Controlli sull'unicità della email
-                    if(checkPasswords(passwordText, repeatPasswordText)){
-                        //Toast.makeText(activity.getApplicationContext(), "Correct Passwords", Toast.LENGTH_LONG).show();
-                        UserEntity userEntity = new UserEntity();
-                        userEntity.setEmail(emailText.getText().toString());
-                        userEntity.setPassword(passwordText.getText().toString());
-                        userEntity.setName(usernameText.getText().toString());
-                        if(validateInput(userEntity)){
-                            //Posso inserire i dati nel database
-                            repository.registerUser(userEntity);
-                            Toast.makeText(activity.getApplicationContext(), "User registered correctly", Toast.LENGTH_SHORT).show();
 
+                    if(checkEmail(emailText.getText().toString())){
+                        Toast.makeText(activity.getApplicationContext(), "Email già in uso", Toast.LENGTH_SHORT).show();
+                    } else{
+                        Toast.makeText(activity.getApplicationContext(), "Email valida",Toast.LENGTH_SHORT).show();
+                        if(checkPasswords(passwordText, repeatPasswordText)){
+                            //Toast.makeText(activity.getApplicationContext(), "Correct Passwords", Toast.LENGTH_LONG).show();
+                            UserEntity userEntity = new UserEntity();
+                            userEntity.setEmail(emailText.getText().toString());
+                            userEntity.setPassword(passwordText.getText().toString());
+                            userEntity.setName(usernameText.getText().toString());
+                            if(validateInput(userEntity)){
+                                //Posso inserire i dati nel database
+                                repository.registerUser(userEntity);
+                                Toast.makeText(activity.getApplicationContext(), "User registered correctly", Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                Toast.makeText(activity.getApplicationContext(), "Please, fill all of the fields", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Toast.makeText(activity.getApplicationContext(), "Please, fill all of the fields", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity.getApplicationContext(), "Check your passwords", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(activity.getApplicationContext(), "Check your passwords", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             });
         } else {
@@ -92,5 +102,35 @@ public class SignupFragment extends Fragment {
         } else {
             return true;
         }
+    }
+
+    synchronized private Boolean checkEmail(String email){
+        Log.e(LOG_TAG, "Email to lookup: " + email);
+        /*UserEntity tmp = repository.inDatabase(email);
+        if (tmp == null) {
+            Log.e(LOG_TAG, "OK! Query result was null, " + email + " is valid");
+            return false;
+        } else {
+            Log.e(LOG_TAG, "Email was found in database: " + tmp.getEmail().toString());
+            return true;
+        }*/
+        /*Boolean isTaken = repository.isTaken(email);
+        Log.e(LOG_TAG, "isTaken query result: " + isTaken);
+        return isTaken;*/
+
+        List<String> userEntityList = repository.getUserList();
+        if (userEntityList!=null){
+            if(userEntityList.contains(email)){
+                Log.e(LOG_TAG, "Email was found in database at index" + userEntityList.indexOf(email));
+                return true;
+            } else {
+                Log.e(LOG_TAG, "OK! Email List does not contain " + email);
+                return false;
+            }
+        } else {
+            Log.e(LOG_TAG, "ERROR! Query result for " + email + " was null");
+            return false;
+        }
+
     }
 }
