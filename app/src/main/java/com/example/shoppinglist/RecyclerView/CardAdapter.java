@@ -16,7 +16,7 @@ import com.example.shoppinglist.R;
 import java.util.List;
 
 public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
-    private final List<CardItem> cardItemList;
+    private final  List<CardItem> cardItemList;
     Activity activity;
 
     public CardAdapter(List<CardItem> cardList, Activity activity) {
