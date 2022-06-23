@@ -1741,6 +1741,10 @@ color mtrl_textinput_focused_box_stroke_color
 color mtrl_textinput_hovered_box_stroke_color
 color notification_action_color_filter
 color notification_icon_bg_color
+color primaryColor
+color primaryDarkColor
+color primaryLightColor
+color primaryTextColor
 color primary_dark_material_dark
 color primary_dark_material_light
 color primary_material_dark
@@ -1755,6 +1759,10 @@ color purple_700
 color radiobutton_themeable_attribute_color
 color ripple_material_dark
 color ripple_material_light
+color secondaryColor
+color secondaryDarkColor
+color secondaryLightColor
+color secondaryTextColor
 color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
@@ -2445,12 +2453,15 @@ drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
-drawable button_bg
+drawable button_custom
 drawable design_fab_background
 drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable edittext_custom
+drawable ic_baseline_keyboard_arrow_left_24
+drawable ic_baseline_keyboard_arrow_right_24
 drawable ic_baseline_settings_24
 drawable ic_clock_black_24dp
 drawable ic_keyboard_black_24dp
@@ -2510,6 +2521,8 @@ drawable test_custom_background
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+font montserrat_regular
+font montserrat_variablefont_wght
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -2755,6 +2768,7 @@ id linear
 id listMode
 id list_item
 id list_textview
+id loginLogo
 id login_button
 id login_here
 id login_signup_viewPager
@@ -2844,6 +2858,7 @@ id parent
 id parentPanel
 id parentRelative
 id parent_matrix
+id passwordLayout
 id password_text
 id password_toggle
 id path
@@ -2897,7 +2912,9 @@ id shortcut
 id showCustom
 id showHome
 id showTitle
+id signupLogo
 id signup_button
+id signup_here
 id sin
 id single_card
 id skipCollapsed
@@ -2931,6 +2948,8 @@ id stretch
 id submenuarrow
 id submit_area
 id supportScrollUp
+id swipeLeft
+id swipeRight
 id tabMode
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
@@ -2956,6 +2975,7 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textTop
+id textView2
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -2982,7 +3002,6 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
-id tv_logo
 id unchecked
 id uniform
 id unlabeled
@@ -3220,8 +3239,6 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
-string action_sign_in
-string action_sign_in_short
 string add_to_cart
 string androidx_startup
 string app_name
