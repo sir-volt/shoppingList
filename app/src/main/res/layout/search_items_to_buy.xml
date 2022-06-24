@@ -13,7 +13,7 @@
         android:id="@+id/recycler_view"
         android:layout_marginTop="?attr/actionBarSize"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/search_card_layout"/>
+        tools:listitem="@layout/item_layout"/>
 
     <include layout="@layout/fab_add"/>
 
