@@ -16,8 +16,8 @@
     <string name="login_failed">"Login failed"</string>
     <string name="prompt_username">User name</string>
     <string name="prompt_confirm_password">Confirm your password</string>
-    <string name="go_to_login" >Already have an account? Login here</string>
+    <string name="go_to_login" >Already have an account? Swipe to login</string>
     <string name="signup">Sign up \u0020</string>
     <string name="login">Login \u0020</string>
-    <string name="go_to_signup">Don\'t have an account? Sign up here</string>
+    <string name="go_to_signup">Don\'t have an account? Swipe to sign up</string>
 </resources>

@@ -11,8 +11,8 @@
     <string name="add_to_cart">Aggiungi al Carrello</string>
     <string name="prompt_username">Nome utente</string>
     <string name="prompt_confirm_password">Conferma la tua password</string>
-    <string name="go_to_login">Hai già un account? Fai Login qui</string>
+    <string name="go_to_login">Hai già un account? Scorri per accedere</string>
     <string name="signup">Registrati \u0020</string>
     <string name="login">Login \u0020</string>
-    <string name="go_to_signup">Non hai un account? Registrati qui</string>
+    <string name="go_to_signup">Non hai un account? Scorri per registrarti</string>
 </resources>
