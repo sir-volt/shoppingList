@@ -14,7 +14,7 @@
         android:layout_marginTop="?attr/actionBarSize"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/search_card_layout"/>
+        tools:listitem="@layout/item_layout"/>
 
     <include layout="@layout/fab_add"/>
 

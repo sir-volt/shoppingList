@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.shoppinglist.RecyclerView.CardAdapter;
+import com.example.shoppinglist.RecyclerView.ListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private CardAdapter adapter;
+    private ListAdapter adapter;
     private RecyclerView recyclerView;
 
     @Nullable
@@ -54,10 +54,12 @@ public class HomeFragment extends Fragment {
     private void setRecyclerView(final Activity activity) {
         recyclerView = activity.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        List<CardItem> cardList = new ArrayList<>();
-        cardList.add(new CardItem("ic_baseline_settings_24","generic Item",
-                "Correct Price","Image Description"));
-        adapter = new CardAdapter(cardList, activity);
+        List<ListItem> itemList = new ArrayList<>();
+        for(int i = 0; i < 10; i++){
+            itemList.add(new ListItem("ic_baseline_settings_24","generic Item",
+                    "Correct Price","Image Description"));
+        }
+        adapter = new ListAdapter(itemList, activity);
         recyclerView.setAdapter(adapter);
     }
 }
