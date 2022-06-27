@@ -6,7 +6,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +33,6 @@ public class LoginFragment extends Fragment {
     private final UserRepository repository;
     private UserEntity loggedUser;
     private String email, password;
-    volatile UserEntity tmp;
 
     public LoginFragment(Application application){
         repository = new UserRepository(application);
@@ -41,6 +44,7 @@ public class LoginFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_login, container,false);
     }
 
+    //TODO Spostare sharedpreferences in oncreateview o nel costruttore
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FragmentActivity activity = getActivity();
@@ -59,7 +63,11 @@ public class LoginFragment extends Fragment {
                     if (validateInput()){
                         loggedUser = login(email, password);
                         if (loggedUser!=null){
-                            Toast.makeText(activity.getApplicationContext(), "Welcome, " + loggedUser.getName(), Toast.LENGTH_SHORT).show();
+                            saveUserData();
+                            SharedPreferences sharedPreferences = activity.getApplicationContext().getSharedPreferences("MySharedPrefs", Context.MODE_PRIVATE);
+                            Toast.makeText(activity.getApplicationContext(), "Welcome, " + sharedPreferences.getString("username", null) , Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(activity.getApplicationContext(), MainActivity.class);
+                            startActivity(i);
                         } else {
                             Toast.makeText(activity.getApplicationContext(), "User Not Found in Database", Toast.LENGTH_SHORT).show();
                         }
@@ -82,12 +90,22 @@ public class LoginFragment extends Fragment {
     }
 
     private synchronized UserEntity login(String email, String password){
-        tmp = repository.login(email, password);
+        UserEntity tmp = repository.login(email, password);
         if (tmp == null){
             Log.e(LOG_TAG, "ERROR: UserEntity is null!");
         } else {
             Log.e(LOG_TAG, "SUCCESS: UserEntity was found: " + tmp.toString());
         }
         return tmp;
+    }
+
+    private void saveUserData(){
+        Context context = getActivity().getApplicationContext();
+        SharedPreferences sharedPref = context.getSharedPreferences("MySharedPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("username", loggedUser.getName());
+        editor.putString("email", loggedUser.getEmail());
+        editor.commit();
+
     }
 }

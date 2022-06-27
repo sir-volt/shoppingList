@@ -18,7 +18,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.example.shoppinglist.DataBase.UserRepository;
 
 import java.util.List;
-
+//TODO implementare anche il login dopo essersi registrati
 public class SignupFragment extends Fragment {
 
     private static final String LOG_TAG = "SignupFragment";
