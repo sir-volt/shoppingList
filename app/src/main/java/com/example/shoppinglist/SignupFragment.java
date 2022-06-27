@@ -14,13 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 
-import com.example.shoppinglist.DataBase.UserDAO;
-import com.example.shoppinglist.DataBase.UserDatabase;
 import com.example.shoppinglist.DataBase.UserRepository;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
@@ -31,6 +26,8 @@ public class SignupFragment extends Fragment {
     private Button b1;
     private EditText usernameText, emailText, passwordText, repeatPasswordText;
     private final UserRepository repository;
+    private List<String> userEmailList;
+
 
     public SignupFragment(Application application){
         repository = new UserRepository(application);
@@ -39,6 +36,7 @@ public class SignupFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        userEmailList = repository.getUserList();
         return inflater.inflate(R.layout.fragment_signup,container,false);
     }
 
@@ -58,29 +56,28 @@ public class SignupFragment extends Fragment {
             b1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO Controlli sull'unicità della email
-
-                    if(checkEmail(emailText.getText().toString())){
-                        Toast.makeText(activity.getApplicationContext(), "Email già in uso", Toast.LENGTH_SHORT).show();
-                    } else{
-                        Toast.makeText(activity.getApplicationContext(), "Email valida",Toast.LENGTH_SHORT).show();
+                    UserEntity userEntity = new UserEntity();
+                    userEntity.setEmail(emailText.getText().toString());
+                    userEntity.setPassword(passwordText.getText().toString());
+                    userEntity.setName(usernameText.getText().toString());
+                    if(validateInput(userEntity)){
+                        //Tutti i campi sono stati scritti
+                        //Controllo che le due password siano uguali
                         if(checkPasswords(passwordText, repeatPasswordText)){
-                            //Toast.makeText(activity.getApplicationContext(), "Correct Passwords", Toast.LENGTH_LONG).show();
-                            UserEntity userEntity = new UserEntity();
-                            userEntity.setEmail(emailText.getText().toString());
-                            userEntity.setPassword(passwordText.getText().toString());
-                            userEntity.setName(usernameText.getText().toString());
-                            if(validateInput(userEntity)){
-                                //Posso inserire i dati nel database
+                            //Controllo che l'utente non sia già registrato
+                            if(checkEmail(emailText.getText().toString())){
+                                Toast.makeText(activity.getApplicationContext(), "Email già in uso", Toast.LENGTH_SHORT).show();
+                            } else{
+                                //L'email non è presente nel database, quindi posso registrare l'utente
+                                Log.e(LOG_TAG, "Email is valid");
                                 repository.registerUser(userEntity);
                                 Toast.makeText(activity.getApplicationContext(), "User registered correctly", Toast.LENGTH_SHORT).show();
-
-                            } else {
-                                Toast.makeText(activity.getApplicationContext(), "Please, fill all of the fields", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(activity.getApplicationContext(), "Check your passwords", Toast.LENGTH_SHORT).show();
                         }
+                    } else {
+                        Toast.makeText(activity.getApplicationContext(), "Please, fill in all the fields", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -106,22 +103,10 @@ public class SignupFragment extends Fragment {
 
     synchronized private Boolean checkEmail(String email){
         Log.e(LOG_TAG, "Email to lookup: " + email);
-        /*UserEntity tmp = repository.inDatabase(email);
-        if (tmp == null) {
-            Log.e(LOG_TAG, "OK! Query result was null, " + email + " is valid");
-            return false;
-        } else {
-            Log.e(LOG_TAG, "Email was found in database: " + tmp.getEmail().toString());
-            return true;
-        }*/
-        /*Boolean isTaken = repository.isTaken(email);
-        Log.e(LOG_TAG, "isTaken query result: " + isTaken);
-        return isTaken;*/
-
-        List<String> userEntityList = repository.getUserList();
-        if (userEntityList!=null){
-            if(userEntityList.contains(email)){
-                Log.e(LOG_TAG, "Email was found in database at index" + userEntityList.indexOf(email));
+        userEmailList = repository.getUserList();
+        if (userEmailList !=null){
+            if(userEmailList.contains(email)){
+                Log.e(LOG_TAG, "Email was found in database at index" + userEmailList.indexOf(email));
                 return true;
             } else {
                 Log.e(LOG_TAG, "OK! Email List does not contain " + email);

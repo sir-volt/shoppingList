@@ -1,15 +1,13 @@
 package com.example.shoppinglist.DataBase;
 
 import android.app.Application;
-import android.os.AsyncTask;
-import android.service.autofill.UserData;
 import android.util.Log;
-
-import androidx.lifecycle.LiveData;
 
 import com.example.shoppinglist.UserEntity;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 public class UserRepository {
 
@@ -18,7 +16,7 @@ public class UserRepository {
 
 
     static int tmp;
-    static UserEntity userTemp;
+    static volatile UserEntity userTemp;
     static Boolean isEmailTaken;
     static List<String> userEntityList;
 
@@ -40,62 +38,47 @@ public class UserRepository {
         UserDatabase.executor.execute(new Runnable() {
             @Override
             public void run() {
-                userEntityList = userDAO.getAllUsers();
+                userEntityList = userDAO.getAllUserEmail();
             }
         });
         return userEntityList;
     }
 
-    /*public boolean checkEmail(String email){
-        Log.e(LOG_TAG, "Email to check is: " + email);
-        UserDatabase.executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                tmp = userDAO.inDatabase(email);
-            }
-        });
-        Log.e(LOG_TAG, "N. OF ROWS: " + tmp);
-        if (tmp==0){
-            Log.e(LOG_TAG, "Email is valid");
-            return false;
-        } else {
-            Log.e(LOG_TAG, "Email was found");
-            return true;
-        }
-    }*/
-
-    /*public UserEntity inDatabase(String email){
-        Log.e(LOG_TAG, "Email to use in query: " + email);
-        //final UserEntity userTemp;
-
-        UserDatabase.executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                Log.e("INSIDE EXECUTOR", "Email to exe: " + email);
-                userTemp = userDAO.isTaken(email);
-            }
-
-        });
-        return userTemp;
-    }*/
-
+    //TODO convertire questo metodo e quello di signup all'utilizzo di FUTURE
     public Boolean isTaken(String email){
-        Log.e(LOG_TAG, "Email to use in query: " + email);
+        Log.d(LOG_TAG, "Email to use in query: " + email);
         UserDatabase.executor.execute(new Runnable() {
             @Override
             public void run() {
-                Log.e("INSIDE EXECUTOR", "Email to exe: " + email);
+                Log.d("INSIDE EXECUTOR", "Email to exe: " + email);
 
                 isEmailTaken = userDAO.isTaken(email);
 
                 if(isEmailTaken==null){
-                    Log.e("INSIDE EXECUTOR", "Query returned null, switching to false...");
+                    Log.d("INSIDE EXECUTOR", "Query returned null, switching to false...");
                     isEmailTaken=false;
                 }
-                Log.e("INSIDE EXECUTOR", "Query eseguita, il risultato è " + isEmailTaken);
+                Log.d("INSIDE EXECUTOR", "Query eseguita, il risultato è " + isEmailTaken);
             }
 
         });
         return isEmailTaken;
+    }
+
+     public UserEntity login(String email, String password){
+        Log.d(LOG_TAG, "Data to use in query: " + email + " : " +password);
+         Future<UserEntity> pippo = UserDatabase.executor.submit(new Callable<UserEntity>() {
+             @Override
+             public UserEntity call() throws Exception {
+                 return userDAO.login(email,password);
+             }
+         });
+         try {
+            userTemp = pippo.get();
+         }catch (Exception ex){
+             Log.e(LOG_TAG + " - login method", "Future variable isn't ready yet");
+         }
+
+        return userTemp;
     }
 }

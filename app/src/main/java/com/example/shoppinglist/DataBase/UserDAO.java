@@ -17,6 +17,7 @@ public interface UserDAO {
     @Insert
     void registerUser(UserEntity userEntity);
 
+    @Transaction
     @Query("SELECT * FROM users WHERE email=(:email) and password=(:password)")
     UserEntity login(String email, String password);
 
@@ -27,5 +28,5 @@ public interface UserDAO {
     Boolean isTaken(String email);
 
     @Query("SELECT email FROM users")
-    List<String> getAllUsers();
+    List<String> getAllUserEmail();
 }
