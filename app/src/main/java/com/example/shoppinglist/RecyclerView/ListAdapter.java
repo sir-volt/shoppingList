@@ -10,31 +10,31 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.shoppinglist.CardItem;
+import com.example.shoppinglist.ListItem;
 import com.example.shoppinglist.R;
 
 import java.util.List;
 
-public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
-    private final List<CardItem> cardItemList;
+public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
+    private final  List<ListItem> itemList;
     Activity activity;
 
-    public CardAdapter(List<CardItem> cardList, Activity activity) {
-        this.cardItemList = cardList;
+    public ListAdapter(List<ListItem> itemList, Activity activity) {
+        this.itemList = itemList;
         this.activity = activity;
     }
 
 
     @NonNull
     @Override
-    public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_card_layout, parent, false);
-        return new CardViewHolder(layoutView);
+    public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
+        return new ListViewHolder(layoutView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        CardItem currentCard = cardItemList.get(position);
+    public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
+        ListItem currentCard = itemList.get(position);
 
         holder.itemNameTextView.setText(currentCard.getItemName());
         holder.itemPriceTextView.setText(currentCard.getItemPrice());
@@ -50,6 +50,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
 
     @Override
     public int getItemCount() {
-        return cardItemList.size();
+        return itemList.size();
     }
 }
