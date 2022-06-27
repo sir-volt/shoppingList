@@ -1,12 +1,12 @@
 package com.example.shoppinglist;
 
-public class CardItem {
+public class ListItem {
     private String imageResource;
     private String itemName;
     private String itemPrice;
     private String itemDescription;
 
-    public CardItem(String image, String name, String price, String description){
+    public ListItem(String image, String name, String price, String description){
         this.imageResource = image;
         this.itemName = name;
         this.itemPrice = price;
