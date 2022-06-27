@@ -21,5 +21,6 @@
     <string name="signup">Sign up \u0020</string>
     <string name="login">Login \u0020</string>
     <string name="go_to_signup">Don\'t have an account? Swipe to sign up</string>
+    <string name="remaining" translatable="false">0/0</string>
 
 </resources>
