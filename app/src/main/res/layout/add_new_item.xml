@@ -38,7 +38,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/name_edittext"
                     android:hint="@string/item_title"
+                    android:imeOptions="flagNoExtractUi"
                     android:textColor="@color/black"
                     android:background="@color/material_dynamic_secondary95"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -62,7 +64,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/price_edittext"
                     android:hint="@string/item_price"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="flagNoExtractUi"
                     android:textColor="@color/black"
                     android:background="@color/material_dynamic_secondary95"/>
             </com.google.android.material.textfield.TextInputLayout>
