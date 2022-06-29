@@ -21,6 +21,8 @@
     <string name="signup">Sign up \u0020</string>
     <string name="login">Login \u0020</string>
     <string name="go_to_signup">Don\'t have an account? Swipe to sign up</string>
-    <string name="remaining" translatable="false">0/0</string>
+    <string name="remaining" translatable="false">%1$i / %2$i</string>
+    <string name="create_a_new_list">Create a new list</string>
+    <string name="new_list_name">New List Name</string>
 
 </resources>
