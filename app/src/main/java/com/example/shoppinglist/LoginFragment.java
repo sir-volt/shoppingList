@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentActivity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,11 +26,13 @@ public class LoginFragment extends Fragment {
     private Button b1;
     private EditText emailText, passwordText;
     private final UserRepository repository;
+    private final Session session;
     private UserEntity loggedUser;
     private String email, password;
 
     public LoginFragment(Application application){
         repository = new UserRepository(application);
+        session = new Session(getActivity().getApplicationContext());
     }
 
     @Nullable
@@ -40,7 +41,6 @@ public class LoginFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_login, container,false);
     }
 
-    //TODO Spostare sharedpreferences in oncreateview o nel costruttore
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FragmentActivity activity = getActivity();
@@ -60,8 +60,7 @@ public class LoginFragment extends Fragment {
                         loggedUser = login(email, password);
                         if (loggedUser!=null){
                             saveUserData();
-                            SharedPreferences sharedPreferences = activity.getApplicationContext().getSharedPreferences("MySharedPrefs", Context.MODE_PRIVATE);
-                            Toast.makeText(activity.getApplicationContext(), "Welcome, " + sharedPreferences.getString("username", null) , Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity.getApplicationContext(), "Welcome, " + session.getUsername() , Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(activity.getApplicationContext(), MainActivity.class);
                             startActivity(i);
                         } else {
@@ -97,12 +96,6 @@ public class LoginFragment extends Fragment {
 
     private void saveUserData(){
         Context context = getActivity().getApplicationContext();
-        SharedPreferences sharedPref = context.getSharedPreferences("MySharedPrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("username", loggedUser.getName());
-        editor.putString("email", loggedUser.getEmail());
-        editor.putBoolean("isLoggedIn", true);
-        editor.apply();
-
+        session.setAllUserInfos(loggedUser.getName(), loggedUser.getEmail());
     }
 }
