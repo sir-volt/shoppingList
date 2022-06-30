@@ -59,10 +59,7 @@ public class SignupFragment extends Fragment {
             b1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    UserEntity userEntity = new UserEntity();
-                    userEntity.setEmail(emailText.getText().toString());
-                    userEntity.setPassword(passwordText.getText().toString());
-                    userEntity.setName(usernameText.getText().toString());
+                    UserEntity userEntity = new UserEntity(emailText.getText().toString(), passwordText.getText().toString(), usernameText.getText().toString());
                     if(validateInput(userEntity)){
                         //Tutti i campi sono stati scritti
                         //Controllo che le due password siano uguali

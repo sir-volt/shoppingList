@@ -2,23 +2,28 @@ package com.example.shoppinglist;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "users")
 public class UserEntity {
 
     @PrimaryKey(autoGenerate = true)
-    Integer id;
+    private Integer id;
 
     @ColumnInfo(name = "email")
-    String email;
+    private String email;
 
     @ColumnInfo(name = "password")
-    String password;
+    private String password;
 
     @ColumnInfo(name = "name")
-    String name;
+    private String name;
+
+    public UserEntity(String email, String password, String name) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;

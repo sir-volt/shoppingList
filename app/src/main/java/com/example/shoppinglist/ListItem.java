@@ -1,10 +1,27 @@
 package com.example.shoppinglist;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "items")
 public class ListItem {
-    private String imageResource;
-    private String itemName;
-    private String itemPrice;
-    private String itemDescription;
+
+    @PrimaryKey(autoGenerate = true)
+    private Integer id;
+
+    @ColumnInfo(name = "name")
+    private final String itemName;
+
+    @ColumnInfo(name = "price")
+    private final String itemPrice;
+
+    @ColumnInfo(name = "description")
+    private final String itemDescription;
+
+    @ColumnInfo(name = "image")
+    private final String imageResource;
+
 
     public ListItem(String image, String name, String price, String description){
         this.imageResource = image;
@@ -27,5 +44,24 @@ public class ListItem {
 
     public String getItemDescription() {
         return itemDescription;
+    }
+
+    public Integer getId(){
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "ListItem{" +
+                "id=" + id +
+                ", itemName='" + itemName + '\'' +
+                ", itemPrice='" + itemPrice + '\'' +
+                ", itemDescription='" + itemDescription + '\'' +
+                ", imageResource='" + imageResource + '\'' +
+                '}';
     }
 }

@@ -67,14 +67,14 @@ public class UserRepository {
 
      public UserEntity login(String email, String password){
         Log.d(LOG_TAG, "Data to use in query: " + email + " : " +password);
-         Future<UserEntity> pippo = UserDatabase.executor.submit(new Callable<UserEntity>() {
+         Future<UserEntity> tmpFuture = UserDatabase.executor.submit(new Callable<UserEntity>() {
              @Override
              public UserEntity call() throws Exception {
                  return userDAO.login(email,password);
              }
          });
          try {
-            userTemp = pippo.get();
+            userTemp = tmpFuture.get();
          }catch (Exception ex){
              Log.e(LOG_TAG + " - login method", "Future variable isn't ready yet");
          }
