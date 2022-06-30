@@ -101,7 +101,8 @@ public class LoginFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("username", loggedUser.getName());
         editor.putString("email", loggedUser.getEmail());
-        editor.commit();
+        editor.putBoolean("isLoggedIn", true);
+        editor.apply();
 
     }
 }
