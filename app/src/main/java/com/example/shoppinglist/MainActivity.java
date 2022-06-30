@@ -10,6 +10,11 @@ import android.util.Log;
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "MainActivity";
+    private final Session session;
+
+    public MainActivity() {
+        this.session = new Session(getApplicationContext());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +24,7 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState==null)
             Utilities.insertFragment(this, new HomeFragment(),HomeFragment.class.getSimpleName());
 
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("MySharedPrefs", MODE_PRIVATE);
-        Boolean isLoggedIn = sharedPref.getBoolean("isLoggedIn", false);
+        Boolean isLoggedIn = session.getLoginStatus();
         Log.d(LOG_TAG, "isLoggedIn: " + isLoggedIn);
         if(!isLoggedIn){
             Log.d(LOG_TAG, "User is not logged in, redirecting to LoginSignupActivity...");

@@ -1,6 +1,8 @@
 package com.example.shoppinglist;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,19 +20,20 @@ import androidx.fragment.app.FragmentActivity;
 import com.example.shoppinglist.DataBase.UserRepository;
 
 import java.util.List;
-//TODO implementare anche il login dopo essersi registrati
+
 public class SignupFragment extends Fragment {
 
     private static final String LOG_TAG = "SignupFragment";
 
-    private Button b1;
     private EditText usernameText, emailText, passwordText, repeatPasswordText;
     private final UserRepository repository;
+    private final Session session;
     private List<String> userEmailList;
 
 
     public SignupFragment(Application application){
         repository = new UserRepository(application);
+        session = new Session(getActivity().getApplicationContext());
     }
 
     @Nullable
@@ -46,7 +49,7 @@ public class SignupFragment extends Fragment {
         FragmentActivity activity = getActivity();
         if(activity != null){
             //Do stuff
-            b1 = view.findViewById(R.id.signup_button);
+            Button b1 = view.findViewById(R.id.signup_button);
             usernameText = view.findViewById(R.id.username_text);
             emailText = view.findViewById(R.id.email_text);
             passwordText = view.findViewById(R.id.password_text);
@@ -71,7 +74,10 @@ public class SignupFragment extends Fragment {
                                 //L'email non è presente nel database, quindi posso registrare l'utente
                                 Log.e(LOG_TAG, "Email is valid");
                                 repository.registerUser(userEntity);
+                                saveUserData(userEntity);
                                 Toast.makeText(activity.getApplicationContext(), "User registered correctly", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(activity.getApplicationContext(), MainActivity.class);
+                                startActivity(i);
                             }
                         } else {
                             Toast.makeText(activity.getApplicationContext(), "Check your passwords", Toast.LENGTH_SHORT).show();
@@ -116,6 +122,11 @@ public class SignupFragment extends Fragment {
             Log.e(LOG_TAG, "ERROR! Query result for " + email + " was null");
             return false;
         }
-
     }
+
+    private void saveUserData(UserEntity loggedUser){
+        Context context = getActivity().getApplicationContext();
+        session.setAllUserInfos(loggedUser.getName(), loggedUser.getEmail());
+    }
+
 }

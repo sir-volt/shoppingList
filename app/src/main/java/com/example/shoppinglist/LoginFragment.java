@@ -23,7 +23,6 @@ public class LoginFragment extends Fragment {
 
     private static final String LOG_TAG = "LoginFragment";
 
-    private Button b1;
     private EditText emailText, passwordText;
     private final UserRepository repository;
     private final Session session;
@@ -45,7 +44,7 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         FragmentActivity activity = getActivity();
         if(activity != null) {
-            b1 = view.findViewById(R.id.login_button);
+            Button b1 = view.findViewById(R.id.login_button);
             emailText = view.findViewById(R.id.email_text);
             passwordText = view.findViewById(R.id.pw_text);
 
