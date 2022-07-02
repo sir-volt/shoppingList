@@ -15,6 +15,10 @@ public class Session {
 
     static String USERNAME_STRING = "username";
     static String EMAIL_STRING = "email";
+    /*  Salvare l'ID dell'utente può facilitare le query di ricerca delle liste ma sarebbe veramente
+        brutto per la sicurezza dell'app se dovesse essere veramente rilasciata
+     */
+    static String ID_STRING = "id";
     static String LOGIN_STRING = "isLoggedIn";
 
     public Session(Context context){
