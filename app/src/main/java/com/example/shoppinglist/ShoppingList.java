@@ -1,20 +1,36 @@
 package com.example.shoppinglist;
 
+import androidx.core.util.Pair;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //TODO versione temporanea; totalitems va calcolato dinamicamente e itemlist deve poter essere aggiornato
+
+//@Entity(tableName = "lists")
 public class ShoppingList {
 
+    //@PrimaryKey(autoGenerate = true)
+    private Integer id;
+
+    //@ColumnInfo(name = "list_name")
     private final String listName;
+
+
     private int totalItems;
     private int remainingItems;
-    private List<ListItem> itemList;
+    private final Map<ListItem, Integer> itemMap;
 
-    public ShoppingList(String listName, int totalItems, int remainingItems, List<ListItem> itemList){
+    public ShoppingList(String listName){
         this.listName = listName;
-        this.itemList = itemList;
-        this.totalItems = totalItems;
-        this.remainingItems = remainingItems;
+        this.itemMap = new HashMap<>();
+        this.totalItems = 0;
+        this.remainingItems = 0;
     }
 
     public String getListName() {
@@ -29,8 +45,36 @@ public class ShoppingList {
         return remainingItems;
     }
 
-    public List<ListItem> getItemList() {
-        return itemList;
+    public Map<ListItem, Integer> getItemMap(){
+        return itemMap;
+    }
+
+    public void addItemToList(ListItem listItem){
+        if(itemMap.containsKey(listItem)){
+            /*If listItem is already in itemMap, increase its item count by 1*/
+            Integer itemCount = itemMap.get(listItem);
+            itemMap.put(listItem, itemCount + 1);
+        } else {
+            /*Otherwise, simply insert listItem and put its item count at base value (1)*/
+            itemMap.put(listItem, 1);
+            totalItems = itemMap.size();
+            remainingItems++;
+        }
+    }
+
+    public void removeItemFromList(ListItem listItem){
+        if (itemMap.containsKey(listItem)){
+            Integer itemCount = itemMap.get(listItem);
+            itemCount = itemCount == 0 ? itemCount : itemCount - 1;
+            if (itemCount>0){
+                itemCount--;
+                itemMap.put(listItem, itemCount);
+                if(itemCount==0){
+                    remainingItems--;
+                }
+            }
+
+        }
     }
 
 }

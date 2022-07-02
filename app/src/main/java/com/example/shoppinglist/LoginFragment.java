@@ -54,19 +54,20 @@ public class LoginFragment extends Fragment {
                 public void onClick(View view) {
                     email = emailText.getText().toString();
                     password = passwordText.getText().toString();
-                    Log.e(LOG_TAG, "Current email and password: " + email + " : " + password);
+                    Log.d(LOG_TAG, "Current email and password: " + email + " : " + password);
                     if (validateInput()){
                         loggedUser = login(email, password);
                         if (loggedUser!=null){
                             saveUserData();
-                            Toast.makeText(activity.getApplicationContext(), "Welcome, " + session.getUsername() , Toast.LENGTH_SHORT).show();
+                            final String welcomeMessage = getResources().getString(R.string.welcome, session.getUsername());
+                            Toast.makeText(activity.getApplicationContext(), welcomeMessage, Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(activity.getApplicationContext(), MainActivity.class);
                             startActivity(i);
                         } else {
-                            Toast.makeText(activity.getApplicationContext(), "User Not Found in Database", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity.getApplicationContext(), R.string.login_failed, Toast.LENGTH_SHORT).show();
                         }
                     } else{
-                        Toast.makeText(activity.getApplicationContext(),"Please fill in all the fields", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity.getApplicationContext(),R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -88,7 +89,7 @@ public class LoginFragment extends Fragment {
         if (tmp == null){
             Log.e(LOG_TAG, "ERROR: UserEntity is null!");
         } else {
-            Log.e(LOG_TAG, "SUCCESS: UserEntity was found: " + tmp.toString());
+            Log.d(LOG_TAG, "SUCCESS: UserEntity was found: " + tmp.toString());
         }
         return tmp;
     }

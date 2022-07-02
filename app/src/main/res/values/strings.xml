@@ -11,18 +11,24 @@
     <string name="create_new_item">Create New Item</string>
     <string name="prompt_email" translatable="false">Email</string>
     <string name="prompt_password" translatable="false">Password</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
+    <string name="welcome">Welcome %1$s !</string>
+    <string name="invalid_email">This email is already registered</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="login_failed">Invalid username/password!</string>
     <string name="prompt_username">User name</string>
     <string name="prompt_confirm_password">Confirm your password</string>
     <string name="go_to_login" >Already have an account? Swipe to login</string>
     <string name="signup">Sign up \u0020</string>
     <string name="login">Login \u0020</string>
     <string name="go_to_signup">Don\'t have an account? Swipe to sign up</string>
-    <string name="remaining" translatable="false">%1$i / %2$i</string>
+    <string name="remaining" translatable="false">%1$d / %2$d</string>
     <string name="create_a_new_list">Create a new list</string>
     <string name="new_list_name">New List Name</string>
+    <string name="enter_list_name">Enter the list\'s name</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
+    <string name="fill_all_fields">Please fill in all the fields</string>
+    <string name="passwords_do_not_match">Passwords do not match</string>
+    <string name="successful_signup">Your account has been successfully created</string>
 
 </resources>

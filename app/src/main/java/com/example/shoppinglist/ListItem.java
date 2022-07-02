@@ -10,7 +10,7 @@ public class ListItem {
     @PrimaryKey(autoGenerate = true)
     private Integer id;
 
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "item_name")
     private final String itemName;
 
     @ColumnInfo(name = "price")

@@ -13,6 +13,7 @@ public class UserRepository {
 
     private static final String LOG_TAG = "UserRepository";
     private final UserDAO userDAO;
+    private final ItemDAO itemDAO;
 
 
     static int tmp;
@@ -23,6 +24,7 @@ public class UserRepository {
     public UserRepository(Application application){
         UserDatabase db = UserDatabase.getDatabase(application);
         userDAO = db.userDAO();
+        itemDAO = db.itemDAO();
     }
 
     public void registerUser(UserEntity newUser){

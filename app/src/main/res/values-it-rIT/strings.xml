@@ -18,4 +18,13 @@
     <string name="go_to_signup">Non hai un account? Scorri per registrarti</string>
     <string name="create_a_new_list">Crea una nuova lista</string>
     <string name="new_list_name">Nome della nuova lista</string>
+    <string name="enter_list_name">Inserisci il nome della lista</string>
+    <string name="done">Fatto</string>
+    <string name="cancel">Annulla</string>
+    <string name="welcome">Benvenuto %1$s !</string>
+    <string name="login_failed">Username/password non validi!</string>
+    <string name="fill_all_fields">Per favore riempi tutti i campi</string>
+    <string name="invalid_email">Questo indirizzo email è già in uso</string>
+    <string name="passwords_do_not_match">Le password non combaciano</string>
+    <string name="successful_signup">Il tuo account è stato registrato correttamente</string>
 </resources>

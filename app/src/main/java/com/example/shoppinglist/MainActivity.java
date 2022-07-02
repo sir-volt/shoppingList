@@ -10,14 +10,11 @@ import android.util.Log;
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "MainActivity";
-    private final Session session;
-
-    public MainActivity() {
-        this.session = new Session(getApplicationContext());
-    }
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        session = new Session(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //TODO vedere cos'è

@@ -30,6 +30,8 @@ public class SignupFragment extends Fragment {
     private final Session session;
     private List<String> userEmailList;
 
+    //TODO usare Session e il nuovo metodo di repository
+    //TODO inserire controlli maggiori sulle password (lunghezza, numeri)
 
     public SignupFragment(Application application){
         repository = new UserRepository(application);
@@ -66,21 +68,21 @@ public class SignupFragment extends Fragment {
                         if(checkPasswords(passwordText, repeatPasswordText)){
                             //Controllo che l'utente non sia già registrato
                             if(checkEmail(emailText.getText().toString())){
-                                Toast.makeText(activity.getApplicationContext(), "Email già in uso", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity.getApplicationContext(), R.string.invalid_email, Toast.LENGTH_SHORT).show();
                             } else{
                                 //L'email non è presente nel database, quindi posso registrare l'utente
-                                Log.e(LOG_TAG, "Email is valid");
+                                Log.d(LOG_TAG, "Email is valid");
                                 repository.registerUser(userEntity);
                                 saveUserData(userEntity);
-                                Toast.makeText(activity.getApplicationContext(), "User registered correctly", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity.getApplicationContext(), R.string.successful_signup, Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(activity.getApplicationContext(), MainActivity.class);
                                 startActivity(i);
                             }
                         } else {
-                            Toast.makeText(activity.getApplicationContext(), "Check your passwords", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity.getApplicationContext(), R.string.passwords_do_not_match, Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(activity.getApplicationContext(), "Please, fill in all the fields", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity.getApplicationContext(), R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
                     }
                 }
             });

@@ -11,13 +11,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 //Dovrei cambiargli il nome, userdatabase è un po' limitante dato che ci staranno anche gli articoli
-@Database(entities = {UserEntity.class}, version=1)
+@Database(entities = {UserEntity.class}, version=2)
 public abstract class UserDatabase extends RoomDatabase {
 
     private static final String dbName = "listappdatabase";
     private static volatile UserDatabase INSTANCE;
     static final ExecutorService executor = Executors.newFixedThreadPool(4);
     public abstract UserDAO userDAO();
+    public abstract ItemDAO itemDAO();
 
     public static UserDatabase getDatabase(final Context context){
         if(INSTANCE == null){

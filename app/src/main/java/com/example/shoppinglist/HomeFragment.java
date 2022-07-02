@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -57,18 +58,21 @@ public class HomeFragment extends Fragment {
                     //TODO usare lo stesso metodo per il Context usato in signupfragment
                     final View customDialog = getLayoutInflater().inflate(R.layout.custom_dialog, null);
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
-                    dialogBuilder.setTitle("Please insert a name");
+                    dialogBuilder.setTitle(R.string.enter_list_name);
                     dialogBuilder.setView(customDialog);
                     final EditText newListName = new EditText(getContext());
                     newListName.setInputType(InputType.TYPE_CLASS_TEXT);
                     //dialogBuilder.setView(newListName);
-                    dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    dialogBuilder.setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             //TODO
+                            EditText et = (EditText) customDialog.findViewById(R.id.dialog_et);
+                            Log.d(LOG_TAG, "Nome lista: " + et.getText());
+                            ShoppingList newList = new ShoppingList(et.getText().toString());
                         }
                     });
-                    dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    dialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.cancel();
@@ -89,7 +93,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         List<ShoppingList> shoppingLists = new ArrayList<>();
         for(int i = 0; i < 10; i++){
-            shoppingLists.add(new ShoppingList("Nome Lista", 10, 10, new ArrayList<>()));
+            shoppingLists.add(new ShoppingList("Nome Lista"));
         }
         adapter = new ShoppingListAdapter(shoppingLists, activity);
         recyclerView.setAdapter(adapter);
