@@ -49,6 +49,8 @@ public class ShoppingList {
         return itemMap;
     }
 
+
+    //Forse sti metodi vanno messi nella Rapository
     public void addItemToList(ListItem listItem){
         if(itemMap.containsKey(listItem)){
             /*If listItem is already in itemMap, increase its item count by 1*/

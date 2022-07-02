@@ -27,7 +27,7 @@ public class SignupFragment extends Fragment {
 
     private EditText usernameText, emailText, passwordText, repeatPasswordText;
     private final UserRepository repository;
-    private final Session session;
+    private Session session;
     private List<String> userEmailList;
 
     //TODO usare Session e il nuovo metodo di repository
@@ -35,7 +35,6 @@ public class SignupFragment extends Fragment {
 
     public SignupFragment(Application application){
         repository = new UserRepository(application);
-        session = new Session(getActivity().getApplicationContext());
     }
 
     @Nullable
@@ -51,6 +50,8 @@ public class SignupFragment extends Fragment {
         FragmentActivity activity = getActivity();
         if(activity != null){
             //Do stuff
+            session = new Session(activity.getApplicationContext());
+
             Button b1 = view.findViewById(R.id.signup_button);
             usernameText = view.findViewById(R.id.username_text);
             emailText = view.findViewById(R.id.email_text);

@@ -1,5 +1,6 @@
 package com.example.shoppinglist;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -8,26 +9,27 @@ import androidx.room.PrimaryKey;
 public class ListItem {
 
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    @ColumnInfo(name = "item_id")
+    private int id;
 
     @ColumnInfo(name = "item_name")
-    private final String itemName;
+    private String itemName;
 
     @ColumnInfo(name = "price")
-    private final String itemPrice;
+    private String itemPrice;
 
     @ColumnInfo(name = "description")
-    private final String itemDescription;
+    private String itemDescription;
 
     @ColumnInfo(name = "image")
-    private final String imageResource;
+    private String imageResource;
 
 
-    public ListItem(String image, String name, String price, String description){
-        this.imageResource = image;
-        this.itemName = name;
-        this.itemPrice = price;
-        this.itemDescription = description;
+    public ListItem(String imageResource, String itemName, String itemPrice, String itemDescription){
+        this.imageResource = imageResource;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.itemDescription = itemDescription;
     }
 
     public String getImageResource() {
@@ -54,6 +56,23 @@ public class ListItem {
         this.id = id;
     }
 
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public void setItemPrice(String itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
+
+    public void setImageResource(String imageResource) {
+        this.imageResource = imageResource;
+    }
+
+    @NonNull
     @Override
     public String toString() {
         return "ListItem{" +

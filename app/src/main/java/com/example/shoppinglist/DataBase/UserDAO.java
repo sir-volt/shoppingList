@@ -29,4 +29,5 @@ public interface UserDAO {
 
     @Query("SELECT email FROM users")
     List<String> getAllUserEmail();
+
 }

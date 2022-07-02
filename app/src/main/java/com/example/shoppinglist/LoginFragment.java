@@ -25,13 +25,12 @@ public class LoginFragment extends Fragment {
 
     private EditText emailText, passwordText;
     private final UserRepository repository;
-    private final Session session;
+    private Session session;
     private UserEntity loggedUser;
     private String email, password;
 
     public LoginFragment(Application application){
         repository = new UserRepository(application);
-        session = new Session(getActivity().getApplicationContext());
     }
 
     @Nullable
@@ -44,6 +43,7 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         FragmentActivity activity = getActivity();
         if(activity != null) {
+            session = new Session(activity.getApplicationContext());
             Button b1 = view.findViewById(R.id.login_button);
             emailText = view.findViewById(R.id.email_text);
             passwordText = view.findViewById(R.id.pw_text);
