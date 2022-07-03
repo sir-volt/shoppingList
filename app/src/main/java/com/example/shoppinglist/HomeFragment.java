@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,8 +38,8 @@ public class HomeFragment extends Fragment {
         if(activity != null){
             setRecyclerView(activity);
 
-            FloatingActionButton actionButton = view.findViewById(R.id.fab_add);
-            actionButton.setOnClickListener(new View.OnClickListener() {
+            Button addItemButton = view.findViewById(R.id.addproduct);
+            addItemButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Utilities.insertFragment((AppCompatActivity) activity,new AddFragment(), AddFragment.class.getSimpleName());
