@@ -57,7 +57,7 @@ public class HomeFragmentOld extends Fragment {
         List<ListItem> itemList = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             itemList.add(new ListItem("ic_baseline_settings_24","generic Item",
-                    "Correct Price","Image Description"));
+                    (double) 0));
         }
         adapter = new ListAdapter(itemList, activity);
         recyclerView.setAdapter(adapter);

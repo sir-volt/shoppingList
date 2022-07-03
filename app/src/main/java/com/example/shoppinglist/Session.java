@@ -42,10 +42,11 @@ public class Session {
         editor.apply();
     }
 
-    public void setAllUserInfos(String username, String email){
+    public void setAllUserInfos(String username, String email, Integer userId){
         editor.putString(USERNAME_STRING, username);
         editor.putString(EMAIL_STRING, email);
         editor.putBoolean(LOGIN_STRING, true);
+        editor.putInt(ID_STRING, userId);
         editor.apply();
     }
 
@@ -55,6 +56,10 @@ public class Session {
 
     public String getEmail(){
         return sharedPreferences.getString(EMAIL_STRING, null);
+    }
+
+    public Integer getUserId(){
+        return sharedPreferences.getInt(ID_STRING, 0);
     }
 
     public Boolean getLoginStatus(){

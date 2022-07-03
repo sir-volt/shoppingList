@@ -126,7 +126,7 @@ public class SignupFragment extends Fragment {
 
     private void saveUserData(UserEntity loggedUser){
         Context context = getActivity().getApplicationContext();
-        session.setAllUserInfos(loggedUser.getName(), loggedUser.getEmail());
+        session.setAllUserInfos(loggedUser.getName(), loggedUser.getEmail(), loggedUser.getId());
     }
 
 }

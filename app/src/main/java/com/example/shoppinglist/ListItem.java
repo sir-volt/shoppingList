@@ -16,20 +16,16 @@ public class ListItem {
     private String itemName;
 
     @ColumnInfo(name = "price")
-    private String itemPrice;
-
-    @ColumnInfo(name = "description")
-    private String itemDescription;
+    private Double itemPrice;
 
     @ColumnInfo(name = "image")
     private String imageResource;
 
 
-    public ListItem(String imageResource, String itemName, String itemPrice, String itemDescription){
+    public ListItem(String imageResource, String itemName, Double itemPrice){
         this.imageResource = imageResource;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
-        this.itemDescription = itemDescription;
     }
 
     public String getImageResource() {
@@ -40,12 +36,8 @@ public class ListItem {
         return itemName;
     }
 
-    public String getItemPrice() {
+    public Double getItemPrice() {
         return itemPrice;
-    }
-
-    public String getItemDescription() {
-        return itemDescription;
     }
 
     public Integer getId(){
@@ -60,12 +52,8 @@ public class ListItem {
         this.itemName = itemName;
     }
 
-    public void setItemPrice(String itemPrice) {
+    public void setItemPrice(Double itemPrice) {
         this.itemPrice = itemPrice;
-    }
-
-    public void setItemDescription(String itemDescription) {
-        this.itemDescription = itemDescription;
     }
 
     public void setImageResource(String imageResource) {
@@ -79,7 +67,6 @@ public class ListItem {
                 "id=" + id +
                 ", itemName='" + itemName + '\'' +
                 ", itemPrice='" + itemPrice + '\'' +
-                ", itemDescription='" + itemDescription + '\'' +
                 ", imageResource='" + imageResource + '\'' +
                 '}';
     }

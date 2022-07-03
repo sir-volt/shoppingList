@@ -37,7 +37,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
         ListItem currentCard = itemList.get(position);
 
         holder.itemNameTextView.setText(currentCard.getItemName());
-        holder.itemPriceTextView.setText(currentCard.getItemPrice());
+        holder.itemPriceTextView.setText(currentCard.getItemPrice().toString());
 
         String image = currentCard.getImageResource();
         //al momento abbiamo solo drawable, in futuro ci saranno foto, questo if è per mettere i placeholder draawable
