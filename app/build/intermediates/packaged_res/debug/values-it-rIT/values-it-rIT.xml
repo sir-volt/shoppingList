@@ -2,6 +2,7 @@
 <resources>
     <string name="add_to_cart">Aggiungi al Carrello</string>
     <string name="app_name">ShoppingList</string>
+    <string name="create_new_item">Crea Nuovo Oggetto</string>
     <string name="go_to_login">Hai già un account? Fai Login qui</string>
     <string name="go_to_signup">Non hai un account? Registrati qui</string>
     <string name="image_of_item">Immagine di Oggetto</string>

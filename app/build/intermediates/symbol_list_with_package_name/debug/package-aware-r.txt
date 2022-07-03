@@ -2451,6 +2451,8 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable ic_baseline_add_24
+drawable ic_baseline_error_outline_24
 drawable ic_baseline_settings_24
 drawable ic_clock_black_24dp
 drawable ic_keyboard_black_24dp
@@ -2581,7 +2583,7 @@ id action_text
 id actions
 id activity_chooser_view_content
 id add
-id add_item
+id addproduct
 id alertTitle
 id aligned
 id all
@@ -2607,10 +2609,12 @@ id beginning
 id bestChoice
 id blocking
 id bottom
+id bottombar
 id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
+id button
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -2629,6 +2633,7 @@ id chip1
 id chip2
 id chip3
 id chip_group
+id chooseOptionLabel
 id chronometer
 id circle_center
 id clear_text
@@ -2695,6 +2700,7 @@ id enterAlwaysCollapsed
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id fab_add
 id fade
 id fill
 id fill_horizontal
@@ -2705,6 +2711,7 @@ id fixed
 id flip
 id floating
 id forever
+id fragment_container_view
 id fragment_container_view_tag
 id frost
 id ghost_view
@@ -2716,6 +2723,9 @@ id group_divider
 id grouping
 id groups
 id guideline
+id guideline2
+id guideline3
+id guideline4
 id header_title
 id hideable
 id home
@@ -2738,10 +2748,10 @@ id item1
 id item2
 id item3
 id item4
-id item_imageview
+id item_promotionImageView
+id item_textinput
 id item_touch_helper_previous_elevation
-id itemname_textview
-id itemprice_textview
+id itemprice_textinput
 id jumpToEnd
 id jumpToStart
 id labeled
@@ -2754,7 +2764,9 @@ id line3
 id linear
 id listMode
 id list_item
-id list_textview
+id list_item_icon
+id list_item_text
+id list_price_text
 id login_button
 id login_here
 id login_signup_viewPager
@@ -2814,6 +2826,7 @@ id mtrl_picker_text_input_range_start
 id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
+id name_edittext
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
 id navigation_bar_item_icon_view
@@ -2853,6 +2866,7 @@ id percent
 id pin
 id position
 id postLayout
+id price_edittext
 id progress_circular
 id progress_horizontal
 id pw_text
@@ -2870,13 +2884,16 @@ id rounded
 id row_index_key
 id save_non_transition_alpha
 id save_overlay_view
+id savebutton
 id sawtooth
 id scale
+id scan_item
 id screen
 id scroll
 id scrollIndicatorDown
 id scrollIndicatorUp
 id scrollView
+id scrollView1
 id scrollable
 id search_badge
 id search_bar
@@ -2899,7 +2916,6 @@ id showHome
 id showTitle
 id signup_button
 id sin
-id single_card
 id skipCollapsed
 id skipped
 id slide
@@ -3093,7 +3109,8 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_login_signup
 layout activity_main
-layout card_layout
+layout add_new_item
+layout bottombar
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -3110,9 +3127,10 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout fab_add
 layout fragment_login
 layout fragment_signup
-layout home
+layout item_layout
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
@@ -3165,7 +3183,6 @@ layout notification_template_custom_big
 layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
-layout search_card_layout
 layout search_items_to_buy
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
@@ -3233,6 +3250,7 @@ string character_counter_overflowed_content_description
 string character_counter_pattern
 string chip_text
 string clear_text_end_icon_content_description
+string create_new_item
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior

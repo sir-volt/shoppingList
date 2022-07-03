@@ -11,7 +11,7 @@
 9-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml
 10
 11    <application
-11-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:5:5-25:19
+11-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:5:5-27:19
 12        android:allowBackup="true"
 12-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:6:9-35
 13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -30,59 +30,60 @@
 21        android:theme="@style/Theme.ShoppingList" >
 21-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:11:9-50
 22        <activity
-22-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:12:9-15:39
+22-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:12:9-21:20
 23            android:name="com.example.shoppinglist.MainActivity"
 23-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:14:13-41
-24            android:exported="false" />
-24-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:15:13-37
-25        <activity
-25-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:16:9-24:20
-26            android:name="com.example.shoppinglist.LoginSignupActivity"
-26-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:17:13-48
-27            android:exported="true" >
-27-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:18:13-36
-28            <intent-filter>
-28-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:19:13-23:29
-29                <action android:name="android.intent.action.MAIN" />
-29-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:20:17-69
-29-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:20:25-66
-30
-31                <category android:name="android.intent.category.LAUNCHER" />
-31-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:22:17-77
-31-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:22:27-74
-32            </intent-filter>
-33        </activity>
-34
-35        <provider
-35-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
-36            android:name="androidx.startup.InitializationProvider"
-36-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:27:13-67
-37            android:authorities="com.example.shoppinglist.androidx-startup"
-37-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:28:13-68
-38            android:exported="false" >
-38-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:29:13-37
-39            <meta-data
-39-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
-40                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-40-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:32:17-75
-41                android:value="androidx.startup" />
-41-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:33:17-49
-42            <meta-data
-42-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\megab\.gradle\caches\transforms-3\8eef53d9995d138e5396bc0361630197\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
-43                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-43-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\megab\.gradle\caches\transforms-3\8eef53d9995d138e5396bc0361630197\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
-44                android:value="androidx.startup" />
-44-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\megab\.gradle\caches\transforms-3\8eef53d9995d138e5396bc0361630197\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
-45        </provider>
-46
-47        <service
-47-->[androidx.room:room-runtime:2.4.2] C:\Users\megab\.gradle\caches\transforms-3\4a3b5f33337ded1b81c553095eeef74a\transformed\room-runtime-2.4.2\AndroidManifest.xml:25:9-28:40
-48            android:name="androidx.room.MultiInstanceInvalidationService"
-48-->[androidx.room:room-runtime:2.4.2] C:\Users\megab\.gradle\caches\transforms-3\4a3b5f33337ded1b81c553095eeef74a\transformed\room-runtime-2.4.2\AndroidManifest.xml:26:13-74
-49            android:directBootAware="true"
-49-->[androidx.room:room-runtime:2.4.2] C:\Users\megab\.gradle\caches\transforms-3\4a3b5f33337ded1b81c553095eeef74a\transformed\room-runtime-2.4.2\AndroidManifest.xml:27:13-43
-50            android:exported="false" />
-50-->[androidx.room:room-runtime:2.4.2] C:\Users\megab\.gradle\caches\transforms-3\4a3b5f33337ded1b81c553095eeef74a\transformed\room-runtime-2.4.2\AndroidManifest.xml:28:13-37
-51    </application>
-52
-53</manifest>
+24            android:exported="true" >
+24-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:15:13-36
+25            <intent-filter>
+25-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:16:13-20:29
+26                <action android:name="android.intent.action.MAIN" />
+26-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:17:17-69
+26-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:17:25-66
+27
+28                <category android:name="android.intent.category.LAUNCHER" />
+28-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:19:17-77
+28-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:19:27-74
+29            </intent-filter>
+30        </activity>
+31        <activity
+31-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:22:9-26:20
+32            android:name="com.example.shoppinglist.LoginSignupActivity"
+32-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:23:13-48
+33            android:exported="false" >
+33-->D:\Users\megab\Documents\AndroidStudioProjects\shoppingList\app\src\main\AndroidManifest.xml:24:13-37
+34        </activity>
+35
+36        <provider
+36-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+37            android:name="androidx.startup.InitializationProvider"
+37-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:27:13-67
+38            android:authorities="com.example.shoppinglist.androidx-startup"
+38-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:28:13-68
+39            android:exported="false" >
+39-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:29:13-37
+40            <meta-data
+40-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+41                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+41-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:32:17-75
+42                android:value="androidx.startup" />
+42-->[androidx.emoji2:emoji2:1.0.0] C:\Users\megab\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:33:17-49
+43            <meta-data
+43-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\megab\.gradle\caches\transforms-3\8eef53d9995d138e5396bc0361630197\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+44                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+44-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\megab\.gradle\caches\transforms-3\8eef53d9995d138e5396bc0361630197\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+45                android:value="androidx.startup" />
+45-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\megab\.gradle\caches\transforms-3\8eef53d9995d138e5396bc0361630197\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+46        </provider>
+47
+48        <service
+48-->[androidx.room:room-runtime:2.4.2] C:\Users\megab\.gradle\caches\transforms-3\4a3b5f33337ded1b81c553095eeef74a\transformed\room-runtime-2.4.2\AndroidManifest.xml:25:9-28:40
+49            android:name="androidx.room.MultiInstanceInvalidationService"
+49-->[androidx.room:room-runtime:2.4.2] C:\Users\megab\.gradle\caches\transforms-3\4a3b5f33337ded1b81c553095eeef74a\transformed\room-runtime-2.4.2\AndroidManifest.xml:26:13-74
+50            android:directBootAware="true"
+50-->[androidx.room:room-runtime:2.4.2] C:\Users\megab\.gradle\caches\transforms-3\4a3b5f33337ded1b81c553095eeef74a\transformed\room-runtime-2.4.2\AndroidManifest.xml:27:13-43
+51            android:exported="false" />
+51-->[androidx.room:room-runtime:2.4.2] C:\Users\megab\.gradle\caches\transforms-3\4a3b5f33337ded1b81c553095eeef74a\transformed\room-runtime-2.4.2\AndroidManifest.xml:28:13-37
+52    </application>
+53
+54</manifest>
