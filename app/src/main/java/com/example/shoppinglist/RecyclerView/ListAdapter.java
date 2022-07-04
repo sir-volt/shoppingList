@@ -3,24 +3,35 @@ package com.example.shoppinglist.RecyclerView;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppinglist.ListItem;
 import com.example.shoppinglist.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
-    private final  List<ListItem> itemList;
+public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements Filterable {
+    private final List<ListItem> itemList;
     Activity activity;
+    private OnItemListener listener;
 
-    public ListAdapter(List<ListItem> itemList, Activity activity) {
-        this.itemList = itemList;
+    private List<ListItem> itemListNotFiltered;
+
+
+    public ListAdapter(OnItemListener listener, List<ListItem> itemList, Activity activity) {
+        this.listener = listener;
+        this.itemList = new ArrayList<>(itemList);
+        this.itemListNotFiltered = new ArrayList<>(itemList);
         this.activity = activity;
     }
 
@@ -29,7 +40,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
-        return new ListViewHolder(layoutView);
+        return new ListViewHolder(layoutView, listener);
     }
 
     @Override
@@ -51,5 +62,56 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     @Override
     public int getItemCount() {
         return itemList.size();
+    }
+
+
+    @Override
+    public Filter getFilter() {
+        return listFilter;
+    }
+
+    private Filter listFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<ListItem> filteredList = new ArrayList<>();
+
+            if(charSequence == null || charSequence.length() == 0){
+                filteredList.addAll(itemListNotFiltered);
+            } else {
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+                for(ListItem item: itemListNotFiltered){
+                    if(item.getItemName().contains(filterPattern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            List<ListItem> filteredResults = new ArrayList<>();
+            List<?> result = (List<?>) filterResults.values;
+            for(Object obj: result){
+                if(obj instanceof ListItem){
+                    filteredResults.add((ListItem) obj);
+                }
+            }
+
+            updateListItems(filteredResults);
+        }
+    };
+
+    private void updateListItems(List<ListItem> filteredResults) {
+        final ListItemDiffCallback diffCallback =
+                new ListItemDiffCallback(this.itemList, filteredResults);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+        this.itemList.clear();
+        this.itemList.addAll(filteredResults);
+        diffResult.dispatchUpdatesTo(this);
     }
 }

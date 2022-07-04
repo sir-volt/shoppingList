@@ -8,5 +8,5 @@
     <string name="item_title">Item Title</string>
     <string name="item_price">Price of Item</string>
     <string name="add_to_cart">Add To Cart</string>
-    <string name="create_new_item">Create New Item</string>
+    <string name="create_new_item">Add New Item</string>
 </resources>
