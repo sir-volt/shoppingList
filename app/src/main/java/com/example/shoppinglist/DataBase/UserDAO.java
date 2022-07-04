@@ -24,6 +24,7 @@ public interface UserDAO {
     @Query("SELECT * FROM users WHERE email=(:email)")
     UserEntity inDatabase(String email);
 
+    @Transaction
     @Query("SELECT EXISTS (SELECT * from users where email=(:email))")
     Boolean isTaken(String email);
 

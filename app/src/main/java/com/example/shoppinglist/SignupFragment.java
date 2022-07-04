@@ -28,7 +28,7 @@ public class SignupFragment extends Fragment {
     private EditText usernameText, emailText, passwordText, repeatPasswordText;
     private final UserRepository repository;
     private Session session;
-    private List<String> userEmailList;
+    //private List<String> userEmailList;
 
     //TODO usare Session e il nuovo metodo di repository
     //TODO inserire controlli maggiori sulle password (lunghezza, numeri)
@@ -40,7 +40,7 @@ public class SignupFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        userEmailList = repository.getUserList();
+        //userEmailList = repository.getUserList();
         return inflater.inflate(R.layout.fragment_signup,container,false);
     }
 
@@ -107,8 +107,8 @@ public class SignupFragment extends Fragment {
         }
     }
 
-    synchronized private Boolean checkEmail(String email){
-        Log.e(LOG_TAG, "Email to lookup: " + email);
+    private Boolean checkEmail(String email){
+        /*Log.e(LOG_TAG, "Email to lookup: " + email);
         userEmailList = repository.getUserList();
         if (userEmailList !=null){
             if(userEmailList.contains(email)){
@@ -121,7 +121,8 @@ public class SignupFragment extends Fragment {
         } else {
             Log.e(LOG_TAG, "ERROR! Query result for " + email + " was null");
             return false;
-        }
+        }*/
+        return repository.isTaken(email);
     }
 
     private void saveUserData(UserEntity loggedUser){
