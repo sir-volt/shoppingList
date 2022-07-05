@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
         session = new Session(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //TODO vedere cos'è
         if(savedInstanceState==null)
             Utilities.insertFragment(this, new HomeFragment(),HomeFragment.class.getSimpleName());
 

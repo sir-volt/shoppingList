@@ -9,6 +9,7 @@ import androidx.room.PrimaryKey;
 public class UserEntity {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "user_id")
     private int id;
 
     @ColumnInfo(name = "email")

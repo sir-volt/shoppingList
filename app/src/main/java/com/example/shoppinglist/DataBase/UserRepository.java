@@ -162,7 +162,7 @@ public class UserRepository {
             public void run() {
                 int listId = list.getListId();
                 listDAO.deleteList(list);
-                //TODO rimuovere ogni item di una lista dalla tabella ItemsInList che devo ancora creare
+                //TODO rimuovere ogni item di una lista dalla tabella ListWithItems che devo ancora creare
             }
         });
     }

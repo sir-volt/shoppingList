@@ -18,8 +18,8 @@ public class ListEntity {
     @ColumnInfo(name = "list_id")
     private int listId;
 
-    @ColumnInfo(name = "user_id")
-    private int userId;
+    @ColumnInfo(name = "user_creator_id")
+    private int userCreatorId;
 
     @ColumnInfo(name = "list_name")
     private final String listName;
@@ -45,12 +45,12 @@ public class ListEntity {
         this.listId = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUserCreatorId() {
+        return userCreatorId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserCreatorId(int userId) {
+        this.userCreatorId = userId;
     }
 
     public String getListName() {
