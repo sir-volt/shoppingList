@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.shoppinglist.ListEntity;
 import com.example.shoppinglist.ListItem;
 import com.example.shoppinglist.UserEntity;
 
@@ -17,8 +18,10 @@ public class UserRepository {
     private static final String LOG_TAG = "UserRepository";
     private final UserDAO userDAO;
     private final ItemDAO itemDAO;
+    private final ListDAO listDAO;
 
     private final LiveData<List<ListItem>> listItemList;
+    private LiveData<List<ListEntity>> listEntityList;
 
     static int tmp;
     static volatile UserEntity userTemp;
@@ -29,6 +32,8 @@ public class UserRepository {
         UserDatabase db = UserDatabase.getDatabase(application);
         userDAO = db.userDAO();
         itemDAO = db.itemDAO();
+        listDAO = db.listDAO();
+
 
         listItemList = itemDAO.getAllItems();
     }
@@ -52,6 +57,7 @@ public class UserRepository {
         });
     }
 
+    //TODO rimuovere questo metodo
     public List<String> getUserList(){
         UserDatabase.executor.execute(new Runnable() {
             @Override
@@ -66,7 +72,8 @@ public class UserRepository {
         return listItemList;
     }
 
-    //TODO convertire questo metodo e quello di signup all'utilizzo di FUTURE
+
+    //TODO eliminare il commentato
     public Boolean isTaken(String email){
         Log.d(LOG_TAG, "Email to use in query: " + email);
         /*UserDatabase.executor.execute(new Runnable() {
@@ -130,4 +137,34 @@ public class UserRepository {
             }
         });
     }
+
+    public LiveData<List<ListEntity>> getAllListsFromUser(){
+        return listEntityList;
+    }
+
+    public void insertList(ListEntity newList){
+        UserDatabase.executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                listDAO.insertList(newList);
+            }
+        });
+    }
+
+    //Non sono sicuro che questo metodo funzionerà, dovrà essere chiamato dal HomeFragment dopo aver loggato
+    public void LoadListsFromUser(int userId){
+        listEntityList = listDAO.getAllListsFromUser(userId);
+    }
+
+    public void deleteList(ListEntity list){
+        UserDatabase.executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                int listId = list.getListId();
+                listDAO.deleteList(list);
+                //TODO rimuovere ogni item di una lista dalla tabella ItemsInList che devo ancora creare
+            }
+        });
+    }
+
 }

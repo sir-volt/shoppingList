@@ -10,16 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.shoppinglist.RecyclerView.ListAdapter;
 import com.example.shoppinglist.RecyclerView.ShoppingListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -69,7 +66,7 @@ public class HomeFragment extends Fragment {
                             //TODO
                             EditText et = (EditText) customDialog.findViewById(R.id.dialog_et);
                             Log.d(LOG_TAG, "Nome lista: " + et.getText());
-                            ShoppingList newList = new ShoppingList(et.getText().toString());
+                            ListEntity newList = new ListEntity(et.getText().toString());
                         }
                     });
                     dialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -91,9 +88,9 @@ public class HomeFragment extends Fragment {
     private void setRecyclerView(final Activity activity) {
         recyclerView = activity.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        List<ShoppingList> shoppingLists = new ArrayList<>();
+        List<ListEntity> shoppingLists = new ArrayList<>();
         for(int i = 0; i < 10; i++){
-            shoppingLists.add(new ShoppingList("Nome Lista"));
+            shoppingLists.add(new ListEntity("Nome Lista"));
         }
         adapter = new ShoppingListAdapter(shoppingLists, activity);
         recyclerView.setAdapter(adapter);

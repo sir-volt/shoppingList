@@ -8,21 +8,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shoppinglist.ListEntity;
 import com.example.shoppinglist.R;
-import com.example.shoppinglist.ShoppingList;
 
 import java.util.List;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHolder> {
-    private final List<ShoppingList> shoppingLists;
+    private final List<ListEntity> shoppingLists;
     private final Activity activity;
 
-    public ShoppingListAdapter(List<ShoppingList> shoppingLists, Activity activity) {
+    public ShoppingListAdapter(List<ListEntity> shoppingLists, Activity activity) {
         this.shoppingLists = shoppingLists;
         this.activity = activity;
     }
     //TODO finire questo
-    //TODO trovare un altro nome invece di ShoppingList
+    //TODO trovare un altro nome invece di ListEntity
     @NonNull
     @Override
     public ShoppingListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,7 +32,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ShoppingListViewHolder holder, int position) {
-        ShoppingList currentShoppingList = shoppingLists.get(position);
+        ListEntity currentShoppingList = shoppingLists.get(position);
         holder.listNameTextview.setText(currentShoppingList.getListName());
         holder.remainingTextview.setText(currentShoppingList.getRemainingItems() + "/" + currentShoppingList.getTotalItems());
         //activity.getApplicationContext().getString(R.string.remaining,currentShoppingList.getRemainingItems(),currentShoppingList.getTotalItems());

@@ -10,27 +10,47 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//TODO versione temporanea; totalitems va calcolato dinamicamente e itemlist deve poter essere aggiornato
 
-//@Entity(tableName = "lists")
-public class ShoppingList {
+@Entity(tableName = "lists")
+public class ListEntity {
 
-    //@PrimaryKey(autoGenerate = true)
-    private Integer id;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "list_id")
+    private int listId;
 
-    //@ColumnInfo(name = "list_name")
+    @ColumnInfo(name = "user_id")
+    private int userId;
+
+    @ColumnInfo(name = "list_name")
     private final String listName;
 
 
+    //TODO rimuovere questi campi i guess per usare il modello di riccardo (spostarli in repository?)
     private int totalItems;
     private int remainingItems;
     private final Map<ListItem, Integer> itemMap;
 
-    public ShoppingList(String listName){
+    public ListEntity(String listName){
         this.listName = listName;
         this.itemMap = new HashMap<>();
         this.totalItems = 0;
         this.remainingItems = 0;
+    }
+
+    public int getListId() {
+        return listId;
+    }
+
+    public void setListId(int id) {
+        this.listId = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getListName() {
