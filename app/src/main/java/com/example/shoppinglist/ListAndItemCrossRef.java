@@ -9,7 +9,7 @@ import androidx.room.Entity;
 * Ogni riga di questa tabella corrisponde a un'assiociazione di un'istanza della Lista e un istanza
 * dell'Oggetto.
 * */
-@Entity(primaryKeys = {"list_id", "item_id"})
+@Entity(tableName = "list_item_cross_ref", primaryKeys = {"list_id", "item_id"})
 public class ListAndItemCrossRef {
 
     @ColumnInfo(name = "list_id")
@@ -18,4 +18,7 @@ public class ListAndItemCrossRef {
     @ColumnInfo(name = "item_id")
     public int itemId;
 
+
+    //TODO si potrebbe pure aggiungere la quantià di un oggetto :D
+    
 }

@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import com.example.shoppinglist.ListEntity;
+import com.example.shoppinglist.ListWithItems;
 import com.example.shoppinglist.UserWithLists;
 
 import java.util.List;
@@ -31,6 +32,14 @@ public interface ListDAO {
     @Transaction
     @Query("SELECT * FROM users WHERE user_id=(:userId)")
     LiveData<UserWithLists> getListsFromUser(int userId);
+
+    /*
+     * Questo metodo utilizza la classe ListWithItems,
+     * che sarebbe la classe data dalla relazione N-M fra lists e items
+     * */
+    @Transaction
+    @Query("SELECT * FROM lists WHERE list_id=(:listId)")
+    LiveData<ListWithItems> getItemsFromList(int listId);
 
     @Delete
     void deleteList(ListEntity listEntity);

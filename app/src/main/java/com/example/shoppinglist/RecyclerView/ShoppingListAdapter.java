@@ -34,7 +34,8 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
     public void onBindViewHolder(@NonNull ShoppingListViewHolder holder, int position) {
         ListEntity currentShoppingList = shoppingLists.get(position);
         holder.listNameTextview.setText(currentShoppingList.getListName());
-        holder.remainingTextview.setText(currentShoppingList.getRemainingItems() + "/" + currentShoppingList.getTotalItems());
+        //holder.remainingTextview.setText(currentShoppingList.getRemainingItems() + "/" + currentShoppingList.getTotalItems());
+        holder.remainingTextview.setText(0 + "/" + 10);
         //activity.getApplicationContext().getString(R.string.remaining,currentShoppingList.getRemainingItems(),currentShoppingList.getTotalItems());
 
     }

@@ -26,15 +26,15 @@ public class ListEntity {
 
 
     //TODO rimuovere questi campi i guess per usare il modello di riccardo (spostarli in repository?)
-    private int totalItems;
+    /*private int totalItems;
     private int remainingItems;
-    private final Map<ListItem, Integer> itemMap;
+    private final Map<ListItem, Integer> itemMap;*/ //Ho dovuto commentarli perché Room non li vuole
 
     public ListEntity(String listName){
         this.listName = listName;
-        this.itemMap = new HashMap<>();
-        this.totalItems = 0;
-        this.remainingItems = 0;
+        //this.itemMap = new HashMap<>();
+        //this.totalItems = 0;
+        //this.remainingItems = 0;
     }
 
     public int getListId() {
@@ -57,7 +57,7 @@ public class ListEntity {
         return listName;
     }
 
-    public int getTotalItems() {
+    /*public int getTotalItems() {
         return totalItems;
     }
 
@@ -67,17 +67,17 @@ public class ListEntity {
 
     public Map<ListItem, Integer> getItemMap(){
         return itemMap;
-    }
+    }*/
 
 
     //Forse sti metodi vanno messi nella Rapository
-    public void addItemToList(ListItem listItem){
+    /*public void addItemToList(ListItem listItem){
         if(itemMap.containsKey(listItem)){
-            /*If listItem is already in itemMap, increase its item count by 1*/
+            //If listItem is already in itemMap, increase its item count by 1
             Integer itemCount = itemMap.get(listItem);
             itemMap.put(listItem, itemCount + 1);
         } else {
-            /*Otherwise, simply insert listItem and put its item count at base value (1)*/
+            //Otherwise, simply insert listItem and put its item count at base value (1)
             itemMap.put(listItem, 1);
             totalItems = itemMap.size();
             remainingItems++;
@@ -97,6 +97,6 @@ public class ListEntity {
             }
 
         }
-    }
+    }*/
 
 }
