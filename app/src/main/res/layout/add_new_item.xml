@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/topbar"/>
     
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize">
+        android:layout_marginTop="?attr/actionBarSize"
+        android:fillViewport="true"
+        android:id="@+id/scrollView1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,52 +25,106 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="9dp"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@id/itemprice_textinput"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/name_edittext"
+                    android:hint="@string/item_title"
+                    android:imeOptions="flagNoExtractUi"
+                    android:textColor="@color/black"
+                    android:background="@color/teal_200"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/itemprice_textinput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="9dp"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
                 app:layout_constraintBottom_toTopOf="@id/item_promotionImageView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/item_textinput">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/item_title"
+                    android:id="@+id/price_edittext"
+                    android:hint="@string/item_price"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="flagNoExtractUi"
                     android:textColor="@color/black"
-                    android:background="@color/material_dynamic_secondary95"/>
+                    android:background="@color/teal_200"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.constraintlayout.utils.widget.ImageFilterView
-                android:id="@+id/item_promotionImageView"
+            <Button
+                android:id="@+id/capture_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="387dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/ic_baseline_error_outline_24"
-                app:layout_constraintBottom_toTopOf="@+id/itemprice_textresult"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_textinput" />
-
-            <TextView
-                android:id="@+id/itemprice_textresult"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
+                android:drawableLeft="@drawable/ic_baseline_add_a_photo_24"
+                android:padding="16dp"
                 android:layout_margin="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="345dp"
-                android:text="@string/item_price"
-                android:textAppearance="?attr/textAppearanceSubtitle1"
-                android:textColor="@color/black"
-                android:background="@color/material_dynamic_secondary95"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="Take a Picture"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_promotionImageView"/>
+                app:layout_constraintTop_toBottomOf="@id/itemprice_textinput"
+                app:layout_constraintBottom_toTopOf="@id/item_promotionImageView"/>
+
+            <ImageView
+                android:id="@+id/item_promotionImageView"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:adjustViewBounds="true"
+                tools:src="@drawable/ic_baseline_add_24"
+                android:background="@color/purple_500"
+                android:contentDescription="@string/image_of_item"
+                app:layout_constraintBottom_toTopOf="@+id/chooseOptionLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/itemprice_textinput" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/chooseOptionLabel"
+                app:layout_constraintBottom_toTopOf="@id/guideline2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_promotionImageView">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="12dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/white"
+                    android:maxLines="1"
+                    android:text="or you can"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="#757575" />
+            </RelativeLayout>
+
 
 
 
@@ -78,13 +133,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="1.30" />
+                app:layout_constraintGuide_percent="0.75" />
 
             <Button
                 android:id="@+id/scan_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_baseline_add_24"
+                android:drawableLeft="@drawable/ic_baseline_add_24"
                 android:padding="16dp"
                 android:text="scan your item"
                 app:layout_constraintEnd_toEndOf="parent"

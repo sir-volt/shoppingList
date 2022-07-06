@@ -1,6 +1,8 @@
 package com.example.shoppinglist;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -16,5 +18,15 @@ public class Utilities {
         }
 
         transaction.commit();
+    }
+
+    static void setUpToolbar(AppCompatActivity activity, String title){
+        ActionBar actionBar = activity.getSupportActionBar();
+        if(actionBar == null){
+            Toolbar toolbar = new Toolbar(activity);
+            activity.setSupportActionBar(toolbar);
+        } else {
+            activity.getSupportActionBar().setTitle(title);
+        }
     }
 }

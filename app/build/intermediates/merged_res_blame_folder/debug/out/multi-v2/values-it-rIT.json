@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.shoppinglist.app-mergeDebugResources-26:/values-it-rIT/values-it-rIT.xml",
+            "map": [
+                {
+                    "source": "D:\\Users\\megab\\Documents\\AndroidStudioProjects\\shoppingList\\app\\src\\main\\res\\values-it-rIT\\strings.xml",
+                    "from": {
+                        "startLines": "10,2,17,13,16,7,9,8,6,15,4,12,11,3,5,14",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "484,57,921,681,844,305,426,368,254,803,152,603,546,108,203,756",
+                        "endColumns": "60,49,66,73,75,61,56,56,49,39,49,76,55,42,49,45",
+                        "endOffsets": "540,102,983,750,915,362,478,420,299,838,197,675,597,146,248,797"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,116,166,233,307,383,445,502,559,609,649,699,776,832,875,925",
+                        "endColumns": "60,49,66,73,75,61,56,56,49,39,49,76,55,42,49,45",
+                        "endOffsets": "111,161,228,302,378,440,497,554,604,644,694,771,827,870,920,966"
+                    }
+                }
+            ]
+        }
+    ]
+}
