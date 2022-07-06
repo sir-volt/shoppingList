@@ -54,9 +54,9 @@ public class HomeFragmentOld extends Fragment {
     private void setRecyclerView(final Activity activity) {
         recyclerView = activity.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        List<ListItem> itemList = new ArrayList<>();
+        List<ItemEntity> itemList = new ArrayList<>();
         for(int i = 0; i < 10; i++){
-            itemList.add(new ListItem("ic_baseline_settings_24","generic Item",
+            itemList.add(new ItemEntity("ic_baseline_settings_24","generic Item",
                     (double) 0));
         }
         adapter = new ListAdapter(itemList, activity);

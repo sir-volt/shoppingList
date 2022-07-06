@@ -5,9 +5,10 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.shoppinglist.ItemEntity;
 import com.example.shoppinglist.ListEntity;
-import com.example.shoppinglist.ListItem;
 import com.example.shoppinglist.UserEntity;
+import com.example.shoppinglist.UserWithLists;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -20,8 +21,9 @@ public class UserRepository {
     private final ItemDAO itemDAO;
     private final ListDAO listDAO;
 
-    private final LiveData<List<ListItem>> listItemList;
+    private final LiveData<List<ItemEntity>> itemList;
     private LiveData<List<ListEntity>> listEntityList;
+    private LiveData<UserWithLists> userWithLists;
 
     static int tmp;
     static volatile UserEntity userTemp;
@@ -35,7 +37,7 @@ public class UserRepository {
         listDAO = db.listDAO();
 
 
-        listItemList = itemDAO.getAllItems();
+        itemList = itemDAO.getAllItems();
     }
 
     public void registerUser(UserEntity newUser){
@@ -48,7 +50,7 @@ public class UserRepository {
     }
 
     //TODO controllare che non esista già
-    public void insertItem(ListItem newItem){
+    public void insertItem(ItemEntity newItem){
         UserDatabase.executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -68,8 +70,8 @@ public class UserRepository {
         return userEntityList;
     }
 
-    public LiveData<List<ListItem>> getAllItems(){
-        return listItemList;
+    public LiveData<List<ItemEntity>> getAllItems(){
+        return itemList;
     }
 
 
@@ -129,7 +131,7 @@ public class UserRepository {
         return userTemp;
     }
 
-    public void deleteItem(ListItem item){
+    public void deleteItem(ItemEntity item){
         UserDatabase.executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -165,6 +167,14 @@ public class UserRepository {
                 //TODO rimuovere ogni item di una lista dalla tabella ListWithItems che devo ancora creare
             }
         });
+    }
+
+    public void LoadUserWithLists(int userId){
+        userWithLists = listDAO.getListsFromUser(userId);
+    }
+
+    public LiveData<UserWithLists> GetUserWithLists(){
+        return userWithLists;
     }
 
 }

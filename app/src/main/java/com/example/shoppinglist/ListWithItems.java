@@ -3,8 +3,6 @@ package com.example.shoppinglist;
 //TODO finire questo + relative classi e mergiare (richi suggerisce elementiLista)
 
 import androidx.room.Embedded;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Junction;
 import androidx.room.Relation;
 
@@ -22,7 +20,7 @@ public class ListWithItems {
             associateBy = @Junction(ListAndItemCrossRef.class)
     )
     //TODO potrei potenziare questa classe e introdurre la mappa con oggetti e quantità
-    public List<ListItem> itemList;
+    public List<ItemEntity> itemList;
 
     /*private int itemId;
 

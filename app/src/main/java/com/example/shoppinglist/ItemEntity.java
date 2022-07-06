@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "items")
-public class ListItem {
+public class ItemEntity {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "item_id")
@@ -22,7 +22,7 @@ public class ListItem {
     private String imageResource;
 
 
-    public ListItem(String imageResource, String itemName, Double itemPrice){
+    public ItemEntity(String imageResource, String itemName, Double itemPrice){
         this.imageResource = imageResource;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
@@ -63,7 +63,7 @@ public class ListItem {
     @NonNull
     @Override
     public String toString() {
-        return "ListItem{" +
+        return "ItemEntity{" +
                 "id=" + id +
                 ", itemName='" + itemName + '\'' +
                 ", itemPrice='" + itemPrice + '\'' +

@@ -10,16 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.shoppinglist.ListItem;
+import com.example.shoppinglist.ItemEntity;
 import com.example.shoppinglist.R;
 
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
-    private final  List<ListItem> itemList;
+    private final  List<ItemEntity> itemList;
     Activity activity;
 
-    public ListAdapter(List<ListItem> itemList, Activity activity) {
+    public ListAdapter(List<ItemEntity> itemList, Activity activity) {
         this.itemList = itemList;
         this.activity = activity;
     }
@@ -34,7 +34,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        ListItem currentCard = itemList.get(position);
+        ItemEntity currentCard = itemList.get(position);
 
         holder.itemNameTextView.setText(currentCard.getItemName());
         holder.itemPriceTextView.setText(currentCard.getItemPrice().toString());

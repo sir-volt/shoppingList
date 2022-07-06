@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.example.shoppinglist.ListItem;
+import com.example.shoppinglist.ItemEntity;
 
 import java.util.List;
 
@@ -16,13 +16,13 @@ public interface ItemDAO {
 
     @Transaction
     @Insert
-    void insertItem(ListItem listItem);
+    void insertItem(ItemEntity itemEntity);
 
     @Transaction
     @Query("SELECT * FROM items ORDER BY item_name")
-    LiveData<List<ListItem>> getAllItems();
+    LiveData<List<ItemEntity>> getAllItems();
 
     @Delete
-    void deleteItem(ListItem listItem);
+    void deleteItem(ItemEntity itemEntity);
 
 }

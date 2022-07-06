@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 /*
 * Questa classe serve per rappresentare l'entità associativa fra una lista della spesa e gli oggetti
-* che può contenere (quindi ListEntity e ListItem), per modellare l'associazione many-to-many.
+* che può contenere (quindi ListEntity e ItemEntity), per modellare l'associazione many-to-many.
 * È anche detta tabella dei riferimenti incrociati.
 * Ogni riga di questa tabella corrisponde a un'assiociazione di un'istanza della Lista e un istanza
 * dell'Oggetto.
@@ -18,7 +18,9 @@ public class ListAndItemCrossRef {
     @ColumnInfo(name = "item_id")
     public int itemId;
 
+    /*@ColumnInfo(name = "quantity")
+    public Integer quantity;*/
 
     //TODO si potrebbe pure aggiungere la quantià di un oggetto :D
-    
+
 }
