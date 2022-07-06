@@ -62,6 +62,7 @@ public class LoginFragment extends Fragment {
                             final String welcomeMessage = getResources().getString(R.string.welcome, session.getUsername());
                             Toast.makeText(activity.getApplicationContext(), welcomeMessage, Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(activity.getApplicationContext(), MainActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);
                         } else {
                             Toast.makeText(activity.getApplicationContext(), R.string.login_failed, Toast.LENGTH_SHORT).show();

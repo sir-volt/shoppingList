@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(LOG_TAG, "User is not logged in, redirecting to LoginSignupActivity...");
             Intent i = new Intent(getApplicationContext(), LoginSignupActivity.class);
             startActivity(i);
-            finish();
+
         } else {
             Log.d(LOG_TAG, "User is logged in");
         }
