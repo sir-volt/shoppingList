@@ -5,7 +5,7 @@ public class ListItem {
     private String itemName;
     private String itemPrice;
 
-    public ListItem(String image, String name, String price, String description){
+    public ListItem(String image, String name, String price){
         this.imageResource = image;
         this.itemName = name;
         this.itemPrice = price;
