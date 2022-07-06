@@ -150,6 +150,7 @@ public class HomeFragment extends Fragment implements OnItemListener {
         recyclerView = activity.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
+        final OnItemListener listener = this;
         List<ListEntity> shoppingLists = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             shoppingLists.add(new ListEntity("Nome Lista"));

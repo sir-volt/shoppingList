@@ -14,12 +14,19 @@ import com.example.shoppinglist.R;
 import java.util.List;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHolder> {
-    private final List<ListEntity> shoppingLists;
-    private final Activity activity;
+    private List<ListEntity> shoppingLists;
+    private Activity activity;
+    private OnItemListener listener;
 
     public ShoppingListAdapter(List<ListEntity> shoppingLists, Activity activity) {
         this.shoppingLists = shoppingLists;
         this.activity = activity;
+    }
+
+    public ShoppingListAdapter(OnItemListener listener, Activity activity){
+        this.listener = listener;
+        this.activity = activity;
+
     }
     //TODO finire questo
     //TODO trovare un altro nome invece di ListEntity
@@ -27,7 +34,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
     @Override
     public ShoppingListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_card_layout, parent, false);
-        return new ShoppingListViewHolder(layoutView);
+        return new ShoppingListViewHolder(layoutView, listener);
     }
 
     @Override
@@ -43,5 +50,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
     @Override
     public int getItemCount() {
         return shoppingLists.size();
+    }
+
+    public ListEntity getListSelected(int position){
+        return shoppingLists.get(position);
     }
 }
