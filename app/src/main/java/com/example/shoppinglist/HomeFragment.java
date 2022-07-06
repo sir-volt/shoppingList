@@ -10,12 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.SearchView;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,6 +57,22 @@ public class HomeFragment extends Fragment implements OnItemListener {
                 }
             });
 
+            /*
+            View itemLayout = view.findViewById(R.id.item_layout);
+            AppCompatImageButton removeOrAddToCartButton = (AppCompatImageButton) itemLayout.findViewById(R.id.add_or_remove_button);
+            removeOrAddToCartButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    removeOrAddToCartButton.setSelected(!removeOrAddToCartButton.isSelected());
+
+                    if(removeOrAddToCartButton.isSelected()){
+                        removeOrAddToCartButton.setImageResource(R.drawable.ic_outline_cancel_24);
+                    } else {
+                        removeOrAddToCartButton.setImageResource(R.drawable.ic_baseline_add_24);
+                    }
+                }
+            });*/
+
         }else{
             Log.e("HomeFragment","Activity is Null");
         }
@@ -69,7 +84,7 @@ public class HomeFragment extends Fragment implements OnItemListener {
         super.onCreateOptionsMenu(menu, inflater);
 
         MenuItem item = menu.findItem(R.id.app_bar_search);
-        SearchView searchView = (SearchView) item.getActionView();
+        androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             /*
              * chiamo questo metodo quando utente fa la query, quando preme un bottone sulla tastiera
@@ -100,13 +115,15 @@ public class HomeFragment extends Fragment implements OnItemListener {
     private void setRecyclerView(final Activity activity) {
         recyclerView = activity.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        List<ListItem> itemList = new ArrayList<>();
-        for(int i = 0; i < 5; i++){
-            itemList.add(new ListItem("ic_baseline_settings_24","generic Item",
-                    "Correct Price","Image Description"));
+        List<ItemEntity> itemList = new ArrayList<>();
+        for(int i = 0; i < 7; i++){
+            itemList.add(new ItemEntity("ic_baseline_settings_24","generic Item",
+                    "Correct Price"));
         }
-        itemList.add(new ListItem("ic_baseline_add_a_photo_24","special item",
-                "Big Money", "Soos"));
+        for(int i = 0; i < 3; i++){
+            itemList.add(new ItemEntity("ic_baseline_add_a_photo_24","special item",
+                    "Big Money"));
+        }
         final OnItemListener listener = this;
         adapter = new ListAdapter(listener, itemList, activity);
         recyclerView.setAdapter(adapter);

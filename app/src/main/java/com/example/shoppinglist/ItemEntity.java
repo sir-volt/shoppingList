@@ -1,11 +1,11 @@
 package com.example.shoppinglist;
 
-public class ListItem {
+public class ItemEntity {
     private String imageResource;
     private String itemName;
     private String itemPrice;
 
-    public ListItem(String image, String name, String price){
+    public ItemEntity(String image, String name, String price){
         this.imageResource = image;
         this.itemName = name;
         this.itemPrice = price;

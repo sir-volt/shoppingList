@@ -3,7 +3,6 @@ package com.example.shoppinglist.RecyclerView;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
@@ -14,21 +13,21 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.shoppinglist.ListItem;
+import com.example.shoppinglist.ItemEntity;
 import com.example.shoppinglist.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements Filterable {
-    private final List<ListItem> itemList;
+    private final List<ItemEntity> itemList;
     Activity activity;
     private OnItemListener listener;
 
-    private List<ListItem> itemListNotFiltered;
+    private List<ItemEntity> itemListNotFiltered;
 
 
-    public ListAdapter(OnItemListener listener, List<ListItem> itemList, Activity activity) {
+    public ListAdapter(OnItemListener listener, List<ItemEntity> itemList, Activity activity) {
         this.listener = listener;
         this.itemList = new ArrayList<>(itemList);
         this.itemListNotFiltered = new ArrayList<>(itemList);
@@ -45,7 +44,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        ListItem currentCard = itemList.get(position);
+        ItemEntity currentCard = itemList.get(position);
 
         holder.itemNameTextView.setText(currentCard.getItemName());
         holder.itemPriceTextView.setText(currentCard.getItemPrice());
@@ -73,13 +72,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
     private Filter listFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
-            List<ListItem> filteredList = new ArrayList<>();
+            List<ItemEntity> filteredList = new ArrayList<>();
 
             if(charSequence == null || charSequence.length() == 0){
                 filteredList.addAll(itemListNotFiltered);
             } else {
                 String filterPattern = charSequence.toString().toLowerCase().trim();
-                for(ListItem item: itemListNotFiltered){
+                for(ItemEntity item: itemListNotFiltered){
                     if(item.getItemName().contains(filterPattern)){
                         filteredList.add(item);
                     }
@@ -93,19 +92,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            List<ListItem> filteredResults = new ArrayList<>();
+            List<ItemEntity> filteredList = new ArrayList<>();
             List<?> result = (List<?>) filterResults.values;
             for(Object obj: result){
-                if(obj instanceof ListItem){
-                    filteredResults.add((ListItem) obj);
+                if(obj instanceof ItemEntity){
+                    filteredList.add((ItemEntity) obj);
                 }
             }
 
-            updateListItems(filteredResults);
+            updateListItems(filteredList);
         }
     };
 
-    private void updateListItems(List<ListItem> filteredResults) {
+    private void updateListItems(List<ItemEntity> filteredResults) {
         final ListItemDiffCallback diffCallback =
                 new ListItemDiffCallback(this.itemList, filteredResults);
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
