@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.shoppinglist.DataBase.UserRepository;
 import com.example.shoppinglist.RecyclerView.ShoppingListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.shoppinglist.RecyclerView.ListAdapter;
@@ -35,13 +38,16 @@ public class HomeFragment extends Fragment implements OnItemListener {
     private static final String LOG_TAG = "Home Fragment";
     private ShoppingListAdapter adapter;
     private RecyclerView recyclerView;
+    private UserRepository repository;
+    private Session session;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
-
+        repository = new UserRepository(getActivity().getApplication());
+        session = new Session(getContext());
     }
 
     @Nullable
@@ -75,6 +81,7 @@ public class HomeFragment extends Fragment implements OnItemListener {
                     dialogBuilder.setView(customDialog);
                     final EditText newListName = new EditText(getContext());
                     newListName.setInputType(InputType.TYPE_CLASS_TEXT);
+                    //TODO introdurre listener per fare si che Invio faccia cliccare il tasto DONE
                     //dialogBuilder.setView(newListName);
                     dialogBuilder.setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
                         @Override
@@ -83,6 +90,10 @@ public class HomeFragment extends Fragment implements OnItemListener {
                             EditText et = (EditText) customDialog.findViewById(R.id.dialog_et);
                             Log.d(LOG_TAG, "Nome lista: " + et.getText());
                             ListEntity newList = new ListEntity(et.getText().toString());
+                            newList.setUserCreatorId(session.getUserId());
+                            Log.d(LOG_TAG, "User ID: " + session.getUserId() + " User name: " + session.getUsername() + "Login Status: " +session.getLoginStatus());
+
+                            repository.insertList(newList);
                         }
                     });
                     dialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

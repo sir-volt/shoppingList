@@ -74,7 +74,8 @@ public class SignupFragment extends Fragment {
                                 //L'email non è presente nel database, quindi posso registrare l'utente
                                 Log.d(LOG_TAG, "Email is valid");
                                 repository.registerUser(userEntity);
-                                saveUserData(userEntity);
+
+                                saveUserData(repository.login(userEntity.getEmail(), userEntity.getPassword()));
                                 Toast.makeText(activity.getApplicationContext(), R.string.successful_signup, Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(activity.getApplicationContext(), MainActivity.class);
                                 startActivity(i);
@@ -127,6 +128,7 @@ public class SignupFragment extends Fragment {
 
     private void saveUserData(UserEntity loggedUser){
         Context context = getActivity().getApplicationContext();
+        Log.d(LOG_TAG, "Logged User Data: " + loggedUser.toString());
         session.setAllUserInfos(loggedUser.getName(), loggedUser.getEmail(), loggedUser.getId());
     }
 

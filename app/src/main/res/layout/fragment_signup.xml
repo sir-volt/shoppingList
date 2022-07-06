@@ -83,7 +83,7 @@
 
         android:background="@drawable/edittext_custom"
         android:hint="@string/prompt_confirm_password"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:paddingHorizontal="15dp"
         android:textSize="15sp"
 

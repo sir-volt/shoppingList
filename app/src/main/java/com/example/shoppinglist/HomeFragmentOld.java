@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppinglist.RecyclerView.ListAdapter;
+import com.example.shoppinglist.RecyclerView.OnItemListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -59,7 +60,12 @@ public class HomeFragmentOld extends Fragment {
             itemList.add(new ItemEntity("ic_baseline_settings_24","generic Item",
                     (double) 0));
         }
-        adapter = new ListAdapter(itemList, activity);
+        adapter = new ListAdapter(new OnItemListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        }, itemList, activity);
         recyclerView.setAdapter(adapter);
     }
 }

@@ -21,7 +21,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/dialog_et"
             android:hint="@string/new_list_name"
-
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:inputType="text"
+            android:singleLine="true"
             />
     </LinearLayout>
 

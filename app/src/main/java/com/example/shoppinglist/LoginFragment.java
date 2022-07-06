@@ -96,6 +96,7 @@ public class LoginFragment extends Fragment {
 
     private void saveUserData(){
         Context context = getActivity().getApplicationContext();
+        Log.d(LOG_TAG, "Logged User Data: " + loggedUser.toString());
         session.setAllUserInfos(loggedUser.getName(), loggedUser.getEmail(), loggedUser.getId());
     }
 }

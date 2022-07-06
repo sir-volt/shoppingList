@@ -23,4 +23,8 @@ public class UserWithLists {
     public void setShoppingLists(List<ListEntity> shoppingLists){
         this.shoppingLists = shoppingLists;
     }
+
+    public void addShoppingLists(ListEntity listEntity){
+        this.shoppingLists.add(listEntity);
+    }
 }
