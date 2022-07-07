@@ -6,15 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppinglist.ListEntity;
 import com.example.shoppinglist.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHolder> {
     private List<ListEntity> shoppingLists;
+    private List<ListEntity> shoppingListsNotFiltered = new ArrayList<>();  //TODO forse non lo uso
     private Activity activity;
     private OnItemListener listener;
 
@@ -54,5 +57,14 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
 
     public ListEntity getListSelected(int position){
         return shoppingLists.get(position);
+    }
+
+    public void setData(List<ListEntity> list){
+        this.shoppingLists = new ArrayList<>(list);
+        this.shoppingListsNotFiltered = new ArrayList<>(list);
+
+        final ListEntityDiffCallback diffCallback = new ListEntityDiffCallback(this.shoppingLists, list);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+        diffResult.dispatchUpdatesTo(this);
     }
 }
