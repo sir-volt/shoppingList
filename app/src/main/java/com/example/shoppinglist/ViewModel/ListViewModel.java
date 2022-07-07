@@ -12,6 +12,9 @@ import com.example.shoppinglist.ListEntity;
 
 import java.util.List;
 
+/*
+* ViewModel relativo alla lista/elenco di Liste della spesa (NON relativo a una singola lista di oggetti)
+* */
 public class ListViewModel extends AndroidViewModel {
 
     private final MutableLiveData<ListEntity> listSelected = new MutableLiveData<>();

@@ -21,10 +21,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppinglist.DataBase.UserRepository;
 import com.example.shoppinglist.RecyclerView.ShoppingListAdapter;
+import com.example.shoppinglist.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.shoppinglist.RecyclerView.ListAdapter;
 import com.example.shoppinglist.RecyclerView.OnItemListener;
@@ -40,6 +43,7 @@ public class HomeFragment extends Fragment implements OnItemListener {
     private RecyclerView recyclerView;
     private UserRepository repository;
     private Session session;
+    private ListViewModel listViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,6 +67,18 @@ public class HomeFragment extends Fragment implements OnItemListener {
         if(activity != null){
             Utilities.setUpToolbar((AppCompatActivity) activity, "List of items");
             setRecyclerView(activity);
+
+            /*Riferimento ed inizializzazione del nuovo ViewModel (DOPO setup della RecyclerView),
+            * facente uso di un observer su una lista
+            * */
+            listViewModel = new ViewModelProvider(activity).get(ListViewModel.class);
+            listViewModel.getShoppingLists().observe(activity, new Observer<List<ListEntity>>() {
+                @Override
+                public void onChanged(List<ListEntity> listEntities) {
+                    adapter.setData(listEntities);
+                }
+            });
+
             FloatingActionButton actionButton = view.findViewById(R.id.fab_add_list);
 
             actionButton.setOnClickListener(new View.OnClickListener() {
@@ -150,28 +166,29 @@ public class HomeFragment extends Fragment implements OnItemListener {
         recyclerView = activity.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
-        final OnItemListener listener = this;
+
+        /* VECCHIO TIPO DI CHIAMATA A LISTADAPTER
         List<ListEntity> shoppingLists = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             shoppingLists.add(new ListEntity("Nome Lista"));
         }
-        adapter = new ShoppingListAdapter(shoppingLists, activity);
-        /*
-        List<ListEntity> itemList = new ArrayList<>();
-        for(int i = 0; i < 5; i++){
-            itemList.add(new ItemEntity("ic_baseline_settings_24","generic Item",
-                    10.0));
-        }
-        itemList.add(new ItemEntity("ic_baseline_add_a_photo_24","special item",
-                10.0));
-        final OnItemListener listener = this;
-        adapter = new ListAdapter(listener, itemList, activity);*/
+        adapter = new ShoppingListAdapter(shoppingLists, activity);*/
 
+        //Nuovo tipo di chiamata a ShoppingListAdapter, che fa uso di un listener
+        final OnItemListener listener = this;
+        adapter = new ShoppingListAdapter(listener, activity);
         recyclerView.setAdapter(adapter);
     }
 
+    //Definisce il comportamento quando una lista viene cliccata
     @Override
     public void onItemClick(int position) {
+        Activity activity = getActivity();
+        if (activity!=null){
+            //TODO creare un fragment per mostrare il contenuto di una lista (DetailsFragment?) (pagina 43 lez 4)
+            Utilities.insertFragment((AppCompatActivity) activity, null, "Pignas");
 
+            listViewModel.setListSelected(adapter.getListSelected(position));
+        }
     }
 }
