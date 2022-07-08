@@ -21,11 +21,11 @@ import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements Filterable {
     private final List<ItemEntity> itemList;
+
     Activity activity;
     private OnItemListener listener;
 
     private List<ItemEntity> itemListNotFiltered;
-
 
     public ListAdapter(OnItemListener listener, List<ItemEntity> itemList, Activity activity) {
         this.listener = listener;
@@ -47,7 +47,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         ItemEntity currentCard = itemList.get(position);
 
         holder.itemNameTextView.setText(currentCard.getItemName());
-        holder.itemPriceTextView.setText(currentCard.getItemPrice());
+        holder.itemPriceTextView.setText(currentCard.getItemPrice().toString());
 
         String image = currentCard.getImageResource();
         //al momento abbiamo solo drawable, in futuro ci saranno foto, questo if è per mettere i placeholder draawable
