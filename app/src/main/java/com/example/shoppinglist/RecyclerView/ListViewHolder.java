@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppinglist.R;
@@ -24,9 +25,36 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         itemNameTextView = itemView.findViewById(R.id.list_item_text);
         itemPriceTextView = itemView.findViewById(R.id.list_price_text);
         itemListener = listener;
+        AppCompatImageButton removeOrAddToCartButton = (AppCompatImageButton) itemView.findViewById(R.id.add_or_remove_button);
+        removeOrAddToCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeOrAddToCartButton.setSelected(!removeOrAddToCartButton.isSelected());
+
+                if(removeOrAddToCartButton.isSelected()){
+                    removeOrAddToCartButton.setImageResource(R.drawable.ic_outline_cancel_24);
+                } else {
+                    removeOrAddToCartButton.setImageResource(R.drawable.ic_baseline_add_24);
+                }
+            }
+        });
 
         itemView.setOnClickListener(this);
     }
+    /*
+            AppCompatImageButton removeOrAddToCartButton = (AppCompatImageButton) itemLayout.findViewById(R.id.add_or_remove_button);
+            removeOrAddToCartButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    removeOrAddToCartButton.setSelected(!removeOrAddToCartButton.isSelected());
+
+                    if(removeOrAddToCartButton.isSelected()){
+                        removeOrAddToCartButton.setImageResource(R.drawable.ic_outline_cancel_24);
+                    } else {
+                        removeOrAddToCartButton.setImageResource(R.drawable.ic_baseline_add_24);
+                    }
+                }
+            });*/
 
     @Override
     public void onClick(View view) {

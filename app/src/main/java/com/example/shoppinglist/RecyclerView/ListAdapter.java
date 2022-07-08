@@ -3,7 +3,6 @@ package com.example.shoppinglist.RecyclerView;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements Filterable {
-    private final  List<ItemEntity> itemList;
+    private final List<ItemEntity> itemList;
 
     Activity activity;
     private OnItemListener listener;
@@ -93,15 +92,15 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            List<ItemEntity> filteredResults = new ArrayList<>();
+            List<ItemEntity> filteredList = new ArrayList<>();
             List<?> result = (List<?>) filterResults.values;
             for(Object obj: result){
                 if(obj instanceof ItemEntity){
-                    filteredResults.add((ItemEntity) obj);
+                    filteredList.add((ItemEntity) obj);
                 }
             }
 
-            updateListItems(filteredResults);
+            updateListItems(filteredList);
         }
     };
 

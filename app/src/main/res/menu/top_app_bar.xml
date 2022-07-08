@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/app_bar_settings"
-        android:icon="@drawable/ic_baseline_settings_24"
+        android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/settings"
         app:showAsAction="ifRoom"
         android:contentDescription="@string/settings"/>

@@ -40,7 +40,6 @@
             android:layout_margin="3dp"
             android:text="@string/remaining"
             android:gravity="end"
-
             android:textAlignment="gravity"
             android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
             />

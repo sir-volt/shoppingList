@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Button;
-import android.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,8 +66,8 @@ public class HomeFragment extends Fragment implements OnItemListener {
         super.onViewCreated(view, savedInstanceState);
         FragmentActivity activity = getActivity();
         if(activity != null){
-            Utilities.setUpToolbar((AppCompatActivity) activity, getString(R.string.app_name));
-
+            //TODO usare String resources
+            Utilities.setUpToolbar((AppCompatActivity) activity, "Your Lists");
             setRecyclerView(activity);
 
             /*Riferimento ed inizializzazione del nuovo ViewModel (DOPO setup della RecyclerView),
@@ -169,6 +169,7 @@ public class HomeFragment extends Fragment implements OnItemListener {
         //Nuovo tipo di chiamata a ShoppingListAdapter, che fa uso di un listener
         final OnItemListener listener = this;
         adapter = new ShoppingListAdapter(listener, activity);
+
         recyclerView.setAdapter(adapter);
     }
 
