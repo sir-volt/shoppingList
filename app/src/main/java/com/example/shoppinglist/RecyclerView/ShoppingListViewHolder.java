@@ -11,21 +11,22 @@ public class ShoppingListViewHolder extends RecyclerView.ViewHolder implements V
     TextView listNameTextview;
     TextView remainingTextview;
 
-    private OnItemListener listener;
+    private final OnItemListener listener;
 
-    //VECCHIO COSTRUTTORE, NON FUNZIONA CON IL DATABASE
-    public ShoppingListViewHolder(@NonNull View itemView) {
+    //VECCHIO COSTRUTTORE
+    /*public ShoppingListViewHolder(@NonNull View itemView) {
         super(itemView);
         listNameTextview = itemView.findViewById(R.id.list_name_textview);
         remainingTextview = itemView.findViewById(R.id.remaining_textview);
-    }
+    }*/
 
-    //NUOVO COSTRUTTORE, SUPPORTA LE LISTE PRESE DAL DATABASE
+    //NUOVO COSTRUTTORE, SUPPORTA LISTENER
     public ShoppingListViewHolder(@NonNull View itemView, OnItemListener listener) {
         super(itemView);
         listNameTextview = itemView.findViewById(R.id.list_name_textview);
         remainingTextview = itemView.findViewById(R.id.remaining_textview);
         this.listener = listener;
+        itemView.setOnClickListener(this);
     }
 
 

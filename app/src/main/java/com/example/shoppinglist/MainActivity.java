@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             Log.d(LOG_TAG, "User is logged in");
+
         }
     }
 
@@ -42,14 +43,26 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    /*
+    //Questo metodo servirebbe per aprire i settings/profilo utente
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
-        if(item.getItemId() == R.id.app_bar_search){
-
+        if(item.getItemId() == R.id.app_bar_settings){
+            //Intent intent = new Intent(this)
+            return true;
         }
 
         return false;
+    }
+
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            addViewModel.setImageBitmap(imageBitmap);
+        }
     }*/
 }

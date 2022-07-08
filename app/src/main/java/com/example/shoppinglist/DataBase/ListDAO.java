@@ -23,7 +23,7 @@ public interface ListDAO {
     @Transaction
     @Query("SELECT * FROM lists WHERE user_creator_id=(:userId) ORDER BY list_name")
     LiveData<List<ListEntity>> getAllListsFromUser(int userId);
-
+    //List<ListEntity> getAllListsFromUser(int userId);
 
     /*
     * Questo metodo utilizza la classe UserWithLists,
@@ -32,6 +32,7 @@ public interface ListDAO {
     @Transaction
     @Query("SELECT * FROM users WHERE user_id=(:userId)")
     LiveData<UserWithLists> getListsFromUser(int userId);
+    //UserWithLists getListsFromUser(int userId);
 
     /*
      * Questo metodo utilizza la classe ListWithItems,

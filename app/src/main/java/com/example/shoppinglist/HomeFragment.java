@@ -48,10 +48,11 @@ public class HomeFragment extends Fragment implements OnItemListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setHasOptionsMenu(true);
         repository = new UserRepository(getActivity().getApplication());
         session = new Session(getContext());
+
+        Log.d(LOG_TAG, "onCreate chiamato!");
     }
 
     @Nullable
@@ -65,13 +66,20 @@ public class HomeFragment extends Fragment implements OnItemListener {
         super.onViewCreated(view, savedInstanceState);
         FragmentActivity activity = getActivity();
         if(activity != null){
-            Utilities.setUpToolbar((AppCompatActivity) activity, "List of items");
+            /*if(session.getUserId()!=0){
+                repository.loadListsFromUser(session.getUserId());
+                repository.loadUserWithLists(session.getUserId());
+            }*/
+
+            Utilities.setUpToolbar((AppCompatActivity) activity, getString(R.string.app_name));
+
             setRecyclerView(activity);
 
             /*Riferimento ed inizializzazione del nuovo ViewModel (DOPO setup della RecyclerView),
             * facente uso di un observer su una lista
             * */
             listViewModel = new ViewModelProvider(activity).get(ListViewModel.class);
+            //listViewModel = new ListViewModel(activity.getApplication(), repository);
             listViewModel.getShoppingLists().observe(activity, new Observer<List<ListEntity>>() {
                 @Override
                 public void onChanged(List<ListEntity> listEntities) {
@@ -90,7 +98,6 @@ public class HomeFragment extends Fragment implements OnItemListener {
                 @Override
                 public void onClick(View view) {
                     //Utilities.insertFragment((AppCompatActivity) activity,new AddFragment(), AddFragment.class.getSimpleName());
-                    //TODO usare lo stesso metodo per il Context usato in signupfragment
                     final View customDialog = getLayoutInflater().inflate(R.layout.custom_dialog, null);
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
                     dialogBuilder.setTitle(R.string.enter_list_name);
@@ -155,25 +162,19 @@ public class HomeFragment extends Fragment implements OnItemListener {
              */
             @Override
             public boolean onQueryTextChange(String newText) {
-                //TODO questo serve con ListAdapter, non ShoppingListAdapter, quindi è da correggere
-                //adapter.getFilter().filter(newText);
+                adapter.getFilter().filter(newText);
                 return false;
             }
         });
     }
 
+    /**
+     * Method to set the RecyclerView and the relative adapter
+     * @param activity the current activity
+     */
     private void setRecyclerView(final Activity activity) {
-        recyclerView = activity.findViewById(R.id.recycler_view);
+        recyclerView = activity.findViewById(R.id.home_recycler_view);
         recyclerView.setHasFixedSize(true);
-
-
-        /* VECCHIO TIPO DI CHIAMATA A LISTADAPTER
-        List<ListEntity> shoppingLists = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
-            shoppingLists.add(new ListEntity("Nome Lista"));
-        }
-        adapter = new ShoppingListAdapter(shoppingLists, activity);*/
-
         //Nuovo tipo di chiamata a ShoppingListAdapter, che fa uso di un listener
         final OnItemListener listener = this;
         adapter = new ShoppingListAdapter(listener, activity);
