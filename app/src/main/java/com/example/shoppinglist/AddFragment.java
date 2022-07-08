@@ -51,7 +51,6 @@ public class AddFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.top_app_bar,menu);
 
         menu.findItem(R.id.app_bar_search).setVisible(false);
     }

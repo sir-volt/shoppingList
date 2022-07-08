@@ -57,22 +57,6 @@ public class HomeFragment extends Fragment implements OnItemListener {
                 }
             });
 
-            /*
-            View itemLayout = view.findViewById(R.id.item_layout);
-            AppCompatImageButton removeOrAddToCartButton = (AppCompatImageButton) itemLayout.findViewById(R.id.add_or_remove_button);
-            removeOrAddToCartButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    removeOrAddToCartButton.setSelected(!removeOrAddToCartButton.isSelected());
-
-                    if(removeOrAddToCartButton.isSelected()){
-                        removeOrAddToCartButton.setImageResource(R.drawable.ic_outline_cancel_24);
-                    } else {
-                        removeOrAddToCartButton.setImageResource(R.drawable.ic_baseline_add_24);
-                    }
-                }
-            });*/
-
         }else{
             Log.e("HomeFragment","Activity is Null");
         }
