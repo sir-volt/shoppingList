@@ -66,11 +66,6 @@ public class HomeFragment extends Fragment implements OnItemListener {
         super.onViewCreated(view, savedInstanceState);
         FragmentActivity activity = getActivity();
         if(activity != null){
-            /*if(session.getUserId()!=0){
-                repository.loadListsFromUser(session.getUserId());
-                repository.loadUserWithLists(session.getUserId());
-            }*/
-
             Utilities.setUpToolbar((AppCompatActivity) activity, getString(R.string.app_name));
 
             setRecyclerView(activity);
@@ -90,10 +85,6 @@ public class HomeFragment extends Fragment implements OnItemListener {
             FloatingActionButton actionButton = view.findViewById(R.id.fab_add_list);
 
             actionButton.setOnClickListener(new View.OnClickListener() {
-
-            /* BIANCHI
-            Button addItemButton = view.findViewById(R.id.addproduct);
-            addItemButton.setOnClickListener(new View.OnClickListener() {*/
 
                 @Override
                 public void onClick(View view) {

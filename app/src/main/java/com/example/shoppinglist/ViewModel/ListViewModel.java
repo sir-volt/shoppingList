@@ -26,9 +26,6 @@ public class ListViewModel extends AndroidViewModel {
 
     public LiveData<List<ListEntity>> shoppingLists;
 
-    public UserWithLists userWithLists;
-
-    public LiveData<List<ListEntity>> foo;
 
     public ListViewModel(@NonNull Application application) {
         super(application);
@@ -40,21 +37,6 @@ public class ListViewModel extends AndroidViewModel {
 
     }
 
-    /*
-     *  Costruttore alternativo a cui passo anche un istanza della classe UserRepository, per fare si che
-     *  le sue variabili interne siano le stesse dell'istanza creata in HomeFragment
-     */
-    //So che, usando il metodo SENZA livedata, mi restituisce le Liste come dovrebbe. Ora, perché CON livedata non si aggiorna l'UI?
-    //Posso ottenere in LiveData tutte le liste e poi filtrarle dopo?
-    public ListViewModel(@NonNull Application application, UserRepository repository) {
-        super(application);
-        //shoppingLists = repository.getAllListsFromUser();
-        //userWithLists = repository.getUserWithLists(2);
-        //shoppingLists = userWithLists.getShoppingLists();
-        //List<ListEntity> tmp = repository.getAllListsFromUser(2);
-        //Log.d(LOG_TAG, tmp.toString());
-
-    }
 
     public LiveData<List<ListEntity>> getShoppingLists(){
         return shoppingLists;
