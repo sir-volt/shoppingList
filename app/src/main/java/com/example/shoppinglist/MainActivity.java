@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         if (!isLoggedIn) {
             Log.d(LOG_TAG, "User is not logged in, redirecting to LoginSignupActivity...");
             Intent i = new Intent(getApplicationContext(), LoginSignupActivity.class);
+            //TODO SE NON LOGGO MA VADO INDIETRO, VEDO LE LISTE VUOTE
             startActivity(i);
 
         } else {
