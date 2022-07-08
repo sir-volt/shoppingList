@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">ShoppingList</string>
     <string name="search">Ricerca</string>
-    <string name="page_title">page_title</string>
+    <string name="home_page_name">Le tue liste</string>
     <string name="settings">Impostazioni</string>
     <string name="list_title">Nome Lista</string>
     <string name="image_of_item">Immagine di Oggetto</string>

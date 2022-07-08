@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment implements OnItemListener {
         FragmentActivity activity = getActivity();
         if(activity != null){
             //TODO usare String resources
-            Utilities.setUpToolbar((AppCompatActivity) activity, "Your Lists");
+            Utilities.setUpToolbar((AppCompatActivity) activity, getString(R.string.home_page_name));
             setRecyclerView(activity);
 
             /*Riferimento ed inizializzazione del nuovo ViewModel (DOPO setup della RecyclerView),
