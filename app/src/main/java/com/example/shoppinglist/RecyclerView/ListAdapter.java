@@ -2,6 +2,7 @@ package com.example.shoppinglist.RecyclerView;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements Filterable {
-    private final List<ItemEntity> itemList;
+    private List<ItemEntity> itemList;
 
     Activity activity;
     private OnItemListener listener;
@@ -34,6 +35,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         this.activity = activity;
     }
 
+    /**
+     * Nuovo costruttore, che prende in input solo listener e activity.
+     * Per assegnare itemList viene usato il metodo pubblico setData()
+     * @param listener listener
+     * @param activity activity
+     */
+    public ListAdapter(OnItemListener listener, Activity activity){
+        this.listener = listener;
+        this.activity = activity;
+    }
+
 
     @NonNull
     @Override
@@ -42,6 +54,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         return new ListViewHolder(layoutView, listener);
     }
 
+    //TODO usare i dati del database
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         ItemEntity currentCard = itemList.get(position);
@@ -63,6 +76,26 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         return itemList.size();
     }
 
+    //Non so se questo metodo verrà usato ma penso di si
+    public ItemEntity getItemSelected(int position){
+        return itemList.get(position);
+    }
+
+    /**
+     * Metodo per settare gli oggetti all'interno di una lista / tutti gli oggetti disponibili
+     * @param items l'array di oggetti da mostrare all'utente
+     */
+    public void setData(List<ItemEntity> items){
+        final ListItemDiffCallback diffCallback =
+                new ListItemDiffCallback(this.itemList, items);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+        this.itemList = new ArrayList<>(items);
+        Log.d("ListAdapter", this.itemList.toString());
+        this.itemListNotFiltered = new ArrayList<>(items);
+
+        diffResult.dispatchUpdatesTo(this);
+    }
 
     @Override
     public Filter getFilter() {

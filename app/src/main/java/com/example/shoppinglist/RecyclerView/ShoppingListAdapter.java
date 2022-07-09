@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHolder> implements Filterable {
     private List<ListEntity> shoppingLists = new ArrayList<>();
-    private List<ListEntity> shoppingListsNotFiltered = new ArrayList<>();  //TODO forse non lo uso
+    private List<ListEntity> shoppingListsNotFiltered = new ArrayList<>();
     private Activity activity;
     private OnItemListener listener;
 

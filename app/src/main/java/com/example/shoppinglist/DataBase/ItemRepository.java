@@ -12,35 +12,50 @@ import java.util.List;
 
 /**
  * Repository relativa a query sul database riguardanti gli oggetti
+ * Singleton perché mi serve che la repository sappia di quale lista cercare il contenuto
  */
 public class ItemRepository {
 
     private static final String LOG_TAG = "ItemRepository";
-    private final UserDAO userDAO;
+    private static ItemRepository INSTANCE = null;
     private final ItemDAO itemDAO;
     private final ListDAO listDAO;
 
     private final LiveData<List<ItemEntity>> allItemsList;
     private LiveData<List<ItemEntity>> itemsInList;
     private LiveData<ListWithItems> listWithItems;
+    private Integer currentListId;
 
-    public ItemRepository(Application application){
+    private ItemRepository(Application application){
         UserDatabase db = UserDatabase.getDatabase(application);
-        userDAO = db.userDAO();
         itemDAO = db.itemDAO();
         listDAO = db.listDAO();
 
         allItemsList = itemDAO.getAllItems();
+    }
 
+    public static ItemRepository getInstance(Application application){
+        if (INSTANCE == null){
+            INSTANCE = new ItemRepository(application);
+        }
+        return INSTANCE;
+    }
+
+    public Integer getCurrentListId() {
+        return currentListId;
+    }
+
+    public void setCurrentListId(Integer currentListId) {
+        this.currentListId = currentListId;
     }
 
     /**
      * Esegue la query per ottenere tutti gli oggetti contenuti in una lista e ne incapsula il contenuto
      * in un LiveData
-     * @param listId id della lista di cui cercare il contenuto
      */
-    public void loadItemsFromList(int listId){
-        itemsInList = listDAO.getItemsFromList(listId);
+    public void loadItemsFromList(){
+        //Una volta qua aveva un parametro chiamato int listId
+        itemsInList = listDAO.getItemsFromList(currentListId);
     }
 
     /**

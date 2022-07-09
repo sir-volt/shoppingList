@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.shoppinglist.DataBase.ItemRepository;
 import com.example.shoppinglist.DataBase.UserRepository;
 import com.example.shoppinglist.ItemEntity;
 import com.example.shoppinglist.ListEntity;
@@ -34,9 +35,9 @@ public class ItemsInListViewModel extends AndroidViewModel {
         Session session = new Session(application);
         //Questo non funziona perchè non è l'istanza di repository nella quale sono state caricate le cose
         Log.d(LOG_TAG, "User ID da cercare: " + session.getUserId());
-        UserRepository repository = new UserRepository(application, session.getUserId());
-        //TODO eh sta cosa qua sotto la devi adattare ho troppo sonno per farlo ora
-       // shoppingLists = repository.getAllListsFromUser();
+        ItemRepository repository = ItemRepository.getInstance(application);
+        repository.loadItemsFromList();
+        itemsInList = repository.getItemsInList();
     }
 
     public LiveData<List<ItemEntity>> getItemsInList() {
