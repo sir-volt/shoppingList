@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -56,17 +57,17 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
     @Override
     public void onBindViewHolder(@NonNull ListContentViewHolder holder, int position) {
         ItemEntity currentCard = itemList.get(position);
-
+        String price = activity.getApplicationContext().getString(R.string.item_price_2, currentCard.getItemPrice());
         holder.itemNameTextView.setText(currentCard.getItemName());
-        holder.itemPriceTextView.setText(currentCard.getItemPrice().toString());
+        holder.itemPriceTextView.setText(price);
 
         String image = currentCard.getImageResource();
         //al momento abbiamo solo drawable, in futuro ci saranno foto, questo if è per mettere i placeholder draawable
-        if(image!=null){
+        if(image==null){
             //if(image.contains("ic_")){
-            Drawable drawable = AppCompatResources.getDrawable(activity, activity.getResources()
-                    .getIdentifier(image, "drawable",activity.getPackageName()));
-            holder.itemImageView.setImageDrawable(drawable);
+            int placeholderImageId  = R.drawable.ic_baseline_image_not_supported_24;
+            holder.itemImageView.setImageResource(placeholderImageId);
+
         }
     }
 
