@@ -38,7 +38,7 @@ public class HomeFragmentOld extends Fragment {
         if(activity != null){
             setRecyclerView(activity);
 
-            FloatingActionButton actionButton = view.findViewById(R.id.fab_add);
+            FloatingActionButton actionButton = view.findViewById(R.id.fab_done);
             actionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
