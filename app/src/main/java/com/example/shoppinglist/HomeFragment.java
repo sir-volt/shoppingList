@@ -132,6 +132,7 @@ public class HomeFragment extends Fragment implements OnItemListener {
 
         MenuItem item = menu.findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView) item.getActionView();
+        Log.d(LOG_TAG, "Testo inserito nella ricerca: " + searchView.getQuery().toString());
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             /*
              * chiamo questo metodo quando utente fa la query, quando preme un bottone sulla tastiera

@@ -20,20 +20,16 @@ import com.example.shoppinglist.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements Filterable {
+/**
+ * Adapter utilizzato per il contenuto di una lista della spesa (NON PER VISUALIZZARE TUTTI GLI ITEMS NEL DB)
+ */
+public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHolder> implements Filterable {
 
-    private final static String LOG_TAG = "ListAdapter";
+    private final static String LOG_TAG = "ListContentAdapter";
     private List<ItemEntity> itemList = new ArrayList<>();
     private List<ItemEntity> itemListNotFiltered = new ArrayList<>();
     Activity activity;
     private OnItemListener listener;
-
-    public ListAdapter(OnItemListener listener, List<ItemEntity> itemList, Activity activity) {
-        this.listener = listener;
-        this.itemList = new ArrayList<>(itemList);
-        this.itemListNotFiltered = new ArrayList<>(itemList);
-        this.activity = activity;
-    }
 
     /**
      * Nuovo costruttore, che prende in input solo listener e activity.
@@ -41,7 +37,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
      * @param listener listener
      * @param activity activity
      */
-    public ListAdapter(OnItemListener listener, Activity activity){
+    public ListContentAdapter(OnItemListener listener, Activity activity){
         this.listener = listener;
         this.activity = activity;
     }
@@ -49,15 +45,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
 
     @NonNull
     @Override
-    public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListContentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //todo questo layoutview prima aveva come layout "item_layout", ci ho messo item_in_list_card_layout
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
-        return new ListViewHolder(layoutView,listener);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_in_list_card_layout, parent, false);
+        //return new ListViewHolder(layoutView, listener);
+        return new ListContentViewHolder(layoutView,listener);
     }
 
     //TODO usare i dati del database
     @Override
-    public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ListContentViewHolder holder, int position) {
         ItemEntity currentCard = itemList.get(position);
 
         holder.itemNameTextView.setText(currentCard.getItemName());
@@ -65,8 +62,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
 
         String image = currentCard.getImageResource();
         //al momento abbiamo solo drawable, in futuro ci saranno foto, questo if è per mettere i placeholder draawable
-        if(image!=null){    //Ho fatto questa modifica perché se la stringa è null allora crasha chiamando .contains()
-        //if(image.contains("ic_")){
+        if(image!=null){
+            //if(image.contains("ic_")){
             Drawable drawable = AppCompatResources.getDrawable(activity, activity.getResources()
                     .getIdentifier(image, "drawable",activity.getPackageName()));
             holder.itemImageView.setImageDrawable(drawable);
@@ -105,17 +102,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         return listFilter;
     }
 
-    private Filter listFilter = new Filter() {
+    private final Filter listFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             List<ItemEntity> filteredList = new ArrayList<>();
 
             if(charSequence == null || charSequence.length() == 0){
                 filteredList.addAll(itemListNotFiltered);
+                Log.d(LOG_TAG, "charSequence in listFilter is null");
             } else {
                 String filterPattern = charSequence.toString().toLowerCase().trim();
+                Log.d(LOG_TAG, "charSequence in listFilter is not null: " + filterPattern);
                 for(ItemEntity item: itemListNotFiltered){
-                    if(item.getItemName().contains(filterPattern)){
+                    if(item.getItemName().toLowerCase().contains(filterPattern)){
                         filteredList.add(item);
                     }
                 }
@@ -141,12 +140,20 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
     };
 
     private void updateListItems(List<ItemEntity> filteredResults) {
-        final ListItemDiffCallback diffCallback =
+        /*final ListItemDiffCallback diffCallback =
                 new ListItemDiffCallback(this.itemList, filteredResults);
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
 
         this.itemList.clear();
         this.itemList.addAll(filteredResults);
+        diffResult.dispatchUpdatesTo(this);*/
+
+        final ListItemDiffCallback diffCallback =
+                new ListItemDiffCallback(this.itemList, filteredResults);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+        this.itemList = new ArrayList<>(filteredResults);
         diffResult.dispatchUpdatesTo(this);
     }
 }
+
