@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements Filterable {
-    private List<ItemEntity> itemList;
 
+    private final static String LOG_TAG = "ListAdapter";
+    private List<ItemEntity> itemList = new ArrayList<>();
+    private List<ItemEntity> itemListNotFiltered = new ArrayList<>();
     Activity activity;
     private OnItemListener listener;
-
-    private List<ItemEntity> itemListNotFiltered;
 
     public ListAdapter(OnItemListener listener, List<ItemEntity> itemList, Activity activity) {
         this.listener = listener;
@@ -50,7 +50,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
     @NonNull
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
+        //todo questo layoutview prima aveva come layout "item_layout", ci ho messo item_in_list_card_layout
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_in_list_card_layout, parent, false);
         return new ListViewHolder(layoutView, listener);
     }
 
@@ -64,7 +65,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
 
         String image = currentCard.getImageResource();
         //al momento abbiamo solo drawable, in futuro ci saranno foto, questo if è per mettere i placeholder draawable
-        if(image.contains("ic_")){
+        if(image!=null){
+        //if(image.contains("ic_")){
             Drawable drawable = AppCompatResources.getDrawable(activity, activity.getResources()
                     .getIdentifier(image, "drawable",activity.getPackageName()));
             holder.itemImageView.setImageDrawable(drawable);
@@ -73,6 +75,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
 
     @Override
     public int getItemCount() {
+        Log.d(LOG_TAG, "getItemCount: itemList: " + itemList.toString());
         return itemList.size();
     }
 
@@ -91,7 +94,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
 
         this.itemList = new ArrayList<>(items);
-        Log.d("ListAdapter", this.itemList.toString());
+        Log.d(LOG_TAG, this.itemList.toString());
         this.itemListNotFiltered = new ArrayList<>(items);
 
         diffResult.dispatchUpdatesTo(this);

@@ -36,7 +36,7 @@ public interface ListDAO {
 
 
     @Transaction
-    @Query("SELECT items.item_name as item_name, items.image as item_image, items.price as item_price " +
+    @Query("SELECT items.item_id, items.item_name, items.image, items.price " +
             "FROM items,list_item_cross_ref " +
             "WHERE list_item_cross_ref.list_id=(:listId) AND list_item_cross_ref.item_id=items.item_id")
     LiveData<List<ItemEntity>> getItemsFromList(int listId);

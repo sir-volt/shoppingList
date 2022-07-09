@@ -179,8 +179,13 @@ public class HomeFragment extends Fragment implements OnItemListener {
         Activity activity = getActivity();
         if (activity!=null){
             //TODO creare un fragment per mostrare il contenuto di una lista (DetailsFragment?) (pagina 43 lez 4)
-            Utilities.insertFragment((AppCompatActivity) activity, null, "Pignas");
 
+            Bundle bundle = new Bundle();
+            bundle.putInt("listId", adapter.getListSelected(position).getListId());
+            bundle.putString("listName", adapter.getListSelected(position).getListName());
+            ListDetailsFragment fragment = new ListDetailsFragment();
+            fragment.setArguments(bundle);
+            Utilities.insertFragment((AppCompatActivity) activity, fragment, ListDetailsFragment.class.getSimpleName());
             listViewModel.setListSelected(adapter.getListSelected(position));
         }
     }

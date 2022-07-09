@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHolder> implements Filterable {
+    private final static String LOG_TAG = "ShoppingListAdapter";
     private List<ListEntity> shoppingLists = new ArrayList<>();
     private List<ListEntity> shoppingListsNotFiltered = new ArrayList<>();
     private Activity activity;
@@ -63,6 +64,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
 
     @Override
     public int getItemCount() {
+        Log.d(LOG_TAG, "getItemCount: shoppingLists: " + shoppingLists.toString());
         return shoppingLists.size();
     }
 
@@ -81,7 +83,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
 
         this.shoppingLists = new ArrayList<>(list);
-        Log.d("ADAPTER", this.shoppingLists.toString());
+        Log.d(LOG_TAG, this.shoppingLists.toString());
         this.shoppingListsNotFiltered = new ArrayList<>(list);
 
         diffResult.dispatchUpdatesTo(this);

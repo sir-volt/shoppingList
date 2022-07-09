@@ -2,6 +2,7 @@ package com.example.shoppinglist.DataBase;
 
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -55,6 +56,7 @@ public class ItemRepository {
      */
     public void loadItemsFromList(){
         //Una volta qua aveva un parametro chiamato int listId
+        Log.d(LOG_TAG, "Current List Id: " + currentListId);
         itemsInList = listDAO.getItemsFromList(currentListId);
     }
 

@@ -19,7 +19,7 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private OnItemListener itemListener;
 
 
-    public ListViewHolder(@NonNull View itemView, OnItemListener listener) {
+    /*public ListViewHolder(@NonNull View itemView, OnItemListener listener) {
         super(itemView);
         itemImageView = itemView.findViewById(R.id.list_item_icon);
         itemNameTextView = itemView.findViewById(R.id.list_item_text);
@@ -40,6 +40,25 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         });
 
         itemView.setOnClickListener(this);
+    }*/
+
+    /**
+     * Questa versione è per gli oggetti interni ad una lista. Probabilmente la sposterò
+     * @param itemView
+     * @param listener
+     */
+    public ListViewHolder(@NonNull View itemView, OnItemListener listener){
+        super(itemView);
+        itemImageView = itemView.findViewById(R.id.list_item_icon);
+        itemNameTextView = itemView.findViewById(R.id.list_item_text);
+        itemPriceTextView = itemView.findViewById(R.id.list_price_text);
+        this.itemListener = listener;
+        itemView.findViewById(R.id.check_item).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO...
+            }
+        });
     }
     /*
             AppCompatImageButton removeOrAddToCartButton = (AppCompatImageButton) itemLayout.findViewById(R.id.add_or_remove_button);
