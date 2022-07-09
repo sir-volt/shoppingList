@@ -21,11 +21,9 @@ public class UserRepository {
     private final ItemDAO itemDAO;
     private final ListDAO listDAO;
 
-    private final LiveData<List<ItemEntity>> itemList;
     private LiveData<List<ListEntity>> listEntityList;
     private LiveData<UserWithLists> userWithLists;
 
-    static int tmp;
     static volatile UserEntity userTemp;
     static Boolean isEmailTaken;
     static List<String> userEntityList;
@@ -35,8 +33,6 @@ public class UserRepository {
         userDAO = db.userDAO();
         itemDAO = db.itemDAO();
         listDAO = db.listDAO();
-
-        itemList = itemDAO.getAllItems();
     }
 
     /**
@@ -52,8 +48,6 @@ public class UserRepository {
         itemDAO = db.itemDAO();
         listDAO = db.listDAO();
         listEntityList = listDAO.getAllListsFromUser(userId);
-        itemList = itemDAO.getAllItems();
-
     }
 
     public void registerUser(UserEntity newUser){
@@ -65,48 +59,9 @@ public class UserRepository {
         });
     }
 
-    //TODO controllare che non esista già
-    public void insertItem(ItemEntity newItem){
-        UserDatabase.executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                itemDAO.insertItem(newItem);
-            }
-        });
-    }
-
-    //TODO rimuovere questo metodo
-    public List<String> getUserList(){
-        UserDatabase.executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                userEntityList = userDAO.getAllUserEmail();
-            }
-        });
-        return userEntityList;
-    }
-
-
-
     //TODO eliminare il commentato
     public Boolean isTaken(String email){
         Log.d(LOG_TAG, "Email to use in query: " + email);
-        /*UserDatabase.executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                Log.d("INSIDE EXECUTOR", "Email to exe: " + email);
-
-                isEmailTaken = userDAO.isTaken(email);
-
-                if(isEmailTaken==null){
-                    Log.d("INSIDE EXECUTOR", "Query returned null, switching to false...");
-                    isEmailTaken=false;
-                }
-                Log.d("INSIDE EXECUTOR", "Query eseguita, il risultato è " + isEmailTaken);
-            }
-
-        });*/
-
         Future<UserEntity> tmpFuture = UserDatabase.executor.submit(new Callable<UserEntity>() {
             @Override
             public UserEntity call() throws Exception {
@@ -142,15 +97,6 @@ public class UserRepository {
          }
 
         return userTemp;
-    }
-
-    public void deleteItem(ItemEntity item){
-        UserDatabase.executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                itemDAO.deleteItem(item);
-            }
-        });
     }
 
 
@@ -189,9 +135,6 @@ public class UserRepository {
         return tmp;*/
     }
 
-    public LiveData<List<ItemEntity>> getAllItems(){
-        return itemList;
-    }
 
     public void deleteList(ListEntity list){
         UserDatabase.executor.execute(new Runnable() {

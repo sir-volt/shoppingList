@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.example.shoppinglist.ItemEntity;
 import com.example.shoppinglist.ListEntity;
 import com.example.shoppinglist.ListWithItems;
 import com.example.shoppinglist.UserWithLists;
@@ -23,7 +24,6 @@ public interface ListDAO {
     @Transaction
     @Query("SELECT * FROM lists WHERE user_creator_id=(:userId) ORDER BY list_name")
     LiveData<List<ListEntity>> getAllListsFromUser(int userId);
-    //List<ListEntity> getAllListsFromUser(int userId);
 
     /*
     * Questo metodo utilizza la classe UserWithLists,
@@ -34,13 +34,23 @@ public interface ListDAO {
     LiveData<UserWithLists> getListsFromUser(int userId);
     //UserWithLists getListsFromUser(int userId);
 
+
+    @Transaction
+    @Query("SELECT items.item_name as item_name, items.image as item_image, items.price as item_price " +
+            "FROM items,list_item_cross_ref " +
+            "WHERE list_item_cross_ref.list_id=(:listId) AND list_item_cross_ref.item_id=items.item_id")
+    LiveData<List<ItemEntity>> getItemsFromList(int listId);
+
+
     /*
      * Questo metodo utilizza la classe ListWithItems,
      * che sarebbe la classe data dalla relazione N-M fra lists e items
      * */
     @Transaction
     @Query("SELECT * FROM lists WHERE list_id=(:listId)")
-    LiveData<ListWithItems> getItemsFromList(int listId);
+    LiveData<ListWithItems> getListWithItems(int listId);
+
+
 
     @Delete
     void deleteList(ListEntity listEntity);
