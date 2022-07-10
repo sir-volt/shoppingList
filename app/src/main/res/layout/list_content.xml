@@ -12,5 +12,5 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_in_list_card_layout"/>
 
-    <!--<include layout="@layout/fab_add_list"/>-->
+    <include layout="@layout/fab_add_item_to_list"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

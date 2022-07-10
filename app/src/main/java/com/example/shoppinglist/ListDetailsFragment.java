@@ -72,7 +72,7 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
             itemsInListViewModel.getItemsInList().observe(activity, new Observer<List<ItemEntity>>() {
                 @Override
                 public void onChanged(List<ItemEntity> itemEntities) {
-                    Log.d(LOG_TAG, "Setting up adapter... Item Entities: " + itemEntities.toString());
+                    //Log.d(LOG_TAG, "Setting up adapter... Item Entities: " + itemEntities.toString());
                     adapter.setData(itemEntities);
                 }
             });

@@ -47,9 +47,7 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
     @NonNull
     @Override
     public ListContentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //todo questo layoutview prima aveva come layout "item_layout", ci ho messo item_in_list_card_layout
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_in_list_card_layout, parent, false);
-        //return new ListViewHolder(layoutView, listener);
         return new ListContentViewHolder(layoutView,listener);
     }
 
@@ -73,7 +71,7 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
 
     @Override
     public int getItemCount() {
-        Log.d(LOG_TAG, "getItemCount: itemList: " + itemList.toString());
+        Log.d(LOG_TAG, "getItemCount: count: " + itemList.size() +  " itemList: " + itemList.toString());
         return itemList.size();
     }
 
@@ -87,6 +85,7 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
      * @param items l'array di oggetti da mostrare all'utente
      */
     public void setData(List<ItemEntity> items){
+        Log.d(LOG_TAG, "In setData");
         final ListItemDiffCallback diffCallback =
                 new ListItemDiffCallback(this.itemList, items);
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
@@ -114,7 +113,7 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
             } else {
                 String filterPattern = charSequence.toString().toLowerCase().trim();
                 Log.d(LOG_TAG, "charSequence in listFilter is not null: " + filterPattern);
-                for(ItemEntity item: itemListNotFiltered){
+                for(ItemEntity item : itemListNotFiltered){
                     if(item.getItemName().toLowerCase().contains(filterPattern)){
                         filteredList.add(item);
                     }
@@ -141,13 +140,6 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
     };
 
     private void updateListItems(List<ItemEntity> filteredResults) {
-        /*final ListItemDiffCallback diffCallback =
-                new ListItemDiffCallback(this.itemList, filteredResults);
-        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
-
-        this.itemList.clear();
-        this.itemList.addAll(filteredResults);
-        diffResult.dispatchUpdatesTo(this);*/
 
         final ListItemDiffCallback diffCallback =
                 new ListItemDiffCallback(this.itemList, filteredResults);

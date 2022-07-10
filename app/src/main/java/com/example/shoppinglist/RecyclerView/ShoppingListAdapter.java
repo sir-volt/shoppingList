@@ -64,7 +64,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
 
     @Override
     public int getItemCount() {
-        Log.d(LOG_TAG, "getItemCount: shoppingLists: " + shoppingLists.toString());
+        Log.d(LOG_TAG, "getItemCount: count: " + shoppingLists.size() + " shoppingLists: " + shoppingLists.toString());
         return shoppingLists.size();
     }
 
@@ -78,6 +78,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
      * @param list the list to display in the home
      */
     public void setData(List<ListEntity> list){
+        Log.d(LOG_TAG, "In setData");
         final ListEntityDiffCallback diffCallback =
                 new ListEntityDiffCallback(this.shoppingLists, list);
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
