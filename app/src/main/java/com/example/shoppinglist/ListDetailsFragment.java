@@ -89,6 +89,8 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
                     bundle.putInt("listId", listId);
                     AddToListFragment fragment = new AddToListFragment();
                     fragment.setArguments(bundle);
+                    searchView.setIconified(true);
+                    searchView.setIconified(true);
                     Utilities.insertFragment((AppCompatActivity) activity,fragment, AddToListFragment.class.getSimpleName());
                 }
             });

@@ -19,6 +19,7 @@ import com.example.shoppinglist.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements Filterable {
 
@@ -105,7 +106,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         return listFilter;
     }
 
-    private Filter listFilter = new Filter() {
+    private final Filter listFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             List<ItemEntity> filteredList = new ArrayList<>();
@@ -115,7 +116,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
             } else {
                 String filterPattern = charSequence.toString().toLowerCase().trim();
                 for(ItemEntity item: itemListNotFiltered){
-                    if(item.getItemName().contains(filterPattern)){
+                    if(item.getItemName().toLowerCase().contains(filterPattern)){
                         filteredList.add(item);
                     }
                 }

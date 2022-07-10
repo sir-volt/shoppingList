@@ -89,9 +89,10 @@ public class AddToListFragment extends Fragment implements OnItemListener{
 
     }
 
+    //Ex onCreateOptionsMenu
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
 
         MenuItem item = menu.findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView) item.getActionView();
