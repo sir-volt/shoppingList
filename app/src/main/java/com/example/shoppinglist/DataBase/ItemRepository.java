@@ -56,7 +56,7 @@ public class ItemRepository {
      */
     public void loadItemsFromList(){
         //Una volta qua aveva un parametro chiamato int listId
-        Log.d(LOG_TAG, "Current List Id: " + currentListId);
+        Log.d(LOG_TAG, "Current ListId: " + currentListId);
         itemsInList = listDAO.getItemsFromList(currentListId);
     }
 

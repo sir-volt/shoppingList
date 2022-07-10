@@ -53,12 +53,12 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         itemNameTextView = itemView.findViewById(R.id.list_item_text);
         itemPriceTextView = itemView.findViewById(R.id.list_price_text);
         this.itemListener = listener;
-        itemView.findViewById(R.id.check_item).setOnClickListener(new View.OnClickListener() {
+        /*itemView.findViewById(R.id.check_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO...
             }
-        });
+        });*/
     }
     /*
             AppCompatImageButton removeOrAddToCartButton = (AppCompatImageButton) itemLayout.findViewById(R.id.add_or_remove_button);

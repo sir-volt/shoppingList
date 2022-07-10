@@ -32,9 +32,7 @@ public class ItemsInListViewModel extends AndroidViewModel {
     //TODO add session inside repository maybe that would fix some things
     public ItemsInListViewModel(@NonNull Application application) {
         super(application);
-        Session session = new Session(application);
-        //Questo non funziona perchè non è l'istanza di repository nella quale sono state caricate le cose
-        Log.d(LOG_TAG, "User ID da cercare: " + session.getUserId());
+        Log.d(LOG_TAG, "Sto per chiamare loadItemsFromList");
         ItemRepository repository = ItemRepository.getInstance(application);
         repository.loadItemsFromList();
         itemsInList = repository.getItemsInList();

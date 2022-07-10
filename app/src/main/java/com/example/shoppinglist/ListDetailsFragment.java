@@ -25,6 +25,7 @@ import com.example.shoppinglist.RecyclerView.ListAdapter;
 import com.example.shoppinglist.RecyclerView.ListContentAdapter;
 import com.example.shoppinglist.RecyclerView.OnItemListener;
 import com.example.shoppinglist.ViewModel.ItemsInListViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
         this.listId = getArguments().getInt("listId",0);
         this.listName = getArguments().getString("listName","List Name");
         itemRepository = ItemRepository.getInstance(getActivity().getApplication());
+        Log.d(LOG_TAG, "ListId da settare: " + listId);
         itemRepository.setCurrentListId(listId);
         session = new Session(getContext());
     }
@@ -68,12 +70,24 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
 
             setRecyclerView(activity);
 
-            itemsInListViewModel = new ViewModelProvider(activity).get(ItemsInListViewModel.class);
+            itemsInListViewModel = new ViewModelProvider(this).get(ItemsInListViewModel.class);
             itemsInListViewModel.getItemsInList().observe(activity, new Observer<List<ItemEntity>>() {
                 @Override
                 public void onChanged(List<ItemEntity> itemEntities) {
                     //Log.d(LOG_TAG, "Setting up adapter... Item Entities: " + itemEntities.toString());
                     adapter.setData(itemEntities);
+                }
+            });
+
+            FloatingActionButton actionButton = view.findViewById(R.id.fab_add_item_to_list);
+            actionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("listId", listId);
+                    AddToListFragment fragment = new AddToListFragment();
+                    fragment.setArguments(bundle);
+                    Utilities.insertFragment((AppCompatActivity) activity,fragment, AddToListFragment.class.getSimpleName());
                 }
             });
 

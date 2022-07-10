@@ -179,8 +179,6 @@ public class HomeFragment extends Fragment implements OnItemListener {
     public void onItemClick(int position) {
         Activity activity = getActivity();
         if (activity!=null){
-            //TODO creare un fragment per mostrare il contenuto di una lista (DetailsFragment?) (pagina 43 lez 4)
-
             Bundle bundle = new Bundle();
             bundle.putInt("listId", adapter.getListSelected(position).getListId());
             bundle.putString("listName", adapter.getListSelected(position).getListName());
