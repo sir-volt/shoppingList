@@ -1,6 +1,10 @@
 package com.example.shoppinglist;
 
-import android.os.Bundle;
+
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,5 +37,23 @@ public class Utilities {
         } else {
             activity.getSupportActionBar().setTitle(title);
         }
+    }
+
+    /*
+     * questo metodo ci permette di trasformare Drawable in Bitmap
+     * se il drawable passato è già un BitMapDrawable, prendiamo il suo bitmap
+     * altrimenti creiamo la BitMap usando i dati passati dal Drawable (altezza, larghezza...)
+     */
+    public static Bitmap drawableToBitmap(Drawable drawable){
+        if(drawable instanceof BitmapDrawable){
+            return ((BitmapDrawable)drawable).getBitmap();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 }

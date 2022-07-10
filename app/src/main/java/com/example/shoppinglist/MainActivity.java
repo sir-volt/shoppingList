@@ -1,19 +1,25 @@
 package com.example.shoppinglist;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.shoppinglist.ViewModel.AddViewModel;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "MainActivity";
     private Session session;
+    private AddViewModel addViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null)
             Utilities.insertFragment(this, new HomeFragment(), HomeFragment.class.getSimpleName());
+
+        addViewModel = new ViewModelProvider(this).get(AddViewModel.class);
 
         Boolean isLoggedIn = session.getLoginStatus();
         Log.d(LOG_TAG, "isLoggedIn: " + isLoggedIn);
@@ -44,6 +52,22 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == Utilities.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+            Bundle extras = data.getExtras();
+            if(extras != null){
+                Bitmap imageBitMap = (Bitmap) extras.get("data");
+                addViewModel.setImageBitMap(imageBitMap);
+            }
+        }
+    }
+
+    /*
     //Questo metodo servirebbe per aprire i settings/profilo utente
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -54,16 +78,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return false;
-    }
-
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-
-            addViewModel.setImageBitmap(imageBitmap);
-        }
     }*/
 }
