@@ -118,7 +118,7 @@ public class AddToListFragment extends Fragment implements OnItemListener{
             @Override
             public boolean onQueryTextChange(String newText) {
                 adapter.getFilter().filter(newText);
-                return false;
+                return true;
             }
         });
     }

@@ -37,6 +37,7 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
     private ItemRepository itemRepository;
     private Session session;
     private ItemsInListViewModel itemsInListViewModel;
+    private SearchView searchView;
 
     private Integer listId;
     private String listName;
@@ -45,7 +46,6 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        //TODO Devo fare un bundle di arguments prima di cambiare fragment e aggiungerlo a transaction.replace come secondo param. (anche nomelista)
         this.listId = getArguments().getInt("listId",0);
         this.listName = getArguments().getString("listName","List Name");
         itemRepository = ItemRepository.getInstance(getActivity().getApplication());
@@ -64,7 +64,8 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        //TODO Prima era Appcompatactivity
+        FragmentActivity activity = (AppCompatActivity) getActivity();
         if(activity != null){
             Utilities.setUpToolbar((AppCompatActivity) activity, this.listName);
 
@@ -74,8 +75,9 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
             itemsInListViewModel.getItemsInList().observe(activity, new Observer<List<ItemEntity>>() {
                 @Override
                 public void onChanged(List<ItemEntity> itemEntities) {
-                    //Log.d(LOG_TAG, "Setting up adapter... Item Entities: " + itemEntities.toString());
+                    Log.d(LOG_TAG, "Setting up adapter... Item Entities: " + itemEntities.toString());
                     adapter.setData(itemEntities);
+                    //adapter.notifyDataSetChanged();
                 }
             });
 
@@ -95,12 +97,12 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
 
         MenuItem item = menu.findItem(R.id.app_bar_search);
-        SearchView searchView = (SearchView) item.getActionView();
-        Log.d(LOG_TAG, "Testo inserito nella ricerca: " + searchView.getQuery().toString());
+        searchView = (SearchView) item.getActionView();
+        //Log.d(LOG_TAG, "Testo inserito nella ricerca: " + searchView.getQuery().toString());
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             /*
              * chiamo questo metodo quando utente fa la query, quando preme un bottone sulla tastiera
@@ -122,10 +124,15 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
              */
             @Override
             public boolean onQueryTextChange(String newText) {
+                String lifecycle = getLifecycle().getCurrentState().name();
+                Log.d("ListContentAdapter->ListDetailsFragment","Lifecycle: " + lifecycle);
+
+                Log.d("ListContentAdapter->ListDetailsFragment","Called adapter.getFilter with text " + newText);
                 adapter.getFilter().filter(newText);
-                return false;
+                return true;
             }
         });
+
     }
 
     /**
@@ -135,15 +142,20 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
     private void setRecyclerView(final Activity activity) {
         recyclerView = activity.findViewById(R.id.list_recycler_view);
         recyclerView.setHasFixedSize(true);
-        //Nuovo tipo di chiamata a ShoppingListAdapter, che fa uso di un listener
         final OnItemListener listener = this;
         adapter = new ListContentAdapter(listener, activity);
-
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onItemClick(int position) {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        searchView.setIconified(true);
+        searchView.setIconified(true);
     }
 }

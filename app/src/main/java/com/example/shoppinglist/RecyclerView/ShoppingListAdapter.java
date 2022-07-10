@@ -31,6 +31,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
     }
 
     public ShoppingListAdapter(OnItemListener listener, Activity activity){
+        Log.d(LOG_TAG, "CONSTRUCTOR CALL");
         this.listener = listener;
         this.activity = activity;
 
@@ -65,6 +66,8 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
     @Override
     public int getItemCount() {
         Log.d(LOG_TAG, "getItemCount: count: " + shoppingLists.size() + " shoppingLists: " + shoppingLists.toString());
+        //String className = new Exception().getStackTrace()[1].getClassName();
+        //Log.d(LOG_TAG, "Who called me? " + className);
         return shoppingLists.size();
     }
 
@@ -78,7 +81,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
      * @param list the list to display in the home
      */
     public void setData(List<ListEntity> list){
-        Log.d(LOG_TAG, "In setData");
+        Log.d(LOG_TAG, "IN SETDATA");
         final ListEntityDiffCallback diffCallback =
                 new ListEntityDiffCallback(this.shoppingLists, list);
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
@@ -86,11 +89,16 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
         this.shoppingLists = new ArrayList<>(list);
         Log.d(LOG_TAG, this.shoppingLists.toString());
         this.shoppingListsNotFiltered = new ArrayList<>(list);
+        Log.d(LOG_TAG,"setData: " + this.shoppingLists);
+        Log.d(LOG_TAG,"setData notFiltered: " + this.shoppingListsNotFiltered);
 
         diffResult.dispatchUpdatesTo(this);
     }
 
     public void updateShoppingLists(List<ListEntity> filteredList) {
+
+        Log.d(LOG_TAG, "UPDATE LIST ITEMS");
+
         final ListEntityDiffCallback diffCallback =
                 new ListEntityDiffCallback(this.shoppingLists, filteredList);
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
@@ -111,10 +119,14 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
     private final Filter listCardFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
+            Log.d(LOG_TAG, "FILTER->PERFORM FILTERING");
+            //charSequence = "Inserisci Qualcosa";
+            Log.d(LOG_TAG, "CharSequence: " + charSequence.toString());
             List<ListEntity> filteredList = new ArrayList<>();
 
             //if you have no constraint --> return the full list
             if (charSequence == null || charSequence.length() == 0) {
+                Log.d(LOG_TAG, "CharSequence is null");
                 filteredList.addAll(shoppingListsNotFiltered);
             } else {
                 //else apply the filter and return a filtered list
@@ -133,6 +145,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            Log.d(LOG_TAG, "FILTER->PUBLISH RESULT");
+            //charSequence = "Inserisci Qualcosa";
+            Log.d(LOG_TAG, "CharSequence: " + charSequence.toString() + "; filterResults: " + filterResults);
             List<ListEntity> filteredList = new ArrayList<>();
             List<?> result = (List<?>) filterResults.values;
             for (Object object : result) {

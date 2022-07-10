@@ -1,6 +1,7 @@
 package com.example.shoppinglist.RecyclerView;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,8 +30,8 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
     private final static String LOG_TAG = "ListContentAdapter";
     private List<ItemEntity> itemList = new ArrayList<>();
     private List<ItemEntity> itemListNotFiltered = new ArrayList<>();
-    Activity activity;
-    private OnItemListener listener;
+    private final Activity activity;
+    private final OnItemListener listener;
 
     /**
      * Nuovo costruttore, che prende in input solo listener e activity.
@@ -39,6 +40,7 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
      * @param activity activity
      */
     public ListContentAdapter(OnItemListener listener, Activity activity){
+        Log.d(LOG_TAG, "CONSTRUCTOR CALL");
         this.listener = listener;
         this.activity = activity;
     }
@@ -71,7 +73,9 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
 
     @Override
     public int getItemCount() {
-        Log.d(LOG_TAG, "getItemCount: count: " + itemList.size() +  " itemList: " + itemList.toString());
+        Log.d(LOG_TAG, "getItemCount: count: " + itemList.size() +  " itemList: " + itemList);
+        //String className = new Exception().getStackTrace()[1].getClassName();
+        //Log.d(LOG_TAG, "Who called me? " + className);
         return itemList.size();
     }
 
@@ -81,19 +85,31 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
     }
 
     /**
-     * Metodo per settare gli oggetti all'interno di una lista / tutti gli oggetti disponibili
+     * Metodo per settare gli oggetti all'interno di una lista
      * @param items l'array di oggetti da mostrare all'utente
      */
     public void setData(List<ItemEntity> items){
-        Log.d(LOG_TAG, "In setData");
+        Log.d(LOG_TAG, "IN SETDATA");
         final ListItemDiffCallback diffCallback =
                 new ListItemDiffCallback(this.itemList, items);
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
 
         this.itemList = new ArrayList<>(items);
-        Log.d(LOG_TAG, this.itemList.toString());
         this.itemListNotFiltered = new ArrayList<>(items);
+        Log.d(LOG_TAG,"setData: " + this.itemList);
+        Log.d(LOG_TAG,"setData notFiltered: " + this.itemListNotFiltered);
+        diffResult.dispatchUpdatesTo(this);
+    }
 
+    private void updateListItems(List<ItemEntity> filteredResults) {
+
+        Log.d(LOG_TAG, "UPDATE LIST ITEMS");
+
+        final ListItemDiffCallback diffCallback =
+                new ListItemDiffCallback(this.itemList, filteredResults);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+        this.itemList = new ArrayList<>(filteredResults);
         diffResult.dispatchUpdatesTo(this);
     }
 
@@ -103,18 +119,28 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
     }
 
     private final Filter listFilter = new Filter() {
+        /**
+         * Called to filter the data according to the constraint
+         * @param constraint constraint used to filtered the data
+         * @return the result of the filtering
+         */
         @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
+        protected FilterResults performFiltering(CharSequence constraint) {
+            Log.d(LOG_TAG, "FILTER->PERFORM FILTERING");
+            //constraint = "Inserisci qualcosa";
+            Log.d(LOG_TAG, "CharSequence: " + constraint.toString());
+
             List<ItemEntity> filteredList = new ArrayList<>();
 
-            if(charSequence == null || charSequence.length() == 0){
+            //if you have no constraint --> return the full list
+            if (constraint == null || constraint.length() == 0) {
+                Log.d(LOG_TAG, "CharSequence is null");
                 filteredList.addAll(itemListNotFiltered);
-                Log.d(LOG_TAG, "charSequence in listFilter is null");
             } else {
-                String filterPattern = charSequence.toString().toLowerCase().trim();
-                Log.d(LOG_TAG, "charSequence in listFilter is not null: " + filterPattern);
-                for(ItemEntity item : itemListNotFiltered){
-                    if(item.getItemName().toLowerCase().contains(filterPattern)){
+                //else apply the filter and return a filtered list
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (ItemEntity item : itemListNotFiltered) {
+                    if (item.getItemName().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }
@@ -124,29 +150,31 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
             results.values = filteredList;
             return results;
         }
-
+        /**
+         * Called to publish the filtering results in the user interface
+         * @param constraint constraint used to filter the data
+         * @param results the result of the filtering
+         */
         @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            Log.d(LOG_TAG, "FILTER->PUBLISH RESULT");
+            //constraint = "Inserisci qualcosa";
+            Log.d(LOG_TAG, "CharSequence: " + constraint.toString() + "; filterResults: " + results.toString());
+            if (constraint == null || constraint.length() == 0) {
+                Log.d(LOG_TAG, "CharSequence is null");
+            }
             List<ItemEntity> filteredList = new ArrayList<>();
-            List<?> result = (List<?>) filterResults.values;
-            for(Object obj: result){
-                if(obj instanceof ItemEntity){
-                    filteredList.add((ItemEntity) obj);
+            List<?> result = (List<?>) results.values;
+            for (Object object : result) {
+                if (object instanceof ItemEntity) {
+                    filteredList.add((ItemEntity) object);
                 }
             }
 
+            //warn the adapter that the data are changed after the filtering
             updateListItems(filteredList);
         }
     };
 
-    private void updateListItems(List<ItemEntity> filteredResults) {
-
-        final ListItemDiffCallback diffCallback =
-                new ListItemDiffCallback(this.itemList, filteredResults);
-        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
-
-        this.itemList = new ArrayList<>(filteredResults);
-        diffResult.dispatchUpdatesTo(this);
-    }
 }
 

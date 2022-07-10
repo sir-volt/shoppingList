@@ -44,6 +44,7 @@ public class HomeFragment extends Fragment implements OnItemListener {
     private UserRepository repository;
     private Session session;
     private ListViewModel listViewModel;
+    private SearchView searchView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,7 +75,6 @@ public class HomeFragment extends Fragment implements OnItemListener {
             * facente uso di un observer su una lista
             * */
             listViewModel = new ViewModelProvider(activity).get(ListViewModel.class);
-            //listViewModel = new ListViewModel(activity.getApplication(), repository);
             listViewModel.getShoppingLists().observe(activity, new Observer<List<ListEntity>>() {
                 @Override
                 public void onChanged(List<ListEntity> listEntities) {
@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment implements OnItemListener {
         super.onCreateOptionsMenu(menu, inflater);
 
         MenuItem item = menu.findItem(R.id.app_bar_search);
-        SearchView searchView = (SearchView) item.getActionView();
+        searchView = (SearchView) item.getActionView();
         Log.d(LOG_TAG, "Testo inserito nella ricerca: " + searchView.getQuery().toString());
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             /*
@@ -154,8 +154,9 @@ public class HomeFragment extends Fragment implements OnItemListener {
              */
             @Override
             public boolean onQueryTextChange(String newText) {
+                Log.d("ShoppingListAdapter->HomeFragment","Called adapter.getFilter with text " + newText);
                 adapter.getFilter().filter(newText);
-                return false;
+                return true;
             }
         });
     }
@@ -184,6 +185,8 @@ public class HomeFragment extends Fragment implements OnItemListener {
             bundle.putString("listName", adapter.getListSelected(position).getListName());
             ListDetailsFragment fragment = new ListDetailsFragment();
             fragment.setArguments(bundle);
+            searchView.setIconified(true);
+            searchView.setIconified(true);
             Utilities.insertFragment((AppCompatActivity) activity, fragment, ListDetailsFragment.class.getSimpleName());
             listViewModel.setListSelected(adapter.getListSelected(position));
         }
