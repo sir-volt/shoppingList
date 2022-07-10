@@ -4,26 +4,52 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shoppinglist.DataBase.ItemRepository;
 import com.example.shoppinglist.RecyclerView.ListAdapter;
+import com.example.shoppinglist.RecyclerView.ListContentAdapter;
 import com.example.shoppinglist.RecyclerView.OnItemListener;
+import com.example.shoppinglist.ViewModel.AddToListViewModel;
+import com.example.shoppinglist.ViewModel.AddViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddToListFragment extends Fragment {
+//TODO Fare sta roba copiando da ListDetailsFragment
+public class AddToListFragment extends Fragment implements OnItemListener{
 
+    private static final String LOG_TAG = "AddToListFragment";
     private ListAdapter adapter;
     private RecyclerView recyclerView;
+    private ItemRepository itemRepository;
+    private AddToListViewModel viewModel;
+    private Integer listId;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        this.listId = getArguments().getInt("listId",0);
+        Log.d(LOG_TAG, "ListId ottenuto: " + this.listId);
+        itemRepository = ItemRepository.getInstance(getActivity().getApplication());
+        itemRepository.setCurrentListId(listId);
+    }
 
     @Nullable
     @Override
@@ -34,10 +60,20 @@ public class AddToListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Activity activity = getActivity();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
         if(activity != null){
+            Utilities.setUpToolbar((AppCompatActivity) activity, activity.getString(R.string.add_item_to_list));
+
             setRecyclerView(activity);
 
+            viewModel = new ViewModelProvider(activity).get(AddToListViewModel.class);
+            viewModel.getAllItems().observe(activity, new Observer<List<ItemEntity>>() {
+                @Override
+                public void onChanged(List<ItemEntity> itemEntities) {
+                    //Possibile errore con adapter
+                    adapter.setData(itemEntities);
+                }
+            });
             //TODO non esiste più il fab, valutare l'uso della bottom bar
             /*FloatingActionButton actionButton = view.findViewById(R.id.fab_add);
             actionButton.setOnClickListener(new View.OnClickListener() {
@@ -53,8 +89,46 @@ public class AddToListFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        MenuItem item = menu.findItem(R.id.app_bar_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        Log.d(LOG_TAG, "Testo inserito nella ricerca: " + searchView.getQuery().toString());
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            /*
+             * chiamo questo metodo quando utente fa la query, quando preme un bottone sulla tastiera
+             * o quello specifico di invio
+             * @param query è il testo della query
+             * @return true se la query è stata gestita dal listener, false in caso contrario e faccio
+             * sì che SearchView svolga un'azione default
+             */
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            /*
+             *chiamo questa funzione quando utente modifica testo della query
+             * @param newText è il nuovo testo presente nel campo
+             * @return true se azione gestita da listener, altrimenti false e quindi
+             * SearchView fa l'azione standard
+             */
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+    }
+
+    /**
+     * Method to set the RecyclerView and the relative adapter
+     * @param activity the current activity
+     */
     private void setRecyclerView(final Activity activity) {
-        recyclerView = activity.findViewById(R.id.recycler_view);
+        /*recyclerView = activity.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         List<ItemEntity> itemList = new ArrayList<>();
         for(int i = 0; i < 10; i++){
@@ -67,6 +141,18 @@ public class AddToListFragment extends Fragment {
 
             }
         }, itemList, activity);
+        recyclerView.setAdapter(adapter);*/
+        recyclerView = activity.findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        //Nuovo tipo di chiamata a ShoppingListAdapter, che fa uso di un listener
+        final OnItemListener listener = this;
+        adapter = new ListAdapter(listener, activity);
+
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
     }
 }
