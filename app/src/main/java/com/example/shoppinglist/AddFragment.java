@@ -102,6 +102,13 @@ public class AddFragment extends Fragment {
             }
         });
 
+        view.findViewById(R.id.scan_item).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     private void saveImage(Bitmap bitmap, Activity activity) throws FileNotFoundException{
