@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:id="@+id/bottombar"
@@ -17,16 +18,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/purple_500"
-            android:text="chiudi la tua spesa" />
+            android:background="@color/primaryDarkColor"
+            android:text="@string/save_selection"
+            app:icon="@drawable/ic_baseline_shopping_basket_24"
+            app:iconTint="@color/white"
+            app:iconGravity="textStart"
+            android:textColor="@color/white"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/addproduct"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/purple_500"
+            android:background="@color/primaryDarkColor"
             android:layout_weight="1"
-            android:text="aggiungi un nuovo oggetto" />
+            android:text="@string/add_new_item"
+            app:icon="@drawable/ic_baseline_create_24"
+            app:iconTint="@color/white"
+            app:iconGravity="textStart"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 

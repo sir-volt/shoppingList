@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -75,17 +76,25 @@ public class AddToListFragment extends Fragment implements OnItemListener{
                     adapter.setData(itemEntities);
                 }
             });
-            //TODO non esiste più il fab, valutare l'uso della bottom bar
-            /*FloatingActionButton actionButton = view.findViewById(R.id.fab_add);
-            actionButton.setOnClickListener(new View.OnClickListener() {
+
+            //addButton ci manda alla schermata per creare un nuovo oggetto, saveButton ci fa tornare alla lista
+            Button addButton = view.findViewById(R.id.addproduct);
+            Button saveButton = view.findViewById(R.id.savebutton);
+            addButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utilities.insertFragment((AppCompatActivity) activity,new AddFragment(), AddFragment.class.getSimpleName());
+                    Utilities.insertFragment(activity,new AddFragment(), AddFragment.class.getSimpleName());
                 }
-            });*/
+            });
+            saveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getParentFragmentManager().popBackStack();
+                }
+            });
 
         }else{
-            Log.e("HomeFragment","Activity is Null");
+            Log.e(LOG_TAG,"Activity is Null");
         }
 
     }
@@ -94,6 +103,7 @@ public class AddToListFragment extends Fragment implements OnItemListener{
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.app_bar_settings).setVisible(false);
 
         MenuItem item = menu.findItem(R.id.app_bar_search);
         searchView = (SearchView) item.getActionView();
