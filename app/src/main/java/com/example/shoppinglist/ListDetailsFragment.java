@@ -154,6 +154,8 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
 
     }
 
+    //searchView viene collassata quando torno indietro dal fragment per
+    // evitare di vederla ancora sul frammento precetente
     @Override
     public void onDestroy() {
         super.onDestroy();

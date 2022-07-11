@@ -39,6 +39,7 @@ public class AddToListFragment extends Fragment implements OnItemListener{
     private ItemRepository itemRepository;
     private AddToListViewModel viewModel;
     private Integer listId;
+    private SearchView searchView;
 
 
     @Override
@@ -95,7 +96,7 @@ public class AddToListFragment extends Fragment implements OnItemListener{
         super.onPrepareOptionsMenu(menu);
 
         MenuItem item = menu.findItem(R.id.app_bar_search);
-        SearchView searchView = (SearchView) item.getActionView();
+        searchView = (SearchView) item.getActionView();
         Log.d(LOG_TAG, "Testo inserito nella ricerca: " + searchView.getQuery().toString());
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             /*
@@ -155,5 +156,14 @@ public class AddToListFragment extends Fragment implements OnItemListener{
     @Override
     public void onItemClick(int position) {
 
+    }
+
+    //searchView viene collassata quando torno indietro dal fragment per
+    // evitare di vederla ancora sul frammento precetente
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        searchView.setIconified(true);
+        searchView.setIconified(true);
     }
 }

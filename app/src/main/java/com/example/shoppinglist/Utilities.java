@@ -12,6 +12,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class Utilities {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -36,6 +39,16 @@ public class Utilities {
             activity.setSupportActionBar(toolbar);
         } else {
             activity.getSupportActionBar().setTitle(title);
+        }
+    }
+
+    static void setUpBottomBar(AppCompatActivity activity){
+        ActionBar actionBar = activity.getSupportActionBar();
+        if(actionBar == null){
+            BottomAppBar bottomAppBar = new BottomAppBar(activity);
+            activity.setSupportActionBar(bottomAppBar);
+        } else {
+            //activity.getSupportActionBar().setTitle(title);
         }
     }
 
