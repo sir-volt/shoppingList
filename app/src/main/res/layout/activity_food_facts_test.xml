@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/editTextBarcode"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:ems="40"
+        android:inputType="textPersonName"
+        android:hint="Codice a barre" />
+
+    <Button
+        android:id="@+id/buttonBarcode"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Cerca" />
+
+    <TextView
+        android:id="@+id/textViewBarcodeInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="30sp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textViewBarcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="30sp"
+        android:text="TextView" />
+</LinearLayout>

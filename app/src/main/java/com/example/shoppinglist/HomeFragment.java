@@ -178,6 +178,7 @@ public class HomeFragment extends Fragment implements OnItemListener {
     //Definisce il comportamento quando una lista viene cliccata
     @Override
     public void onItemClick(int position) {
+        Log.d(LOG_TAG,"onItemClick");
         Activity activity = getActivity();
         if (activity!=null){
             Bundle bundle = new Bundle();

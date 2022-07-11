@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
 import com.example.shoppinglist.ItemEntity;
+import com.example.shoppinglist.ListAndItemCrossRef;
 import com.example.shoppinglist.ListEntity;
 import com.example.shoppinglist.ListWithItems;
 import com.example.shoppinglist.UserWithLists;
@@ -50,7 +52,11 @@ public interface ListDAO {
     @Query("SELECT * FROM lists WHERE list_id=(:listId)")
     LiveData<ListWithItems> getListWithItems(int listId);
 
-
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    //@Query("INSERT INTO list_item_cross_ref (list_id, item_id) VALUES (:listId, :itemId)")
+    //void addItemToList(int itemId, int listId);
+    void addItemToList(ListAndItemCrossRef listAndItem);
 
     @Delete
     void deleteList(ListEntity listEntity);

@@ -21,12 +21,14 @@ public class AddToListViewModel extends AndroidViewModel {
 
     private LiveData<List<ItemEntity>> items;
 
+    private ItemRepository repository;
+
 
     //TODO add session inside repository maybe that would fix some things
     public AddToListViewModel(@NonNull Application application) {
         super(application);
         Log.d(LOG_TAG, "Sto per chiamare getAllItems");
-        ItemRepository repository = ItemRepository.getInstance(application);
+        repository = ItemRepository.getInstance(application);
         items = repository.getAllItems();
     }
 
@@ -40,5 +42,9 @@ public class AddToListViewModel extends AndroidViewModel {
 
     public void setItemSelected(ItemEntity itemEntity){
         itemSelected.setValue(itemEntity);
+    }
+
+    public void insertItemInList(ItemEntity itemEntity){
+        //repository addtolist
     }
 }

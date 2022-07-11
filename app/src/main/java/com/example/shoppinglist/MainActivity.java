@@ -61,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.app_bar_settings){
-            Intent intent = new Intent(this, SettingsActivity.class);
+            //TODO rimettere questo giusto
+            //Intent intent = new Intent(this, SettingsActivity.class);
+            Intent intent = new Intent(this, FoodFactsTestActivity.class);
             this.startActivity(intent);
             return true;
         }

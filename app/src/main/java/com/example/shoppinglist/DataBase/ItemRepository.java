@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import com.example.shoppinglist.ItemEntity;
+import com.example.shoppinglist.ListAndItemCrossRef;
 import com.example.shoppinglist.ListWithItems;
 
 import java.util.List;
@@ -100,6 +101,17 @@ public class ItemRepository {
 
     public LiveData<List<ItemEntity>> getAllItems(){
         return allItemsList;
+    }
+
+    public void addItemTolist(ItemEntity itemEntity){
+        UserDatabase.executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(LOG_TAG, "itemId: " + itemEntity.getId() + "; listId: " + currentListId);
+                //listDAO.addItemToList(itemEntity.getId(),currentListId);
+                listDAO.addItemToList(new ListAndItemCrossRef(currentListId, itemEntity.getId()));
+            }
+        });
     }
 
 }

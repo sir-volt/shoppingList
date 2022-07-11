@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -158,14 +159,20 @@ public class AddToListFragment extends Fragment implements OnItemListener{
         recyclerView.setHasFixedSize(true);
         //Nuovo tipo di chiamata a ShoppingListAdapter, che fa uso di un listener
         final OnItemListener listener = this;
-        adapter = new ListAdapter(listener, activity);
+        adapter = new ListAdapter(listener, activity, viewModel);
 
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onItemClick(int position) {
+        Log.d(LOG_TAG,"onItemClick position: " + position);
+        Activity activity = getActivity();
+        if (activity!=null){
+            int itemSelected = adapter.getItemSelected(position).getId();
+            viewModel.setItemSelected(adapter.getItemSelected(position));
 
+        }
     }
 
     //searchView viene collassata quando torno indietro dal fragment per

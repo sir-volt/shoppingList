@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppinglist.ItemEntity;
 import com.example.shoppinglist.R;
+import com.example.shoppinglist.ViewModel.AddToListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,25 +27,23 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
     private final static String LOG_TAG = "ListAdapter";
     private List<ItemEntity> itemList = new ArrayList<>();
     private List<ItemEntity> itemListNotFiltered = new ArrayList<>();
-    Activity activity;
+    private Activity activity;
     private OnItemListener listener;
+    private AddToListViewModel viewModel;
 
-    public ListAdapter(OnItemListener listener, List<ItemEntity> itemList, Activity activity) {
-        this.listener = listener;
-        this.itemList = new ArrayList<>(itemList);
-        this.itemListNotFiltered = new ArrayList<>(itemList);
-        this.activity = activity;
-    }
 
     /**
-     * Nuovo costruttore, che prende in input solo listener e activity.
+     * Nuovo costruttore, che prende in input solo listener, activity e viewModel.
      * Per assegnare itemList viene usato il metodo pubblico setData()
      * @param listener listener
      * @param activity activity
+     * @param viewModel viewModel per chiamare metodi dalla repository
      */
-    public ListAdapter(OnItemListener listener, Activity activity){
+    public ListAdapter(OnItemListener listener, Activity activity, AddToListViewModel viewModel){
         this.listener = listener;
         this.activity = activity;
+        this.viewModel = viewModel;
+        //tanto viewmodel torna null quindi niente
     }
 
 
@@ -53,7 +52,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //todo questo layoutview prima aveva come layout "item_layout", ci ho messo item_in_list_card_layout
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
-        return new ListViewHolder(layoutView,listener);
+        return new ListViewHolder(layoutView,listener,this);
     }
 
     //TODO usare i dati del database
@@ -62,9 +61,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         ItemEntity currentCard = itemList.get(position);
 
         holder.itemNameTextView.setText(currentCard.getItemName());
-        holder.itemPriceTextView.setText(currentCard.getItemPrice().toString());
+        String price = activity.getApplicationContext().getString(R.string.item_price_2, currentCard.getItemPrice());
+        holder.itemPriceTextView.setText(price);
 
         String image = currentCard.getImageResource();
+        //todo vedo sempre le immagini, copiare dal listcontentadapter
         //al momento abbiamo solo drawable, in futuro ci saranno foto, questo if è per mettere i placeholder draawable
         if(image!=null){    //Ho fatto questa modifica perché se la stringa è null allora crasha chiamando .contains()
         //if(image.contains("ic_")){
@@ -149,5 +150,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         this.itemList.clear();
         this.itemList.addAll(filteredResults);
         diffResult.dispatchUpdatesTo(this);
+    }
+
+    public void insertItemInList(ItemEntity itemEntity){
+        if (viewModel == null){
+            Log.e(LOG_TAG, "viewmodel null");
+        }
+        viewModel.insertItemInList(itemEntity);
     }
 }
