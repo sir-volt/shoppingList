@@ -113,7 +113,8 @@ public class Utilities {
         }
 
         product = productResponse.getProduct();
-        Log.d(LOG_TAG, product.getProductName());
+
+        Log.d(LOG_TAG, "prodotto ottenuto: " + product.getProductName() + "; img: " + product.getImageUrl());
         return product.getProductName();
     }
 }
