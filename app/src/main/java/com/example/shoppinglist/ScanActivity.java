@@ -1,6 +1,7 @@
 package com.example.shoppinglist;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +35,10 @@ public class ScanActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(ScanActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
+                        Intent data = new Intent();
+                        data.putExtra(Utilities.BARCODE_SCAN_RESULT, result.getText());
+                        setResult(Utilities.RESULT_OK, data);
+                        finish();
                     }
                 });
             }

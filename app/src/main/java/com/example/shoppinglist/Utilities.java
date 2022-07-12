@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,10 +22,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.InputStream;
 
+import pl.coderion.model.Product;
+import pl.coderion.model.ProductResponse;
+import pl.coderion.service.OpenFoodFactsWrapper;
+import pl.coderion.service.impl.OpenFoodFactsWrapperImpl;
+
 public class Utilities {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_CAMERA_USAGE = 100001;
+    static final int RESULT_OK = 11;
+    static final int RESULT_FAIL = 12;
+    static final String BARCODE_SCAN_RESULT = "barcodeScan";
 
     static void insertFragment(AppCompatActivity activity, Fragment fragment, String tag){
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
@@ -87,5 +96,24 @@ public class Utilities {
             e.printStackTrace();
         }
         return null;
+    }
+
+    static String checkProductCode(String productCode){
+        String LOG_TAG = "checkProductCode";
+        OpenFoodFactsWrapper wrapper;
+        ProductResponse productResponse;
+        Product product;
+
+        wrapper = new OpenFoodFactsWrapperImpl();
+        productResponse = wrapper.fetchProductByCode(productCode);
+
+        if (!productResponse.isStatus()) {
+            Log.d(LOG_TAG,"Status: " + productResponse.getStatusVerbose());
+            return null;
+        }
+
+        product = productResponse.getProduct();
+        Log.d(LOG_TAG, product.getProductName());
+        return product.getProductName();
     }
 }

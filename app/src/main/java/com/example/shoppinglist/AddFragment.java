@@ -44,10 +44,12 @@ public class AddFragment extends Fragment {
 
     private static final String LOG_TAG = "AddFragment";
     public static final int REQUEST_CODE = 10;
+
     private ItemRepository itemRepository;
     private ItemEntity itemEntity;
     private String itemName, itemImage;
     private Double itemPrice;
+    private EditText itemNameText, itemPriceText;
     AppCompatActivity activity;
 
     @Override
@@ -103,8 +105,8 @@ public class AddFragment extends Fragment {
             });
 
 
-            EditText itemNameText = view.findViewById(R.id.name_edittext);
-            EditText itemPriceText = view.findViewById(R.id.price_edittext);
+            itemNameText = view.findViewById(R.id.name_edittext);
+            itemPriceText = view.findViewById(R.id.price_edittext);
 
             /*
              * quando viene cliccato il pulsante "fab_done" l'immagine deve essere salvata
@@ -145,7 +147,7 @@ public class AddFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent scanIntent = new Intent(activity, ScanActivity.class);
-                    startActivity(scanIntent);
+                    startActivityForResult(scanIntent, REQUEST_CODE);
                 }
             });
 
@@ -272,4 +274,25 @@ public class AddFragment extends Fragment {
         menu.findItem(R.id.app_bar_settings).setVisible(false);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String productResponse;
+        if(requestCode == REQUEST_CODE){
+            if (resultCode == Utilities.RESULT_OK){
+                String productCode = data.getExtras().getString(Utilities.BARCODE_SCAN_RESULT);
+                Toast.makeText(activity, "Codice trovato: " + productCode, Toast.LENGTH_SHORT).show();
+                productResponse = Utilities.checkProductCode(productCode);
+                if(productResponse!=null){
+                    Toast.makeText(activity, "Prodotto: " + productResponse,Toast.LENGTH_LONG).show();
+                    itemNameText.setText(productResponse);
+                } else{
+                    Toast.makeText(activity, "Query non eseguita",Toast.LENGTH_LONG).show();
+                }
+
+            } else if (resultCode == Utilities.RESULT_FAIL){
+
+            }
+        }
+    }
 }
