@@ -53,7 +53,7 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
     @Override
     public ListContentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_in_list_card_layout, parent, false);
-        return new ListContentViewHolder(layoutView,listener);
+        return new ListContentViewHolder(layoutView,listener,this);
     }
 
     //TODO usare i dati del database

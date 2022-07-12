@@ -36,17 +36,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
 
 
     /**
-     * Nuovo costruttore, che prende in input solo listener, activity e viewModel.
+     * Nuovo costruttore, che prende in input solo listener e activity.
      * Per assegnare itemList viene usato il metodo pubblico setData()
      * @param listener listener
      * @param activity activity
-     * @param viewModel viewModel per chiamare metodi dalla repository
      */
-    public ListAdapter(OnItemListener listener, Activity activity, AddToListViewModel viewModel){
+    public ListAdapter(OnItemListener listener, Activity activity){
         this.listener = listener;
         this.activity = activity;
-        this.viewModel = viewModel;
-        //tanto viewmodel torna null quindi niente
     }
 
 
@@ -163,10 +160,4 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         diffResult.dispatchUpdatesTo(this);
     }
 
-    public void insertItemInList(ItemEntity itemEntity){
-        if (viewModel == null){
-            Log.e(LOG_TAG, "viewmodel null");
-        }
-        viewModel.insertItemInList(itemEntity);
-    }
 }

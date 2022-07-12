@@ -159,7 +159,7 @@ public class AddToListFragment extends Fragment implements OnItemListener{
         recyclerView.setHasFixedSize(true);
         //Nuovo tipo di chiamata a ShoppingListAdapter, che fa uso di un listener
         final OnItemListener listener = this;
-        adapter = new ListAdapter(listener, activity, viewModel);
+        adapter = new ListAdapter(listener, activity);
 
         recyclerView.setAdapter(adapter);
     }

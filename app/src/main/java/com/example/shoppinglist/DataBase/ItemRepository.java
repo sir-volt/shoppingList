@@ -124,4 +124,14 @@ public class ItemRepository {
         });
     }
 
+    public void removeFromList(ItemEntity itemEntity) {
+        UserDatabase.executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(LOG_TAG, "itemId: " + itemEntity.getId() + "; listId: " + currentListId);
+                //listDAO.addItemToList(itemEntity.getId(),currentListId);
+                listDAO.removeItemFromList(new ListAndItemCrossRef(currentListId, itemEntity.getId()));
+            }
+        });
+    }
 }

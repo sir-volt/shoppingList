@@ -54,9 +54,10 @@ public interface ListDAO {
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    //@Query("INSERT INTO list_item_cross_ref (list_id, item_id) VALUES (:listId, :itemId)")
-    //void addItemToList(int itemId, int listId);
     void addItemToList(ListAndItemCrossRef listAndItem);
+
+    @Delete
+    void removeItemFromList(ListAndItemCrossRef listAndItem);
 
     @Delete
     void deleteList(ListEntity listEntity);

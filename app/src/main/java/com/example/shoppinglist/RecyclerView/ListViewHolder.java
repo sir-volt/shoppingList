@@ -52,12 +52,7 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                 repository.addItemTolist(itemEntity);
             }
         });
-        /*itemView.findViewById(R.id.check_item).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO...
-            }
-        });*/
+
     }
     /*
             AppCompatImageButton removeOrAddToCartButton = (AppCompatImageButton) itemLayout.findViewById(R.id.add_or_remove_button);
