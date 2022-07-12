@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
 public abstract class UserDatabase extends RoomDatabase {
 
     private static final String dbName = "listappdatabase";
+    private static final String dbFilePath = "database/listapp_database.db";
     private static volatile UserDatabase INSTANCE;
     static final ExecutorService executor = Executors.newFixedThreadPool(4);
     public abstract UserDAO userDAO();
@@ -29,7 +30,7 @@ public abstract class UserDatabase extends RoomDatabase {
             //Synchronized per evitare istanze multiple
             synchronized (UserDatabase.class){
                 if(INSTANCE == null){
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), UserDatabase.class, dbName).build();
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), UserDatabase.class, dbName).createFromAsset(dbFilePath).build();
                     //TODO aggiungere prima di .build() la chiamata a .createFromAsset("database/myapp.db") per popolarlo
                 }
             }

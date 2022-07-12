@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ShoppingList</string>
     <string name="search">Ricerca</string>
-    <string name="page_title">page_title</string>
+    <string name="home_page_name">Le tue liste</string>
     <string name="settings">Impostazioni</string>
     <string name="list_title">Nome Lista</string>
-    <string name="image_of_item">Immagine di Oggetto</string>
-    <string name="item_title">Titolo di Oggetto</string>
-    <string name="item_price">Prezzo di Oggetto</string>
+    <string name="image_of_item">Immagine dell\'oggetto</string>
+    <string name="item_title">Nome dell\'oggetto</string>
+    <string name="item_price">Prezzo dell\'oggetto</string>
     <string name="add_to_cart">Aggiungi al Carrello</string>
     <string name="prompt_username">Nome utente</string>
     <string name="prompt_confirm_password">Conferma la tua password</string>
@@ -27,4 +26,10 @@
     <string name="passwords_do_not_match">Le password non combaciano</string>
     <string name="successful_signup">Il tuo account è stato registrato correttamente</string>
     <string name="create_new_item">Aggiungi Nuovo Oggetto</string>
+    <string name="add_item_to_list">Inserisci un oggetto nella lista</string>
+    <string name="add_new_item">Crea un uovo oggetto</string>
+    <string name="save_selection">Salva</string>
+    <string name="take_a_picture">Scatta una foto</string>
+    <string name="or_you_can">altrimenti puoi</string>
+    <string name="scan_your_item">Scannerizza il prodotto</string>
 </resources>

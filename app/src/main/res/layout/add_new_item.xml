@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:fillViewport="true"
-        android:background="@color/lightGray"
         android:id="@+id/scrollView1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,16 +20,14 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/item_textinput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="9dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="15dp"
+                android:padding="0dp"
+                app:boxBackgroundMode="none"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
-                app:layout_constraintBottom_toTopOf="@id/itemprice_textinput"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -39,24 +37,24 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/name_edittext"
                     android:hint="@string/item_title"
+                    android:inputType="text"
                     android:imeOptions="flagNoExtractUi"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:textColor="@color/black"
-                    android:background="@color/primaryLightColor"/>
+                    android:textSize="25sp"
+                    android:padding="10dp"
+                    android:background="@drawable/edittext_custom"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/itemprice_textinput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="9dp"
+                android:padding="0dp"
+                app:boxBackgroundMode="none"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
-                app:layout_constraintBottom_toTopOf="@id/item_promotionImageView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/item_textinput">
@@ -68,20 +66,23 @@
                     android:hint="@string/item_price"
                     android:inputType="numberDecimal"
                     android:imeOptions="flagNoExtractUi"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:textColor="@color/black"
-                    android:background="@color/primaryLightColor"/>
+                    android:textSize="25sp"
+                    android:padding="10dp"
+                    android:background="@drawable/edittext_custom"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/capture_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_baseline_add_a_photo_24"
-                android:padding="16dp"
-                android:layout_margin="10dp"
+                app:icon="@drawable/ic_baseline_add_a_photo_24"
+                app:iconGravity="start"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="20dp"
+                android:layout_margin="20dp"
                 app:backgroundTint="@null"
-                android:text="Take a Picture"
+                android:text="@string/take_a_picture"
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 android:background="@drawable/button_custom"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -93,15 +94,16 @@
                 android:id="@+id/item_promotionImageView"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
-                android:layout_margin="10dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="20dp"
                 android:adjustViewBounds="true"
-                tools:src="@drawable/ic_baseline_add_24"
-                android:background="@color/primaryColor"
+                android:src="@drawable/ic_baseline_image_white_24"
+                android:background="@color/primaryLightColor"
                 android:contentDescription="@string/image_of_item"
                 app:layout_constraintBottom_toTopOf="@+id/chooseOptionLabel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/itemprice_textinput" />
+                app:layout_constraintTop_toBottomOf="@+id/capture_button" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -125,7 +127,7 @@
                     android:layout_centerHorizontal="true"
                     android:background="@color/white"
                     android:maxLines="1"
-                    android:text="or you can"
+                    android:text="@string/or_you_can"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     android:textColor="#757575" />
             </RelativeLayout>
@@ -144,16 +146,20 @@
                 android:id="@+id/scan_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_baseline_add_24"
+                app:icon="@drawable/ic_baseline_add_24"
+                app:iconGravity="start"
                 android:background="@drawable/button_custom"
                 app:backgroundTint="@null"
-                android:padding="16dp"
-                android:text="scan your item"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="20dp"
+                android:layout_margin="20dp"
+                android:text="@string/scan_your_item"
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/guideline2"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

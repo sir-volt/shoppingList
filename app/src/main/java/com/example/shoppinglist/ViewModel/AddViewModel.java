@@ -23,10 +23,9 @@ public class AddViewModel extends AndroidViewModel {
     public AddViewModel(@NonNull Application application) {
         super(application);
         this.application = application;
-        initializeBitMap();
     }
 
-    /*
+    /* NON CI SERVE PIU' PERCHÈ ABBIAMO UN IMMAGINE SPECIFICATA NEL LAYOUT
      * Siccome inizialmente non abbiamo una specifica immagine, dobbiamo inizializzare la BitMap
      * con un qualche drawable (in questo caso possiamo usare il drawable Add)
      */
@@ -36,7 +35,7 @@ public class AddViewModel extends AndroidViewModel {
          * in Utilities per trasformare in Drawable in Bitmap
          */
         Drawable drawable = ResourcesCompat.getDrawable(application.getResources(),
-                R.drawable.ic_baseline_add_24, application.getTheme());
+                R.drawable.ic_baseline_image_white_24, application.getTheme());
         Bitmap bitmap = Utilities.drawableToBitmap(drawable);
 
         imageBitMap.setValue(bitmap);

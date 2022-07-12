@@ -22,7 +22,7 @@ public class ItemEntity {
     private String imageResource;
 
 
-    public ItemEntity(String imageResource, String itemName, Double itemPrice){
+    public ItemEntity(String itemName, Double itemPrice, String imageResource){
         this.imageResource = imageResource;
         this.itemName = itemName;
         this.itemPrice = itemPrice;

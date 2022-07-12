@@ -1,5 +1,6 @@
 package com.example.shoppinglist;
 
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Utilities {
 
@@ -27,13 +31,25 @@ public class Utilities {
         transaction.commit();
     }
 
+
     static void setUpToolbar(AppCompatActivity activity, String title){
         ActionBar actionBar = activity.getSupportActionBar();
         if(actionBar == null){
             Toolbar toolbar = new Toolbar(activity);
             activity.setSupportActionBar(toolbar);
         } else {
+            activity.getSupportActionBar().setDisplayShowHomeEnabled(false);
             activity.getSupportActionBar().setTitle(title);
+        }
+    }
+
+    static void setUpBottomBar(AppCompatActivity activity){
+        ActionBar actionBar = activity.getSupportActionBar();
+        if(actionBar == null){
+            BottomAppBar bottomAppBar = new BottomAppBar(activity);
+            activity.setSupportActionBar(bottomAppBar);
+        } else {
+            //activity.getSupportActionBar().setTitle(title);
         }
     }
 

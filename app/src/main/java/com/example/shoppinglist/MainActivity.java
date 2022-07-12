@@ -37,10 +37,12 @@ public class MainActivity extends AppCompatActivity {
         if (!isLoggedIn) {
             Log.d(LOG_TAG, "User is not logged in, redirecting to LoginSignupActivity...");
             Intent i = new Intent(getApplicationContext(), LoginSignupActivity.class);
+            //TODO SE NON LOGGO MA VADO INDIETRO, VEDO LE LISTE VUOTE
             startActivity(i);
 
         } else {
             Log.d(LOG_TAG, "User is logged in");
+
         }
     }
 
@@ -49,6 +51,25 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.top_app_bar, menu);
         return true;
     }
+
+    /**
+     *
+     * @param item MenuItem: The menu item that was selected. This value cannot be null.
+     * @return false to allow normal menu processing to proceed, true to consume it here.
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.app_bar_settings){
+            //TODO rimettere questo giusto
+            //Intent intent = new Intent(this, SettingsActivity.class);
+            Intent intent = new Intent(this, FoodFactsTestActivity.class);
+            this.startActivity(intent);
+            return true;
+        }
+        return false;
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -63,11 +84,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
+    //Questo metodo servirebbe per aprire i settings/profilo utente
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
-        if(item.getItemId() == R.id.app_bar_search){
-
+        if(item.getItemId() == R.id.app_bar_settings){
+            //Intent intent = new Intent(this)
+            return true;
         }
 
         return false;

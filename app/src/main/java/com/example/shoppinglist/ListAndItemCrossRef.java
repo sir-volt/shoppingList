@@ -21,6 +21,19 @@ public class ListAndItemCrossRef {
     /*@ColumnInfo(name = "quantity")
     public Integer quantity;*/
 
+    public ListAndItemCrossRef(int listId, int itemId) {
+        this.listId = listId;
+        this.itemId = itemId;
+    }
+
+    public int getListId() {
+        return listId;
+    }
+
+    public int getItemId() {
+        return itemId;
+    }
+
     //TODO si potrebbe pure aggiungere la quantià di un oggetto :D
 
 }

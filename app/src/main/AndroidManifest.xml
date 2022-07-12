@@ -2,9 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.shoppinglist" >
 
+    <!--<uses-permission android:name="android.permission.CAMERA"/>-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <queries>
         <intent>
@@ -40,6 +43,17 @@
         <activity
             android:name=".LoginSignupActivity"
             android:exported="false" >
+
+        </activity>
+
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" >
+        </activity>
+
+        <activity
+            android:name=".FoodFactsTestActivity"
+            android:exported="true">
 
         </activity>
     </application>

@@ -21,10 +21,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppinglist.DataBase.UserRepository;
 import com.example.shoppinglist.RecyclerView.ShoppingListAdapter;
+import com.example.shoppinglist.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.shoppinglist.RecyclerView.ListAdapter;
 import com.example.shoppinglist.RecyclerView.OnItemListener;
@@ -40,14 +43,17 @@ public class HomeFragment extends Fragment implements OnItemListener {
     private RecyclerView recyclerView;
     private UserRepository repository;
     private Session session;
+    private ListViewModel listViewModel;
+    private SearchView searchView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setHasOptionsMenu(true);
         repository = new UserRepository(getActivity().getApplication());
         session = new Session(getContext());
+
+        Log.d(LOG_TAG, "onCreate chiamato!");
     }
 
     @Nullable
@@ -61,20 +67,28 @@ public class HomeFragment extends Fragment implements OnItemListener {
         super.onViewCreated(view, savedInstanceState);
         FragmentActivity activity = getActivity();
         if(activity != null){
-            Utilities.setUpToolbar((AppCompatActivity) activity, "Your Lists");
+            //TODO usare String resources
+            Utilities.setUpToolbar((AppCompatActivity) activity, getString(R.string.home_page_name));
             setRecyclerView(activity);
+
+            /*Riferimento ed inizializzazione del nuovo ViewModel (DOPO setup della RecyclerView),
+            * facente uso di un observer su una lista
+            * */
+            listViewModel = new ViewModelProvider(activity).get(ListViewModel.class);
+            listViewModel.getShoppingLists().observe(activity, new Observer<List<ListEntity>>() {
+                @Override
+                public void onChanged(List<ListEntity> listEntities) {
+                    adapter.setData(listEntities);
+                }
+            });
+
             FloatingActionButton actionButton = view.findViewById(R.id.fab_add_list);
 
             actionButton.setOnClickListener(new View.OnClickListener() {
 
-            /* BIANCHI
-            Button addItemButton = view.findViewById(R.id.addproduct);
-            addItemButton.setOnClickListener(new View.OnClickListener() {*/
-
                 @Override
                 public void onClick(View view) {
                     //Utilities.insertFragment((AppCompatActivity) activity,new AddFragment(), AddFragment.class.getSimpleName());
-                    //TODO usare lo stesso metodo per il Context usato in signupfragment
                     final View customDialog = getLayoutInflater().inflate(R.layout.custom_dialog, null);
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
                     dialogBuilder.setTitle(R.string.enter_list_name);
@@ -117,7 +131,9 @@ public class HomeFragment extends Fragment implements OnItemListener {
         super.onCreateOptionsMenu(menu, inflater);
 
         MenuItem item = menu.findItem(R.id.app_bar_search);
-        SearchView searchView = (SearchView) item.getActionView();
+        searchView = (SearchView) item.getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        Log.d(LOG_TAG, "Testo inserito nella ricerca: " + searchView.getQuery().toString());
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             /*
              * chiamo questo metodo quando utente fa la query, quando preme un bottone sulla tastiera
@@ -139,39 +155,42 @@ public class HomeFragment extends Fragment implements OnItemListener {
              */
             @Override
             public boolean onQueryTextChange(String newText) {
-                //TODO questo serve con ListAdapter, non ShoppingListAdapter, quindi è da correggere
-                //adapter.getFilter().filter(newText);
-                return false;
+                Log.d("ShoppingListAdapter->HomeFragment","Called adapter.getFilter with text " + newText);
+                adapter.getFilter().filter(newText);
+                return true;
             }
         });
     }
 
+    /**
+     * Method to set the RecyclerView and the relative adapter
+     * @param activity the current activity
+     */
     private void setRecyclerView(final Activity activity) {
-        recyclerView = activity.findViewById(R.id.recycler_view);
+        recyclerView = activity.findViewById(R.id.home_recycler_view);
         recyclerView.setHasFixedSize(true);
-        /*
-<<<<<<< HEAD
-        List<ItemEntity> itemList = new ArrayList<>();
-        for(int i = 0; i < 7; i++){
-            itemList.add(new ItemEntity("ic_baseline_settings_24","generic Item",
-                    "Correct Price"));
-        }
-        for(int i = 0; i < 3; i++){
-            itemList.add(new ItemEntity("ic_baseline_add_a_photo_24","special item",
-                    "Big Money"));
-        }
-=======*/
+        //Nuovo tipo di chiamata a ShoppingListAdapter, che fa uso di un listener
         final OnItemListener listener = this;
-        List<ListEntity> shoppingLists = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
-            shoppingLists.add(new ListEntity("Nome Lista"));
-        }
-        adapter = new ShoppingListAdapter(shoppingLists, activity);
+        adapter = new ShoppingListAdapter(listener, activity);
+
         recyclerView.setAdapter(adapter);
     }
 
+    //Definisce il comportamento quando una lista viene cliccata
     @Override
     public void onItemClick(int position) {
-
+        Log.d(LOG_TAG,"onItemClick");
+        Activity activity = getActivity();
+        if (activity!=null){
+            Bundle bundle = new Bundle();
+            bundle.putInt("listId", adapter.getListSelected(position).getListId());
+            bundle.putString("listName", adapter.getListSelected(position).getListName());
+            ListDetailsFragment fragment = new ListDetailsFragment();
+            fragment.setArguments(bundle);
+            searchView.setIconified(true);
+            searchView.setIconified(true);
+            Utilities.insertFragment((AppCompatActivity) activity, fragment, ListDetailsFragment.class.getSimpleName());
+            listViewModel.setListSelected(adapter.getListSelected(position));
+        }
     }
 }
