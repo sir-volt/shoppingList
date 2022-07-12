@@ -1,7 +1,9 @@
 package com.example.shoppinglist.RecyclerView;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppinglist.ItemEntity;
 import com.example.shoppinglist.R;
+import com.example.shoppinglist.Utilities;
 import com.example.shoppinglist.ViewModel.AddToListViewModel;
 
 import java.util.ArrayList;
@@ -65,14 +68,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         holder.itemPriceTextView.setText(price);
 
         String image = currentCard.getImageResource();
-        //todo vedo sempre le immagini, copiare dal listcontentadapter
-        //al momento abbiamo solo drawable, in futuro ci saranno foto, questo if è per mettere i placeholder draawable
-        if(image!=null){    //Ho fatto questa modifica perché se la stringa è null allora crasha chiamando .contains()
-        //if(image.contains("ic_")){
-            Drawable drawable = AppCompatResources.getDrawable(activity, activity.getResources()
-                    .getIdentifier(image, "drawable",activity.getPackageName()));
-            holder.itemImageView.setImageDrawable(drawable);
+        //Ho fatto questa modifica perché se la stringa è null allora crasha, quindi se è nulla ci metto il placeholder
+        if(image==null){
+            image = "ic_baseline_image_not_supported_24";
         }
+        if(image.contains("ic_")) {
+            //if(image.contains("ic_")){
+            Drawable drawable = AppCompatResources.getDrawable(activity, activity.getResources()
+                    .getIdentifier(image, "drawable", activity.getPackageName()));
+            holder.itemImageView.setImageDrawable(drawable);
+        } else{
+                Bitmap bitmap = Utilities.getImageBitmap(activity, Uri.parse(image));
+                if (bitmap != null){
+                    holder.itemImageView.setImageBitmap(bitmap);
+                }
+        }
+
     }
 
     @Override

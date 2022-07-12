@@ -37,4 +37,5 @@
     <string name="take_a_picture">Take a picture</string>
     <string name="or_you_can">or you can</string>
     <string name="scan_your_item">Scan your item</string>
+    <string name="insert_item_name">Please type the item\'s name</string>
 </resources>

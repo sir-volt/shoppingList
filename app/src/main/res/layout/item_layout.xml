@@ -16,11 +16,13 @@
         android:layout_height="match_parent"
         android:background="@color/lightGray">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/list_item_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/image_of_item"
+
+            app:shapeAppearanceOverlay="@style/ImageView.Round"
 
             android:src="@drawable/ic_baseline_image_24"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +43,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             app:autoSizeMaxTextSize="100sp"
-            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMinTextSize="5sp"
             app:autoSizeTextType="uniform"
             android:layout_marginStart="5dp"
             android:paddingTop="10dp"
@@ -80,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.79" />
+            app:layout_constraintGuide_percent="0.85" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/add_or_remove_button"

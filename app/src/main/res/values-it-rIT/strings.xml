@@ -32,4 +32,5 @@
     <string name="take_a_picture">Scatta una foto</string>
     <string name="or_you_can">altrimenti puoi</string>
     <string name="scan_your_item">Scannerizza il prodotto</string>
+    <string name="insert_item_name">Iinserisci il nome dell\'oggetto</string>
 </resources>

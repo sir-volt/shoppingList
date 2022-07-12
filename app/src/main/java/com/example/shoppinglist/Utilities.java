@@ -1,10 +1,14 @@
 package com.example.shoppinglist;
 
 
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +18,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.io.InputStream;
 
 public class Utilities {
 
@@ -43,15 +49,6 @@ public class Utilities {
         }
     }
 
-    static void setUpBottomBar(AppCompatActivity activity){
-        ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar == null){
-            BottomAppBar bottomAppBar = new BottomAppBar(activity);
-            activity.setSupportActionBar(bottomAppBar);
-        } else {
-            //activity.getSupportActionBar().setTitle(title);
-        }
-    }
 
     /*
      * questo metodo ci permette di trasformare Drawable in Bitmap
@@ -69,5 +66,25 @@ public class Utilities {
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
         return bitmap;
+    }
+
+    /**
+     * Utility Method that get the Bitmap from the URI where the image is stored
+     * @param activity activity when the method is executed
+     * @param currentPhotoUri the URI for the image to get
+     * @return the bitmap contained in the URI
+     */
+    public static Bitmap getImageBitmap(Activity activity, Uri currentPhotoUri){
+        ContentResolver resolver = activity.getApplicationContext()
+                .getContentResolver();
+        try {
+            InputStream stream = resolver.openInputStream(currentPhotoUri);
+            Bitmap bitmap = BitmapFactory.decodeStream(stream);
+            stream.close();
+            return bitmap;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

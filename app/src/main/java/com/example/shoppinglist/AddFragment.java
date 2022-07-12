@@ -41,7 +41,8 @@ public class AddFragment extends Fragment {
     private static final String LOG_TAG = "AddFragment";
     private ItemRepository itemRepository;
     private ItemEntity itemEntity;
-    private String itemName, itemPrice, itemImage;
+    private String itemName, itemImage;
+    private Double itemPrice;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,20 +118,10 @@ public class AddFragment extends Fragment {
                             //Se l'immagine è vuota, carico l'URI di un icona
                             imageUriString = "ic_baseline_image_not_supported_24";
                         }
-                        //todo fixare questo, anche se il testo è vuoto pensa che ci sia "null"
-                        if(itemNameText.getText()==null) {
-                            Toast.makeText(activity, "Nome vuoto", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.d(LOG_TAG, "Nome oggetto: " + itemName);
-                            if (itemPriceText.getText()==null) {
-                                itemPrice = "0"; //TODO mettere sta roba double!
-                            } else {
-                                itemPrice = itemPriceText.getText().toString();
-                            }
-                            itemName = itemNameText.getText().toString();
-
-                            //aggiungo
-                            //aggiungo immagine
+                        if(validateInput(itemNameText, itemPriceText)){
+                            itemEntity = new ItemEntity(itemName, itemPrice, imageUriString);
+                            addViewModel.addItem(itemEntity);
+                            addViewModel.setImageBitMap(null);
                             activity.getSupportFragmentManager().popBackStack();
                         }
                     } catch (FileNotFoundException e){
@@ -215,22 +206,36 @@ public class AddFragment extends Fragment {
     }
 
     //todo eliminare
-    private Boolean validateInput(AppCompatActivity activity){
-        if(itemName.isEmpty()) {
-            Toast.makeText(activity, "Nome vuoto", Toast.LENGTH_SHORT).show();
+    private Boolean validateInput(EditText itemNameText, EditText itemPriceText){
+        if(itemNameText.getText()==null) {
+            Toast.makeText(getActivity(), getString(R.string.insert_item_name), Toast.LENGTH_SHORT).show();
             return false;
-        } else {
-            Log.d(LOG_TAG, "Nome oggetto: " + itemName);
-            if (itemPrice.isEmpty()){
-                //TODO questo è un double nn una stringa
-                itemPrice = "0";
-                return true;
-            }
-            return true;
         }
-
+        if (itemNameText.getText().toString().equals("")) {
+            Toast.makeText(getActivity(), getString(R.string.insert_item_name), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (itemPriceText.getText()==null){
+            //Se la casella di testo è vuota allora metterò 0
+            itemPrice = 0.0;
+        } else if (itemPriceText.getText().toString().equals("") || !(isNumeric(itemPriceText.getText().toString()))){
+            itemPrice = 0.0;
+        } else {
+            itemPrice = Double.valueOf(itemPriceText.getText().toString());
+        }
+        itemName = itemNameText.getText().toString();
+        Log.d(LOG_TAG, "Item Name: " + itemName + " - Item Price: " + itemPrice);
+        return true;
     }
 
+    private boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);

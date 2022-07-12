@@ -114,4 +114,14 @@ public class ItemRepository {
         });
     }
 
+    public void addItemToDatabase(ItemEntity itemEntity){
+        UserDatabase.executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(LOG_TAG, "itemEntity to insert: " + itemEntity.toString());
+                itemDAO.insertItem(itemEntity);
+            }
+        });
+    }
+
 }
