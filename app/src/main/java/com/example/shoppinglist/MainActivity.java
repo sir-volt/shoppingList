@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(LOG_TAG, "User is not logged in, redirecting to LoginSignupActivity...");
             Intent i = new Intent(getApplicationContext(), LoginSignupActivity.class);
             //TODO SE NON LOGGO MA VADO INDIETRO, VEDO LE LISTE VUOTE
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
 
         } else {
