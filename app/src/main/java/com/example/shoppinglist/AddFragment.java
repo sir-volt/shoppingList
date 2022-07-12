@@ -1,9 +1,11 @@
 package com.example.shoppinglist;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +31,8 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import com.example.shoppinglist.DataBase.ItemRepository;
 import com.example.shoppinglist.ViewModel.AddViewModel;
 
+import org.slf4j.helpers.Util;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -39,10 +43,12 @@ import java.util.Locale;
 public class AddFragment extends Fragment {
 
     private static final String LOG_TAG = "AddFragment";
+    public static final int REQUEST_CODE = 10;
     private ItemRepository itemRepository;
     private ItemEntity itemEntity;
     private String itemName, itemImage;
     private Double itemPrice;
+    AppCompatActivity activity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +66,7 @@ public class AddFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity = (AppCompatActivity) getActivity();
         if(activity != null){
             Utilities.setUpToolbar(activity, getString(R.string.create_new_item));
 
@@ -73,11 +79,13 @@ public class AddFragment extends Fragment {
             view.findViewById(R.id.capture_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    //un if per capire se vi è un activity camera per gestire questo intent
-                    if(takePictureIntent.resolveActivity(activity.getPackageManager()) != null){
-                        activity.startActivityForResult(takePictureIntent,Utilities.REQUEST_IMAGE_CAPTURE);
+                    if(activity.checkSelfPermission(Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED){
+                        invokeCamera(activity);
+                    } else {
+                        String[] permissionRequested = {Manifest.permission.CAMERA};
+                        activity.requestPermissions(permissionRequested, Utilities.REQUEST_CAMERA_USAGE);
                     }
+
                 }
             });
             /*
@@ -146,6 +154,26 @@ public class AddFragment extends Fragment {
 
         }
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == Utilities.REQUEST_CAMERA_USAGE){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                invokeCamera(activity);
+            } else {
+                Toast.makeText(activity, "Unable to invoke camera without permission", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void invokeCamera(AppCompatActivity activity) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //un if per capire se vi è un activity camera per gestire questo intent
+        if(takePictureIntent.resolveActivity(activity.getPackageManager()) != null){
+            activity.startActivityForResult(takePictureIntent,Utilities.REQUEST_IMAGE_CAPTURE);
+        }
     }
 
     private void saveImage(Bitmap bitmap, Activity activity) throws FileNotFoundException{

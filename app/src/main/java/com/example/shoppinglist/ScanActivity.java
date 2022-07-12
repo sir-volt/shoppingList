@@ -38,18 +38,13 @@ public class ScanActivity extends AppCompatActivity {
                 });
             }
         });
-        codeScannerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(ContextCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA)
+        if(ContextCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED){
-                    codeScanner.startPreview();
-                } else {
-                    ActivityCompat.requestPermissions(ScanActivity.this,
-                            new String[] {Manifest.permission.CAMERA},Utilities.REQUEST_CAMERA_USAGE);
-                }
-            }
-        });
+            codeScanner.startPreview();
+        } else {
+            ActivityCompat.requestPermissions(ScanActivity.this,
+                    new String[] {Manifest.permission.CAMERA},Utilities.REQUEST_CAMERA_USAGE);
+        }
     }
 
     @Override
@@ -59,7 +54,9 @@ public class ScanActivity extends AppCompatActivity {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 codeScanner.startPreview();
             } else {
-                Toast.makeText(this, "camera permission not granted", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.camera_permission, Toast.LENGTH_LONG).show();
+                //getSupportFragmentManager().popBackStack();
+                finish();
             }
         }
     }

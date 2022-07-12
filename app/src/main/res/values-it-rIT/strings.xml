@@ -33,4 +33,5 @@
     <string name="or_you_can">altrimenti puoi</string>
     <string name="scan_your_item">Scannerizza il prodotto</string>
     <string name="insert_item_name">Iinserisci il nome dell\'oggetto</string>
+    <string name="camera_permission">La scansione di un prodotto necessita l\'accesso alla fotocamera</string>
 </resources>

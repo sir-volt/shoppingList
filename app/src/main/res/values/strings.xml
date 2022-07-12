@@ -38,4 +38,5 @@
     <string name="or_you_can">or you can</string>
     <string name="scan_your_item">Scan your item</string>
     <string name="insert_item_name">Please type the item\'s name</string>
+    <string name="camera_permission">Scanning a product requires camera usage</string>
 </resources>
