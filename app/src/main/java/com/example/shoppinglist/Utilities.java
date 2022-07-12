@@ -18,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Utilities {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_CAMERA_USAGE = 100001;
 
     static void insertFragment(AppCompatActivity activity, Fragment fragment, String tag){
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
