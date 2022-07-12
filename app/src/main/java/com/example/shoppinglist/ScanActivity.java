@@ -1,5 +1,7 @@
 package com.example.shoppinglist;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -7,6 +9,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
@@ -37,9 +41,27 @@ public class ScanActivity extends AppCompatActivity {
         codeScannerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                codeScanner.startPreview();
+                if(ContextCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED){
+                    codeScanner.startPreview();
+                } else {
+                    ActivityCompat.requestPermissions(ScanActivity.this,
+                            new String[] {Manifest.permission.CAMERA},Utilities.REQUEST_CAMERA_USAGE);
+                }
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == Utilities.REQUEST_CAMERA_USAGE){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                codeScanner.startPreview();
+            } else {
+                Toast.makeText(this, "camera permission not granted", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override
