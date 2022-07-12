@@ -38,6 +38,7 @@ public class Utilities {
             Toolbar toolbar = new Toolbar(activity);
             activity.setSupportActionBar(toolbar);
         } else {
+            activity.getSupportActionBar().setDisplayShowHomeEnabled(false);
             activity.getSupportActionBar().setTitle(title);
         }
     }

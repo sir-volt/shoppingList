@@ -59,6 +59,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
         holder.listNameTextview.setText(currentShoppingList.getListName());
         //holder.remainingTextview.setText(currentShoppingList.getRemainingItems() + "/" + currentShoppingList.getTotalItems());
         holder.remainingTextview.setText(0 + "/" + 0);
+
         //activity.getApplicationContext().getString(R.string.remaining,currentShoppingList.getRemainingItems(),currentShoppingList.getTotalItems());
 
     }
