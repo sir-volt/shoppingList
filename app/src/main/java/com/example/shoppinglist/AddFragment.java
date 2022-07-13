@@ -281,13 +281,14 @@ public class AddFragment extends Fragment {
         if(requestCode == REQUEST_CODE){
             if (resultCode == Utilities.RESULT_OK){
                 String productCode = data.getExtras().getString(Utilities.BARCODE_SCAN_RESULT);
-                Toast.makeText(activity, "Codice trovato: " + productCode, Toast.LENGTH_SHORT).show();
+                Log.d(LOG_TAG, "Codice trovato: " + productCode);
                 productResponse = Utilities.checkProductCode(productCode);
                 if(productResponse!=null){
-                    Toast.makeText(activity, "Prodotto: " + productResponse,Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity, "Prodotto trovato!",Toast.LENGTH_LONG).show();
+                    Log.d(LOG_TAG, "Prodotto: " + productResponse);
                     itemNameText.setText(productResponse);
                 } else{
-                    Toast.makeText(activity, "Query non eseguita",Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity, "Prodotto non trovato",Toast.LENGTH_LONG).show();
                 }
 
             } else if (resultCode == Utilities.RESULT_FAIL){

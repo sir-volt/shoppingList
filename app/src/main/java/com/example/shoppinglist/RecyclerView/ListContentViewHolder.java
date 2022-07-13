@@ -3,6 +3,7 @@ package com.example.shoppinglist.RecyclerView;
 import android.app.Application;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,41 +22,31 @@ public class ListContentViewHolder extends RecyclerView.ViewHolder implements Vi
     ImageView itemImageView;
     TextView itemNameTextView;
     TextView itemPriceTextView;
+    CheckBox checkBox;
 
     private OnItemListener itemListener;
 
     private ItemRepository repository;
-
-    //NUOVO COSTRUTTORE, SUPPORTA LISTENER
-    public ListContentViewHolder(@NonNull View itemView, OnItemListener listener) {
-        super(itemView);
-        itemImageView = itemView.findViewById(R.id.list_item_icon);
-        itemNameTextView = itemView.findViewById(R.id.list_item_text);
-        itemPriceTextView = itemView.findViewById(R.id.list_price_text);
-        this.itemListener = listener;
-        itemView.findViewById(R.id.check_item).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO...
-            }
-        });
-    }
 
     public ListContentViewHolder(@NonNull View itemView, OnItemListener listener, ListContentAdapter adapter) {
         super(itemView);
         itemImageView = itemView.findViewById(R.id.list_item_icon);
         itemNameTextView = itemView.findViewById(R.id.list_item_text);
         itemPriceTextView = itemView.findViewById(R.id.list_price_text);
+        checkBox = itemView.findViewById(R.id.check_item);
         this.itemListener = listener;
-        itemView.findViewById(R.id.check_item).setOnClickListener(new View.OnClickListener() {
+        checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Necessario per resettare le checkbox riutilizzate (era un bugghino)
+                if(checkBox.isChecked()){
+                    checkBox.setChecked(false);
+                }
                 Toast.makeText(itemView.getContext(), itemNameTextView.getText().toString() + "; item pos: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
                 ItemEntity itemEntity = adapter.getItemSelected(getAdapterPosition());
                 Log.d(LOG_TAG,"Item Selected: " + itemEntity.toString());
                 repository = ItemRepository.getInstance((Application) itemView.getContext().getApplicationContext());
                 repository.removeFromList(itemEntity);
-
             }
         });
     }
