@@ -39,4 +39,9 @@
     <string name="scan_your_item">Scan your item</string>
     <string name="insert_item_name">Please type the item\'s name</string>
     <string name="camera_permission">Scanning a product requires camera usage</string>
+    <string name="apply_changes">Apply</string>
+    <string name="log_out" translatable="false">Log out</string>
+    <string name="change_name">Want to change user name?</string>
+    <string name="type_username">Insert your new username!</string>
+    <string name="username_correctly_updated">Username correctly updated</string>
 </resources>

@@ -99,6 +99,14 @@ public class UserRepository {
         return userTemp;
     }
 
+    public void updateUsername(String username, int id){
+        UserDatabase.executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                userDAO.updateUsername(username, id);
+            }
+        });
+    }
 
 
     public void insertList(ListEntity newList){

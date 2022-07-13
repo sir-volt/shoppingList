@@ -5,13 +5,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/username_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/prompt_username"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        android:textColor="@color/primaryLightColor"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/username_legend"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/username_legend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="44dp"
+        android:text="@string/change_name"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/username_textview"
+        app:layout_constraintBottom_toTopOf="@id/username_textinputlayout"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/username_textinput"
-        android:layout_margin="10dp"
+        android:id="@+id/username_textinputlayout"
+        app:boxBackgroundMode="none"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/username_textview"
+        app:layout_constraintBottom_toTopOf="@id/apply_button"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
 
@@ -20,27 +53,46 @@
             android:layout_height="wrap_content"
             android:hint="@string/prompt_username"
             android:imeOptions="flagNoExtractUi"
-            android:inputType="textPersonName"/>
+            android:inputType="textCapWords"
+            android:id="@+id/username_textinputedittext"
+
+
+            android:background="@drawable/edittext_custom"
+            android:textSize="20sp"
+            android:paddingHorizontal="15dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--Al posto di apply changes posso usare un icona per salvare di fianco al nome utente-->
+
     <Button
         android:id="@+id/apply_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Apply changes"
+        android:text="@string/apply_changes"
+        app:backgroundTint="@null"
+        android:background="@drawable/button_custom"
+        android:textSize="20sp"
+        android:layout_marginHorizontal="60sp"
+        android:layout_marginVertical="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/username_textinput"
-       app:layout_constraintEnd_toStartOf="@id/logout_button" />
+        app:layout_constraintTop_toBottomOf="@id/username_textinputlayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/logout_button"/>
 
     <Button
         android:id="@+id/logout_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Log out"
-        app:layout_constraintStart_toEndOf="@id/apply_button"
-        app:layout_constraintTop_toBottomOf="@id/username_textinput"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:backgroundTint="@null"
+        android:background="@drawable/button_custom"
+        android:layout_marginHorizontal="60sp"
+        android:textSize="20sp"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/username_textinputlayout" />
 
 
 

@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,7 +43,7 @@ public class SettingsFragment extends Fragment {
         if (activity != null) {
             Utilities.setUpToolbar((AppCompatActivity) activity, getString(R.string.settings));
 
-            TextInputLayout textInputLayout = view.findViewById(R.id.username_textinput);
+            TextInputLayout textInputLayout = view.findViewById(R.id.username_textinputedittext);
             EditText editText = textInputLayout.getEditText();
 
             SharedPreferences sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);

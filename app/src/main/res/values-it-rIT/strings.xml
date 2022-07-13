@@ -34,4 +34,8 @@
     <string name="scan_your_item">Scannerizza il prodotto</string>
     <string name="insert_item_name">Iinserisci il nome dell\'oggetto</string>
     <string name="camera_permission">La scansione di un prodotto necessita l\'accesso alla fotocamera</string>
+    <string name="apply_changes">Applica</string>
+    <string name="change_name">Vuoi cambiare nome utente?</string>
+    <string name="type_username">Inserisci il nuovo nome!</string>
+    <string name="username_correctly_updated">Nome utente aggiornato correttamente</string>
 </resources>
