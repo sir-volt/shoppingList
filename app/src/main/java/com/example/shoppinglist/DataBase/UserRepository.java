@@ -148,9 +148,17 @@ public class UserRepository {
         UserDatabase.executor.execute(new Runnable() {
             @Override
             public void run() {
-                int listId = list.getListId();
                 listDAO.deleteList(list);
                 //TODO rimuovere ogni item di una lista dalla tabella ListWithItems che devo ancora creare
+            }
+        });
+    }
+
+    public void deleteListById(int listId){
+        UserDatabase.executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                listDAO.deleteListById(listId);
             }
         });
     }

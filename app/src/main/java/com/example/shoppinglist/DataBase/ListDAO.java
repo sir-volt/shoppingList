@@ -61,4 +61,7 @@ public interface ListDAO {
 
     @Delete
     void deleteList(ListEntity listEntity);
+
+    @Query("DELETE FROM lists WHERE list_id=(:listId)")
+    void deleteListById(int listId);
 }
