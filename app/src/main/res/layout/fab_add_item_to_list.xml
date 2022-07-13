@@ -2,10 +2,12 @@
 <com.google.android.material.floatingactionbutton.FloatingActionButton xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fab_add_item_to_list"
     android:contentDescription="@string/add_item_to_list"
     android:layout_gravity="bottom|end"
     android:layout_margin="16dp"
-    android:src="@drawable/ic_baseline_add_24">
+    android:src="@drawable/ic_baseline_add_24"
+    app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior">
 
 </com.google.android.material.floatingactionbutton.FloatingActionButton>

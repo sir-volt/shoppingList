@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -48,6 +49,7 @@ public class AddToListFragment extends Fragment implements OnItemListener{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        //getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         this.listId = getArguments().getInt("listId",0);
         Log.d(LOG_TAG, "ListId ottenuto: " + this.listId);
         itemRepository = ItemRepository.getInstance(getActivity().getApplication());
