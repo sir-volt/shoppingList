@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -101,14 +103,17 @@ public class HomeFragment extends Fragment implements OnItemListener {
                     dialogBuilder.setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            //TODO
                             EditText et = (EditText) customDialog.findViewById(R.id.dialog_et);
-                            Log.d(LOG_TAG, "Nome lista: " + et.getText());
-                            ListEntity newList = new ListEntity(et.getText().toString());
-                            newList.setUserCreatorId(session.getUserId());
-                            Log.d(LOG_TAG, "User ID: " + session.getUserId() + " User name: " + session.getUsername() + "Login Status: " +session.getLoginStatus());
+                            if(validateListName(et)){
+                                Log.d(LOG_TAG, "Nome lista: " + et.getText());
+                                ListEntity newList = new ListEntity(et.getText().toString().trim());
+                                newList.setUserCreatorId(session.getUserId());
 
-                            repository.insertList(newList);
+                                repository.insertList(newList);
+                            } else{
+                                Toast.makeText(getContext(), getString(R.string.empty_list_name), Toast.LENGTH_SHORT).show();
+                            }
+
                         }
                     });
                     dialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -204,5 +209,13 @@ public class HomeFragment extends Fragment implements OnItemListener {
     @Override
     public boolean onItemLongClick(int position) {
         return false;
+    }
+
+    private boolean validateListName(EditText listNameEditText){
+        if(listNameEditText.getText()!=null){
+            return listNameEditText.getText().toString().trim().length() > 0;
+        } else {
+            return false;
+        }
     }
 }

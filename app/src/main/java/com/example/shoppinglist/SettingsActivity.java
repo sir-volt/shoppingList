@@ -41,16 +41,14 @@ public class SettingsActivity extends AppCompatActivity {
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (usernameEditText.getText() != null){
-                    if (usernameEditText.getText().toString().equals("")){
-                        Log.d(LOG_TAG, "New username: " + usernameEditText.getText().toString());
-                        Toast.makeText(getApplicationContext(), getString(R.string.type_username), Toast.LENGTH_SHORT).show();
-                    } else {
-                        usernameTextView.setText(usernameEditText.getText().toString());
-                        session.setUsername(usernameEditText.getText().toString());
-                        repository.updateUsername(usernameEditText.getText().toString(), session.getUserId());
-                        Toast.makeText(getApplicationContext(), getString(R.string.username_correctly_updated), Toast.LENGTH_SHORT).show();
-                    }
+                if (validateUsername(usernameEditText)){
+                    String usernameString = usernameEditText.getText().toString().trim();
+                    usernameTextView.setText(usernameString);
+                    session.setUsername(usernameString);
+                    repository.updateUsername(usernameString, session.getUserId());
+                    Toast.makeText(getApplicationContext(), getString(R.string.username_correctly_updated), Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(getApplicationContext(), getString(R.string.type_username), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -77,6 +75,14 @@ public class SettingsActivity extends AppCompatActivity {
         menu.findItem(R.id.app_bar_search).setVisible(false);
         menu.findItem(R.id.app_bar_settings).setVisible(false);
         return true;
+    }
+
+    private boolean validateUsername(EditText usernameEditText){
+        if(usernameEditText.getText()!=null){
+            return usernameEditText.getText().toString().trim().length() > 0;
+        } else {
+            return false;
+        }
     }
 
 }

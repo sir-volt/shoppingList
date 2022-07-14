@@ -129,7 +129,7 @@ public class AddFragment extends Fragment {
                             imageUriString = "ic_baseline_image_not_supported_24";
                         }
                         if(validateInput(itemNameText, itemPriceText)){
-                            itemEntity = new ItemEntity(itemName, itemPrice, imageUriString);
+                            itemEntity = new ItemEntity(itemName.trim(), itemPrice, imageUriString);
                             addViewModel.addItem(itemEntity);
                             addViewModel.setImageBitMap(null);
                             activity.getSupportFragmentManager().popBackStack();
@@ -241,7 +241,7 @@ public class AddFragment extends Fragment {
             Toast.makeText(getActivity(), getString(R.string.insert_item_name), Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (itemNameText.getText().toString().equals("")) {
+        if (itemNameText.getText().toString().trim().length() == 0) {
             Toast.makeText(getActivity(), getString(R.string.insert_item_name), Toast.LENGTH_SHORT).show();
             return false;
         }
