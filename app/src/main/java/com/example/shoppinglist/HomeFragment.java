@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
@@ -28,15 +26,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shoppinglist.DataBase.ItemRepository;
 import com.example.shoppinglist.DataBase.UserRepository;
 import com.example.shoppinglist.RecyclerView.ShoppingListAdapter;
 import com.example.shoppinglist.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.example.shoppinglist.RecyclerView.ListAdapter;
 import com.example.shoppinglist.RecyclerView.OnItemListener;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements OnItemListener {
@@ -44,7 +41,8 @@ public class HomeFragment extends Fragment implements OnItemListener {
     private static final String LOG_TAG = "Home Fragment";
     private ShoppingListAdapter adapter;
     private RecyclerView recyclerView;
-    private UserRepository repository;
+    private UserRepository userRepository;
+    private ItemRepository itemRepository;
     private Session session;
     private ListViewModel listViewModel;
     private SearchView searchView;
@@ -53,7 +51,8 @@ public class HomeFragment extends Fragment implements OnItemListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        repository = new UserRepository(getActivity().getApplication());
+        userRepository = new UserRepository(getActivity().getApplication());
+        itemRepository = ItemRepository.getInstance(getActivity().getApplication());
         session = new Session(getContext());
 
         Log.d(LOG_TAG, "onCreate chiamato!");
@@ -125,7 +124,7 @@ public class HomeFragment extends Fragment implements OnItemListener {
                                 Log.d(LOG_TAG, "Nome lista: " + et.getText());
                                 ListEntity newList = new ListEntity(et.getText().toString().trim());
                                 newList.setUserCreatorId(session.getUserId());
-                                repository.insertList(newList);
+                                userRepository.insertList(newList);
                                 wantToCloseDialog = true;
                             } else{
                                 Toast.makeText(getContext(), getString(R.string.empty_list_name), Toast.LENGTH_SHORT).show();
@@ -221,6 +220,38 @@ public class HomeFragment extends Fragment implements OnItemListener {
     @Override
     public boolean onItemLongClick(int position) {
         return false;
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        Log.d(LOG_TAG, "Click-> onContextItemSelected");
+        int position = -1;
+        try{
+            position = adapter.getPosition();
+        } catch (Exception e){
+            Log.d(LOG_TAG, e.getLocalizedMessage(), e);
+            return super.onContextItemSelected(item);
+        }
+        Log.d(LOG_TAG, "Selected list and its position: " + adapter.getItemSelected(position) + "; " + position);
+        switch (item.getItemId()){
+            case R.id.option_delete_list:
+                ListEntity listToDelete = adapter.getItemSelected(position);
+                Log.d(LOG_TAG, "Deleting list " + listToDelete.toString());
+                Toast.makeText(getActivity(), getString(R.string.list_deleted),Toast.LENGTH_SHORT).show();
+                listViewModel.deleteList(listToDelete);
+                break;
+            case R.id.option_share_list:
+                ListEntity listToShare = adapter.getItemSelected(position);
+                Log.d(LOG_TAG, "Sharing list");
+                Toast.makeText(getActivity(), getString(R.string.sharing_list), Toast.LENGTH_SHORT).show();
+                Log.d(LOG_TAG, "List retrieved " + listToShare.getListName());
+                List<ItemEntity> listContent = itemRepository.getAllItemsInList(listToShare);
+                Log.d(LOG_TAG, "Items in list to share: " + listContent.toString());
+                Utilities.shareList(listToShare.getListName(), listContent, getContext());
+
+                break;
+        }
+        return super.onContextItemSelected(item);
     }
 
     private boolean validateListName(EditText listNameEditText){

@@ -3,6 +3,8 @@ package com.example.shoppinglist;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -21,6 +23,8 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import pl.coderion.model.Product;
 import pl.coderion.model.ProductResponse;
@@ -116,5 +120,40 @@ public class Utilities {
 
         Log.d(LOG_TAG, "prodotto ottenuto: " + product.getProductName() + "; img: " + product.getImageUrl());
         return product.getProductName();
+    }
+
+    /**
+     * Condivide una data lista creando l'intent
+     * @param listName nome della lista
+     * @param listToShare lista di ItemEntity da scrivere
+     * @param context context
+     */
+    static void shareList(String listName, List<ItemEntity> listToShare, Context context){
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        String readableList = convertItemList(listName, listToShare, context);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, readableList);
+        shareIntent.setType("text/plain");
+        if (context != null && shareIntent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(Intent.createChooser(shareIntent, null));
+        }
+    }
+
+    /**
+     * Converte una lista di oggetti in una stringa formattata pronta per essere condivisa
+     * @param listName nome lista
+     * @param listToShare lista di ItemEntity da scrivere
+     * @param context context
+     * @return una stringa ben formattata contenente nome lista, nome degli oggetti e il loro prezzo
+     */
+    private static String convertItemList(String listName, List<ItemEntity> listToShare, Context context){
+        String readableList;
+        StringBuilder builder = new StringBuilder();
+        builder.append(context.getString(R.string.list) + ": " + listName +"\n\n");
+        for (ItemEntity item : listToShare){
+            builder.append(item.getItemName() + " : " + item.getItemPrice().toString() + "€; \n");
+        }
+        readableList = builder.toString();
+        Log.d("ConvertItemList", readableList);
+        return readableList;
     }
 }

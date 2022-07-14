@@ -46,4 +46,9 @@
     <string name="username_correctly_updated">Username correctly updated</string>
     <string name="delete_item">Delete item</string>
     <string name="empty_list_name">List name cannot be empty</string>
+    <string name="delete_list">Delete list</string>
+    <string name="share_list">Share list</string>
+    <string name="sharing_list">Sharing list...</string>
+    <string name="list_deleted">List correctly deleted</string>
+    <string name="list">List</string>
 </resources>

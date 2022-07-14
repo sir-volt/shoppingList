@@ -8,9 +8,14 @@ import androidx.lifecycle.LiveData;
 
 import com.example.shoppinglist.ItemEntity;
 import com.example.shoppinglist.ListAndItemCrossRef;
+import com.example.shoppinglist.ListEntity;
 import com.example.shoppinglist.ListWithItems;
+import com.example.shoppinglist.UserEntity;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 /**
  * Repository relativa a query sul database riguardanti gli oggetti
@@ -70,22 +75,6 @@ public class ItemRepository {
     }
 
     /**
-     * Inserisce un nuovo oggetto nel database
-     * @param newItem il nuovo oggetto da inserire nel DB
-     */
-    public void insertItem(ItemEntity newItem){
-        //Non controllo che già esiste perché potrebbe esistere con lo stesso nome, ma immagine o prezzo diverso
-        UserDatabase.executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                itemDAO.insertItem(newItem);
-            }
-        });
-    }
-
-
-    //TODO fare si che elimini da ogni tabella
-    /**
      * Elimina dal database (da tutte le tabelle) un dato oggetto
      * @param item l'oggetto da eliminare dal database
      */
@@ -134,5 +123,21 @@ public class ItemRepository {
                 listDAO.removeItemFromList(new ListAndItemCrossRef(currentListId, itemEntity.getId()));
             }
         });
+    }
+
+    public List<ItemEntity> getAllItemsInList(ListEntity listEntity){
+        Future<List<ItemEntity>> tmpFuture = UserDatabase.executor.submit(new Callable<List<ItemEntity>>() {
+            @Override
+            public List<ItemEntity> call() throws Exception {
+                return listDAO.getItemsFromListToShare(listEntity.getListId());
+            }
+        });
+        List<ItemEntity> listTemp = new ArrayList<>();
+        try {
+            listTemp = tmpFuture.get();
+        }catch (Exception ex){
+            Log.e(LOG_TAG + " - login method", "Future variable isn't ready yet");
+        }
+        return listTemp;
     }
 }

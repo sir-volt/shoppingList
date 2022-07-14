@@ -43,6 +43,12 @@ public interface ListDAO {
             "WHERE list_item_cross_ref.list_id=(:listId) AND list_item_cross_ref.item_id=items.item_id")
     LiveData<List<ItemEntity>> getItemsFromList(int listId);
 
+    @Transaction
+    @Query("SELECT items.item_id, items.item_name, items.image, items.price " +
+            "FROM items,list_item_cross_ref " +
+            "WHERE list_item_cross_ref.list_id=(:listId) AND list_item_cross_ref.item_id=items.item_id")
+    List<ItemEntity> getItemsFromListToShare(int listId);
+
 
     /*
      * Questo metodo utilizza la classe ListWithItems,
@@ -67,4 +73,7 @@ public interface ListDAO {
 
     @Query("DELETE FROM lists WHERE list_id=(:listId)")
     void deleteListById(int listId);
+
+    @Query("DELETE FROM list_item_cross_ref WHERE list_id=(:listId)")
+    void deleteListContent(int listId);
 }

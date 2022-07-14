@@ -40,4 +40,9 @@
     <string name="username_correctly_updated">Nome utente aggiornato correttamente</string>
     <string name="delete_item">Elimina oggetto</string>
     <string name="empty_list_name">Il nome lista non può essere vuoto</string>
+    <string name="delete_list">Elimina lista</string>
+    <string name="share_list">Condividi lista</string>
+    <string name="sharing_list">Condivisione lista...</string>
+    <string name="list_deleted">Lista eliminata correttamente</string>
+    <string name="list">Lista</string>
 </resources>

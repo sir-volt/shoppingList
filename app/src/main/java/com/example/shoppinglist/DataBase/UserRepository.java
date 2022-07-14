@@ -126,39 +126,32 @@ public class UserRepository {
 
     public LiveData<List<ListEntity>> getAllListsFromUser(){
         return listEntityList;
-        /*Log.d(LOG_TAG, "Data to query: ID " + userId);
-        Future<List<ListEntity>> tmpFuture = UserDatabase.executor.submit(new Callable<List<ListEntity>>() {
-            @Override
-            public List<ListEntity> call() throws Exception {
-                return listDAO.getAllListsFromUser(userId);
-            }
-        });
-        List<ListEntity> tmp = new ArrayList<>();
-        try {
-            tmp = tmpFuture.get();
-        }catch (Exception ex){
-            Log.e(LOG_TAG + " - getUserWithLists method", "Future variable isn't ready yet");
-        }
-
-        return tmp;*/
     }
 
-
+    /**
+     * Elimina una lista da tutte le tabelle, quindi anche list_and_item_crossref
+     * @param list la lista da eliminare dal database
+     */
     public void deleteList(ListEntity list){
         UserDatabase.executor.execute(new Runnable() {
             @Override
             public void run() {
                 listDAO.deleteList(list);
-                //TODO rimuovere ogni item di una lista dalla tabella ListWithItems che devo ancora creare
+                listDAO.deleteListContent(list.getListId());
             }
         });
     }
 
+    /**
+     * Elimina una lista da tutte le tabelle, quindi anche list_and_item_crossref
+     * @param listId l'id della lista da eliminare dal database
+     */
     public void deleteListById(int listId){
         UserDatabase.executor.execute(new Runnable() {
             @Override
             public void run() {
                 listDAO.deleteListById(listId);
+                listDAO.deleteListContent(listId);
             }
         });
     }
@@ -170,21 +163,6 @@ public class UserRepository {
 
     public LiveData<UserWithLists> getUserWithLists(int userId){
         return userWithLists;
-        /*Log.d(LOG_TAG, "Data to query: ID " + userId);
-        Future<UserWithLists> tmpFuture = UserDatabase.executor.submit(new Callable<UserWithLists>() {
-            @Override
-            public UserWithLists call() throws Exception {
-                return listDAO.getListsFromUser(userId);
-            }
-        });
-        UserWithLists tmp = new UserWithLists();
-        try {
-            tmp = tmpFuture.get();
-        }catch (Exception ex){
-            Log.e(LOG_TAG + " - getUserWithLists method", "Future variable isn't ready yet");
-        }
-
-        return tmp;*/
     }
 
 }

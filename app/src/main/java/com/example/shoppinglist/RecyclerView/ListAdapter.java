@@ -55,7 +55,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         return new ListViewHolder(layoutView,listener,this);
     }
 
-    //TODO usare i dati del database
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         ItemEntity currentCard = itemList.get(position);
