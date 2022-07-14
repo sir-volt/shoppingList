@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shoppinglist.DataBase.UserRepository;
 import com.example.shoppinglist.RecyclerView.ShoppingListAdapter;
 import com.example.shoppinglist.ViewModel.ListViewModel;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.shoppinglist.RecyclerView.ListAdapter;
 import com.example.shoppinglist.RecyclerView.OnItemListener;
@@ -119,6 +120,18 @@ public class HomeFragment extends Fragment implements OnItemListener {
                     dialogBuilder.show();
                 }
             });
+
+            /*
+            MaterialCardView listView = view.findViewById(R.id.single_card);
+            listView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    BottomSheetDialog bottomSheet = new BottomSheetDialog();
+                    bottomSheet.show(activity.getSupportFragmentManager(),
+                            "ModalBottomSheet");
+                    return true;
+                }
+            });*/
 
         }else{
             Log.e(LOG_TAG,"Activity is Null");

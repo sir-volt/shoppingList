@@ -2,16 +2,19 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/list_content_layout"
+    android:id="@+id/home_list_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--<include layout="@layout/topbar"/>-->
+    <!-- DENTRO RECYCLERVIEW HEIGHT WRAP E android:layout_marginTop="?attr/actionBarSize"-->
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/list_recycler_view"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_in_list_card_layout"/>
+        android:id="@+id/home_recycler_view"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/list_card_layout"/>
 
-    <include layout="@layout/fab_add_item_to_list"/>
+    <include layout="@layout/fab_add_list"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
