@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -112,6 +113,10 @@ public class AddToListFragment extends Fragment implements OnItemListener{
         MenuItem item = menu.findItem(R.id.app_bar_search);
         searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
+        //Queste due righe servono per evitare che la searchView vada a schermo intero
+        // quando abbiamo il dispositivo in orizzontale
+        int options = searchView.getImeOptions();
+        searchView.setImeOptions(options| EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             /*
              * chiamo questo metodo quando utente fa la query, quando preme un bottone sulla tastiera

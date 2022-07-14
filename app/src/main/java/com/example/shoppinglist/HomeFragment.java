@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Button;
 import androidx.appcompat.widget.SearchView;
@@ -133,6 +134,12 @@ public class HomeFragment extends Fragment implements OnItemListener {
         MenuItem item = menu.findItem(R.id.app_bar_search);
         searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        //Queste due righe servono per evitare che la searchView vada a schermo intero
+        // quando abbiamo il dispositivo in orizzontale
+        int options = searchView.getImeOptions();
+        searchView.setImeOptions(options| EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+
         Log.d(LOG_TAG, "Testo inserito nella ricerca: " + searchView.getQuery().toString());
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             /*
