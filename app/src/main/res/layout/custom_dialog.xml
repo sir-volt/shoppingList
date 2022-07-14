@@ -21,9 +21,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/dialog_et"
             android:hint="@string/new_list_name"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionDone|flagNoExtractUi"
+
             android:maxLines="1"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:singleLine="true"
             />
     </LinearLayout>
