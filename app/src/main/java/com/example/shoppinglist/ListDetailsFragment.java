@@ -155,6 +155,11 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
 
     }
 
+    @Override
+    public boolean onItemLongClick(int position) {
+        return false;
+    }
+
     //searchView viene collassata quando torno indietro dal fragment per
     // evitare di vederla ancora sul frammento precetente
     @Override

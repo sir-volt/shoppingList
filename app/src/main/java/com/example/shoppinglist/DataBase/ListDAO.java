@@ -59,6 +59,9 @@ public interface ListDAO {
     @Delete
     void removeItemFromList(ListAndItemCrossRef listAndItem);
 
+    @Query("DELETE FROM list_item_cross_ref WHERE item_id=(:itemId)")
+    void removeItemFromAllLists(int itemId);
+
     @Delete
     void deleteList(ListEntity listEntity);
 

@@ -44,4 +44,5 @@
     <string name="change_name">Want to change user name?</string>
     <string name="type_username">Insert your new username!</string>
     <string name="username_correctly_updated">Username correctly updated</string>
+    <string name="delete_item">Delete item</string>
 </resources>

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -159,6 +160,7 @@ public class AddToListFragment extends Fragment implements OnItemListener{
         recyclerView.setAdapter(adapter);*/
         recyclerView = activity.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
+        registerForContextMenu(recyclerView);
         //Nuovo tipo di chiamata a ShoppingListAdapter, che fa uso di un listener
         final OnItemListener listener = this;
         adapter = new ListAdapter(listener, activity);
@@ -175,6 +177,38 @@ public class AddToListFragment extends Fragment implements OnItemListener{
             viewModel.setItemSelected(adapter.getItemSelected(position));
 
         }
+    }
+
+    @Override
+    public boolean onItemLongClick(int position) {
+        Log.d(LOG_TAG, "Long Click on " + position);
+        Activity activity = getActivity();
+        if (activity!=null){
+            //int itemSelected = adapter.getItemSelected(position).getId();
+            //iewModel.setItemSelected(adapter.getItemSelected(position));
+
+        }
+        return false;
+    }
+
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        Log.d(LOG_TAG, "Click-> onContextItemSelected");
+        int position = -1;
+        try{
+            position = adapter.getPosition();
+        } catch (Exception e){
+            Log.d(LOG_TAG, e.getLocalizedMessage(), e);
+            return super.onContextItemSelected(item);
+        }
+        if (item.getItemId() == R.id.option_delete_item) {
+            ItemEntity itemToDelete = adapter.getItemSelected(position);
+            Log.d(LOG_TAG, "Deleting item " + itemToDelete.toString());
+            Toast.makeText(getActivity(), "Deleting item " + itemToDelete.toString(),Toast.LENGTH_SHORT).show();
+            viewModel.deleteItem(itemToDelete);
+        }
+        return super.onContextItemSelected(item);
     }
 
     //searchView viene collassata quando torno indietro dal fragment per

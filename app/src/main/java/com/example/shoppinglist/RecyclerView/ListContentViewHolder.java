@@ -28,6 +28,12 @@ public class ListContentViewHolder extends RecyclerView.ViewHolder implements Vi
 
     private ItemRepository repository;
 
+    /**
+     * Questa è la versione per gli oggetti contenuti in una lista
+     * @param itemView itemView
+     * @param listener listener
+     * @param adapter adapter
+     */
     public ListContentViewHolder(@NonNull View itemView, OnItemListener listener, ListContentAdapter adapter) {
         super(itemView);
         itemImageView = itemView.findViewById(R.id.list_item_icon);

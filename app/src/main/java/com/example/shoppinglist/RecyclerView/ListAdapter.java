@@ -32,7 +32,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
     private List<ItemEntity> itemListNotFiltered = new ArrayList<>();
     private Activity activity;
     private OnItemListener listener;
-    private AddToListViewModel viewModel;
+    private int position;
 
 
     /**
@@ -81,6 +81,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
                 }
         }
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //setPosition(holder.getPosition());
+                Log.d(LOG_TAG, "Long Click on " + holder.getAdapterPosition());
+                setPosition(holder.getAdapterPosition());
+                return false;
+            }
+        });
+
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull ListViewHolder holder) {
+        holder.itemView.setOnLongClickListener(null);
+        super.onViewRecycled(holder);
     }
 
     @Override
@@ -160,4 +176,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         diffResult.dispatchUpdatesTo(this);
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 }

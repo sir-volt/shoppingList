@@ -2,6 +2,8 @@ package com.example.shoppinglist.RecyclerView;
 
 import android.app.Application;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -16,7 +18,7 @@ import com.example.shoppinglist.DataBase.ItemRepository;
 import com.example.shoppinglist.ItemEntity;
 import com.example.shoppinglist.R;
 
-public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, View.OnLongClickListener{
 
     private static final String LOG_TAG = "ListViewHolder";
 
@@ -29,9 +31,10 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private ItemRepository repository;
 
     /**
-     * Questa versione è per gli oggetti interni ad una lista. Probabilmente la sposterò
-     * @param itemView
-     * @param listener
+     * Questa versione è per gli oggetti da poter mettere in lista. Probabilmente la sposterò
+     * @param itemView listener
+     * @param listener listener
+     * @param adapter adapter
      */
     //Todo posso passargli adapter, per fare  getItemSelected(int position)?
     public ListViewHolder(@NonNull View itemView, OnItemListener listener, ListAdapter adapter){
@@ -40,7 +43,9 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         itemNameTextView = itemView.findViewById(R.id.list_item_text);
         itemPriceTextView = itemView.findViewById(R.id.list_price_text);
         this.itemListener = listener;
-        itemView.setOnClickListener(this);
+        //itemView.setOnClickListener(this);    //forse non sono più necessari
+        itemView.setOnLongClickListener(this);
+        itemView.setOnCreateContextMenuListener(this);  //INDISPENSABILE per far apparire il context menu
         itemView.findViewById(R.id.add_or_remove_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +55,15 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                 //adapter.insertItemInList(itemEntity);
                 repository = ItemRepository.getInstance((Application) itemView.getContext().getApplicationContext());
                 repository.addItemTolist(itemEntity);
+            }
+        });
+
+        itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Log.d(LOG_TAG, "Long Click on " + getAdapterPosition());
+                //setPosition(holder.getAdapterPosition());
+                return true;
             }
         });
 
@@ -71,6 +85,20 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View view) {
+        Log.d(LOG_TAG, "Item Click");
         itemListener.onItemClick(getAdapterPosition());
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+        //menuInfo is null
+        contextMenu.add(Menu.NONE, R.id.option_delete_item,
+                Menu.NONE, R.string.delete_item);
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        Log.d(LOG_TAG, "Item Long Click");
+        return itemListener.onItemLongClick(getAdapterPosition());
     }
 }

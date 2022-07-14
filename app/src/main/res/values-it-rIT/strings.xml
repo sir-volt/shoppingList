@@ -38,4 +38,5 @@
     <string name="change_name">Vuoi cambiare nome utente?</string>
     <string name="type_username">Inserisci il nuovo nome!</string>
     <string name="username_correctly_updated">Nome utente aggiornato correttamente</string>
+    <string name="delete_item">Elimina oggetto</string>
 </resources>

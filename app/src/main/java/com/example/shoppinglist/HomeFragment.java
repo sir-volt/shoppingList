@@ -193,4 +193,9 @@ public class HomeFragment extends Fragment implements OnItemListener {
             listViewModel.setListSelected(adapter.getListSelected(position));
         }
     }
+
+    @Override
+    public boolean onItemLongClick(int position) {
+        return false;
+    }
 }

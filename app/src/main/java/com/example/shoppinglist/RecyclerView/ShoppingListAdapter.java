@@ -66,7 +66,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
 
     @Override
     public int getItemCount() {
-        Log.d(LOG_TAG, "getItemCount: count: " + shoppingLists.size() + " shoppingLists: " + shoppingLists.toString());
+        //Log.d(LOG_TAG, "getItemCount: count: " + shoppingLists.size() + " shoppingLists: " + shoppingLists.toString());
         //String className = new Exception().getStackTrace()[1].getClassName();
         //Log.d(LOG_TAG, "Who called me? " + className);
         return shoppingLists.size();

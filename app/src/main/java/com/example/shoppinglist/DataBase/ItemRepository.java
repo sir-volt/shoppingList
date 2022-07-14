@@ -94,6 +94,7 @@ public class ItemRepository {
             @Override
             public void run() {
                 itemDAO.deleteItem(item);
+                listDAO.removeItemFromAllLists(item.getId());
             }
         });
     }
