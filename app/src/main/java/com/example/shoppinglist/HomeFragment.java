@@ -103,16 +103,7 @@ public class HomeFragment extends Fragment implements OnItemListener {
                     dialogBuilder.setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            EditText et = (EditText) customDialog.findViewById(R.id.dialog_et);
-                            if(validateListName(et)){
-                                Log.d(LOG_TAG, "Nome lista: " + et.getText());
-                                ListEntity newList = new ListEntity(et.getText().toString().trim());
-                                newList.setUserCreatorId(session.getUserId());
 
-                                repository.insertList(newList);
-                            } else{
-                                Toast.makeText(getContext(), getString(R.string.empty_list_name), Toast.LENGTH_SHORT).show();
-                            }
 
                         }
                     });
@@ -122,7 +113,28 @@ public class HomeFragment extends Fragment implements OnItemListener {
                             dialogInterface.cancel();
                         }
                     });
-                    dialogBuilder.show();
+                    //dialogBuilder.show();
+                    AlertDialog dialog = dialogBuilder.create();
+                    dialog.show();
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Boolean wantToCloseDialog = false;
+                            EditText et = (EditText) customDialog.findViewById(R.id.dialog_et);
+                            if(validateListName(et)){
+                                Log.d(LOG_TAG, "Nome lista: " + et.getText());
+                                ListEntity newList = new ListEntity(et.getText().toString().trim());
+                                newList.setUserCreatorId(session.getUserId());
+                                repository.insertList(newList);
+                                wantToCloseDialog = true;
+                            } else{
+                                Toast.makeText(getContext(), getString(R.string.empty_list_name), Toast.LENGTH_SHORT).show();
+                            }
+                            if (wantToCloseDialog){
+                                dialog.dismiss();
+                            }
+                        }
+                    });
                 }
             });
 
