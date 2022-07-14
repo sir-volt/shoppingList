@@ -212,7 +212,7 @@ public class AddToListFragment extends Fragment implements OnItemListener{
         if (item.getItemId() == R.id.option_delete_item) {
             ItemEntity itemToDelete = adapter.getItemSelected(position);
             Log.d(LOG_TAG, "Deleting item " + itemToDelete.toString());
-            Toast.makeText(getActivity(), "Deleting item " + itemToDelete.toString(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.deleting) +" "+ itemToDelete.getItemName(),Toast.LENGTH_SHORT).show();
             viewModel.deleteItem(itemToDelete);
         }
         return super.onContextItemSelected(item);

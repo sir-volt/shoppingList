@@ -45,4 +45,10 @@
     <string name="sharing_list">Condivisione lista...</string>
     <string name="list_deleted">Lista eliminata correttamente</string>
     <string name="list">Lista</string>
+    <string name="removed">rimosso</string>
+    <string name="added">Aggiunto</string>
+    <string name="deleting">Eliminando</string>
+    <string name="scan_fail">Scansione fallita</string>
+    <string name="product_found">Prodotto trovato!</string>
+    <string name="product_not_found">Prodotto non trovato!</string>
 </resources>

@@ -165,7 +165,7 @@ public class AddFragment extends Fragment {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 invokeCamera(activity);
             } else {
-                Toast.makeText(activity, "Unable to invoke camera without permission", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, getString(R.string.camera_permission), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -284,15 +284,15 @@ public class AddFragment extends Fragment {
                 Log.d(LOG_TAG, "Codice trovato: " + productCode);
                 productResponse = Utilities.checkProductCode(productCode);
                 if(productResponse!=null){
-                    Toast.makeText(activity, "Prodotto trovato!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity, getString(R.string.product_found),Toast.LENGTH_LONG).show();
                     Log.d(LOG_TAG, "Prodotto: " + productResponse);
                     itemNameText.setText(productResponse);
                 } else{
-                    Toast.makeText(activity, "Prodotto non trovato",Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity, getString(R.string.product_not_found),Toast.LENGTH_LONG).show();
                 }
 
             } else if (resultCode == Utilities.RESULT_FAIL){
-
+                Toast.makeText(activity, getString(R.string.scan_fail),Toast.LENGTH_LONG).show();
             }
         }
     }

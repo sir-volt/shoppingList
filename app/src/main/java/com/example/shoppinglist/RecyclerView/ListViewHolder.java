@@ -49,7 +49,7 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         itemView.findViewById(R.id.add_or_remove_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(itemView.getContext(), itemNameTextView.getText().toString() + "; item pos: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(itemView.getContext(),itemView.getContext().getString(R.string.added) +" "+ itemNameTextView.getText().toString(), Toast.LENGTH_SHORT).show();
                 ItemEntity itemEntity = adapter.getItemSelected(getAdapterPosition());
                 Log.d(LOG_TAG,"Item Selected: " + itemEntity.toString());
                 //adapter.insertItemInList(itemEntity);

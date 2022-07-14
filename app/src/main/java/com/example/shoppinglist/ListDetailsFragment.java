@@ -65,7 +65,6 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //TODO Prima era Appcompatactivity
         FragmentActivity activity = (AppCompatActivity) getActivity();
         if(activity != null){
             Utilities.setUpToolbar((AppCompatActivity) activity, this.listName);

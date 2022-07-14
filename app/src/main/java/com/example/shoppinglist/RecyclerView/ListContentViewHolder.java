@@ -48,7 +48,7 @@ public class ListContentViewHolder extends RecyclerView.ViewHolder implements Vi
                 if(checkBox.isChecked()){
                     checkBox.setChecked(false);
                 }
-                Toast.makeText(itemView.getContext(), itemNameTextView.getText().toString() + "; item pos: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(itemView.getContext(), itemNameTextView.getText().toString() + " " + itemView.getContext().getString(R.string.removed), Toast.LENGTH_SHORT).show();
                 ItemEntity itemEntity = adapter.getItemSelected(getAdapterPosition());
                 Log.d(LOG_TAG,"Item Selected: " + itemEntity.toString());
                 repository = ItemRepository.getInstance((Application) itemView.getContext().getApplicationContext());
