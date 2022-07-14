@@ -105,7 +105,7 @@ public class SignupFragment extends Fragment {
         if(userEntity.getEmail().isEmpty() || userEntity.getName().isEmpty() || userEntity.getPassword().isEmpty()) {
             return false;
         } else {
-            return true;
+            return userEntity.getEmail().trim().length() != 0 && userEntity.getName().trim().length() != 0 && userEntity.getPassword().trim().length() != 0;
         }
     }
 

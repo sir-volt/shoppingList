@@ -81,7 +81,7 @@ public class LoginFragment extends Fragment {
         if(email.isEmpty() || password.isEmpty()) {
             return false;
         } else {
-            return true;
+            return email.trim().length() != 0 && password.trim().length() != 0;
         }
     }
 
