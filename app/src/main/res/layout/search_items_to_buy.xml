@@ -12,7 +12,6 @@
         android:layout_marginBottom="?attr/actionBarSize"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_layout"/>
-    <!--android:layout_marginBottom="?attr/actionBarSize"-->
     <include layout="@layout/bottombar"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
