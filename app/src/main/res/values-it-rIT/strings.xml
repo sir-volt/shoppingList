@@ -51,4 +51,6 @@
     <string name="scan_fail">Scansione fallita</string>
     <string name="product_found">Prodotto trovato!</string>
     <string name="product_not_found">Prodotto non trovato!</string>
+    <string name="external_storage_permission">Per salvare un immagine è richiesto l\'accesso alla memoria esterna</string>
+    <string name="camera_permission_refused">Permesso negato, ma necessario per utilizzare le funzioni relative alle foto</string>
 </resources>

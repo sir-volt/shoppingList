@@ -2,8 +2,10 @@ package com.example.shoppinglist;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -20,18 +22,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.shoppinglist.DataBase.ItemRepository;
 import com.example.shoppinglist.ViewModel.AddViewModel;
-
-import org.slf4j.helpers.Util;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -51,6 +54,8 @@ public class AddFragment extends Fragment {
     private Double itemPrice;
     private EditText itemNameText, itemPriceText;
     AppCompatActivity activity;
+    private ActivityResultLauncher<String> requestCameraPermissionLauncher, requestStoragePermissionLauncher;
+    private AddViewModel addViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,7 +77,34 @@ public class AddFragment extends Fragment {
         if(activity != null){
             Utilities.setUpToolbar(activity, getString(R.string.create_new_item));
 
+            requestCameraPermissionLauncher = registerForActivityResult(
+                    new ActivityResultContracts.RequestPermission(),
+                    new ActivityResultCallback<Boolean>() {
+                        @Override
+                        public void onActivityResult(Boolean result) {
+                            if (result) {
+                                invokeCamera(activity);
+                                Log.d(LOG_TAG, "CAMERA PERMISSION GRANTED");
+                            } else {
+                                Log.d(LOG_TAG, "CAMERA PERMISSION NOT GRANTED");
+                                showCameraPermissionRationale();
+                            }
+                        }
+                    });
 
+            requestStoragePermissionLauncher = registerForActivityResult(
+                    new ActivityResultContracts.RequestPermission(),
+                    new ActivityResultCallback<Boolean>() {
+                        @Override
+                        public void onActivityResult(Boolean result) {
+                            if (result) {
+                                Log.d(LOG_TAG, "STORAGE PERMISSION GRANTED");
+                            } else {
+                                Log.d(LOG_TAG, "STORAGE PERMISSION NOT GRANTED");
+                                showStoragePermissionRationale();
+                            }
+                        }
+                    });
 
             /*
              * aggiungiamo un listener al bottone "take a picture" per far partire un intent
@@ -81,11 +113,19 @@ public class AddFragment extends Fragment {
             view.findViewById(R.id.capture_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(activity.checkSelfPermission(Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED){
+                    if(activity.checkSelfPermission(Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED){
                         invokeCamera(activity);
-                    } else {
+                    } else /*{
+                        Log.d(LOG_TAG, "Cant invoke camera");
                         String[] permissionRequested = {Manifest.permission.CAMERA};
                         activity.requestPermissions(permissionRequested, Utilities.REQUEST_CAMERA_USAGE);
+                    }*/
+                    if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
+                        Log.d(LOG_TAG, "Showing permission rationale");
+                        showCameraPermissionRationale();
+                    } else {
+                        Log.d(LOG_TAG, "Requesting camera permissions");
+                        requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA);
                     }
 
                 }
@@ -95,7 +135,7 @@ public class AddFragment extends Fragment {
              * (view) viene creato, venga mostrata l'ultima immagine che è stata scattata (può anche essere un drawable)
              */
             ImageView imageView = view.findViewById(R.id.item_promotionImageView);
-            AddViewModel addViewModel = new ViewModelProvider(activity).get(AddViewModel.class);
+            addViewModel = new ViewModelProvider(activity).get(AddViewModel.class);
 
             addViewModel.getImageBitMap().observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
                 @Override
@@ -118,28 +158,32 @@ public class AddFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Bitmap bitmap = addViewModel.getImageBitMap().getValue();
-                    String imageUriString;
+                    String imageUriString = "";
 
                     try{
                         if(bitmap != null){
                             //saveImage(bitmap,activity);
-                            imageUriString = String.valueOf(saveImageUri(bitmap, activity));
+
+                            if (activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                                imageUriString = String.valueOf(saveImageUri(bitmap, activity));
+                                saveItemWithImage(imageUriString, addViewModel);
+                            } if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                                Log.d(LOG_TAG, "Showing permission rationale");
+                                showStoragePermissionRationale();
+                            } else {
+                                Log.d(LOG_TAG, "Requesting storage permissions");
+                                requestStoragePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                            }
+
                         } else{
                             //Se l'immagine è vuota, carico l'URI di un icona
                             imageUriString = "ic_baseline_image_not_supported_24";
-                        }
-                        if(validateInput(itemNameText, itemPriceText)){
-                            itemEntity = new ItemEntity(itemName.trim(), itemPrice, imageUriString);
-                            addViewModel.addItem(itemEntity);
-                            addViewModel.setImageBitMap(null);
-                            activity.getSupportFragmentManager().popBackStack();
+                            saveItemWithImage(imageUriString, addViewModel);
                         }
                     } catch (FileNotFoundException e){
                         e.printStackTrace();
                     }
-                    //itemEntity = new ItemEntity(null);
 
-                    //itemRepository.insertItem(null);
                 }
             });
 
@@ -158,16 +202,81 @@ public class AddFragment extends Fragment {
 
     }
 
+    private void saveItemWithImage(String imageUriString, AddViewModel addViewModel) {
+        if(validateInput(itemNameText, itemPriceText)){
+            if(imageUriString.isEmpty()){
+                imageUriString = "ic_baseline_image_not_supported_24";
+            }
+            itemEntity = new ItemEntity(itemName.trim(), itemPrice, imageUriString);
+            addViewModel.addItem(itemEntity);
+            addViewModel.setImageBitMap(null);
+            activity.getSupportFragmentManager().popBackStack();
+        }
+    }
+
+    /**
+     * Questo metodo in realtà non viene mai chiamato perché andrebbe chiamato in un activity ed è deprecato
+     * @param requestCode requestcode
+     * @param permissions permission
+     * @param grantResults grantresult
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.d(LOG_TAG, "onRequestPermissionsResult");
         if(requestCode == Utilities.REQUEST_CAMERA_USAGE){
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 invokeCamera(activity);
             } else {
-                Toast.makeText(activity, getString(R.string.camera_permission), Toast.LENGTH_SHORT).show();
+                if (getActivity() == null) {
+                    Log.d(LOG_TAG, "Activity null");
+                    return;
+                }
+                if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
+                    Log.d(LOG_TAG, "Showing permission rationale");
+                    showCameraPermissionRationale();
+                } else {
+                    Log.d(LOG_TAG, "Requesting camera permissions");
+                    requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA);
+                }
             }
         }
+        if(requestCode == Utilities.REQUEST_WRITE_EXTERNAL_STORAGE){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            } else {
+                Toast.makeText(activity, getString(R.string.external_storage_permission), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void showCameraPermissionRationale() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage(getString(R.string.camera_permission_refused));
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA);
+            }
+        });
+        builder.setNegativeButton(getString(R.string.cancel),((dialogInterface, i) -> dialogInterface.cancel()));
+        builder.create();
+        builder.show();
+    }
+
+    private void showStoragePermissionRationale() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage(getString(R.string.camera_permission_refused));
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                requestStoragePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            }
+        });
+        builder.setNegativeButton(getString(R.string.cancel),((dialogInterface, i) -> dialogInterface.cancel()));
+        builder.create();
+        builder.show();
     }
 
     private void invokeCamera(AppCompatActivity activity) {
@@ -216,6 +325,8 @@ public class AddFragment extends Fragment {
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, name);
         contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg");
+
+        //todo mettere qua il controllo permesso
 
         Uri imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 contentValues);
@@ -295,5 +406,12 @@ public class AddFragment extends Fragment {
                 Toast.makeText(activity, getString(R.string.scan_fail),Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        addViewModel.setImageBitMap(null);
+        Log.d(LOG_TAG, "onDestroy");
     }
 }

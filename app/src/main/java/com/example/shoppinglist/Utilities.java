@@ -34,6 +34,7 @@ import pl.coderion.service.impl.OpenFoodFactsWrapperImpl;
 public class Utilities {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_WRITE_EXTERNAL_STORAGE = 1001;
     static final int REQUEST_CAMERA_USAGE = 100001;
     static final int RESULT_OK = 11;
     static final int RESULT_FAIL = 12;
