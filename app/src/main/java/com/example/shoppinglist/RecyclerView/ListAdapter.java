@@ -1,7 +1,9 @@
 package com.example.shoppinglist.RecyclerView;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppinglist.ItemEntity;
 import com.example.shoppinglist.R;
+import com.example.shoppinglist.Utilities;
 import com.example.shoppinglist.ViewModel.AddToListViewModel;
 
 import java.util.ArrayList;
@@ -29,21 +32,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
     private List<ItemEntity> itemListNotFiltered = new ArrayList<>();
     private Activity activity;
     private OnItemListener listener;
-    private AddToListViewModel viewModel;
+    private int position;
 
 
     /**
-     * Nuovo costruttore, che prende in input solo listener, activity e viewModel.
+     * Nuovo costruttore, che prende in input solo listener e activity.
      * Per assegnare itemList viene usato il metodo pubblico setData()
      * @param listener listener
      * @param activity activity
-     * @param viewModel viewModel per chiamare metodi dalla repository
      */
-    public ListAdapter(OnItemListener listener, Activity activity, AddToListViewModel viewModel){
+    public ListAdapter(OnItemListener listener, Activity activity){
         this.listener = listener;
         this.activity = activity;
-        this.viewModel = viewModel;
-        //tanto viewmodel torna null quindi niente
     }
 
 
@@ -55,7 +55,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         return new ListViewHolder(layoutView,listener,this);
     }
 
-    //TODO usare i dati del database
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         ItemEntity currentCard = itemList.get(position);
@@ -65,14 +64,38 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         holder.itemPriceTextView.setText(price);
 
         String image = currentCard.getImageResource();
-        //todo vedo sempre le immagini, copiare dal listcontentadapter
-        //al momento abbiamo solo drawable, in futuro ci saranno foto, questo if è per mettere i placeholder draawable
-        if(image!=null){    //Ho fatto questa modifica perché se la stringa è null allora crasha chiamando .contains()
-        //if(image.contains("ic_")){
-            Drawable drawable = AppCompatResources.getDrawable(activity, activity.getResources()
-                    .getIdentifier(image, "drawable",activity.getPackageName()));
-            holder.itemImageView.setImageDrawable(drawable);
+        //Ho fatto questa modifica perché se la stringa è null allora crasha, quindi se è nulla ci metto il placeholder
+        if(image==null){
+            image = "ic_baseline_image_not_supported_24";
         }
+        if(image.contains("ic_")) {
+            //if(image.contains("ic_")){
+            Drawable drawable = AppCompatResources.getDrawable(activity, activity.getResources()
+                    .getIdentifier(image, "drawable", activity.getPackageName()));
+            holder.itemImageView.setImageDrawable(drawable);
+        } else{
+                Bitmap bitmap = Utilities.getImageBitmap(activity, Uri.parse(image));
+                if (bitmap != null){
+                    holder.itemImageView.setImageBitmap(bitmap);
+                }
+        }
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //setPosition(holder.getPosition());
+                Log.d(LOG_TAG, "Long Click on " + holder.getAdapterPosition());
+                setPosition(holder.getAdapterPosition());
+                return false;
+            }
+        });
+
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull ListViewHolder holder) {
+        holder.itemView.setOnLongClickListener(null);
+        super.onViewRecycled(holder);
     }
 
     @Override
@@ -152,10 +175,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> implements
         diffResult.dispatchUpdatesTo(this);
     }
 
-    public void insertItemInList(ItemEntity itemEntity){
-        if (viewModel == null){
-            Log.e(LOG_TAG, "viewmodel null");
-        }
-        viewModel.insertItemInList(itemEntity);
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }

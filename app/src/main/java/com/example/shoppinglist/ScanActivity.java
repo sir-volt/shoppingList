@@ -1,8 +1,10 @@
 package com.example.shoppinglist;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -33,23 +35,22 @@ public class ScanActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(ScanActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
+                        Log.d("ScanActivity", result.getText());
+                        Intent data = new Intent();
+                        data.putExtra(Utilities.BARCODE_SCAN_RESULT, result.getText());
+                        setResult(Utilities.RESULT_OK, data);
+                        finish();
                     }
                 });
             }
         });
-        codeScannerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(ContextCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA)
+        if(ContextCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED){
-                    codeScanner.startPreview();
-                } else {
-                    ActivityCompat.requestPermissions(ScanActivity.this,
-                            new String[] {Manifest.permission.CAMERA},Utilities.REQUEST_CAMERA_USAGE);
-                }
-            }
-        });
+            codeScanner.startPreview();
+        } else {
+            ActivityCompat.requestPermissions(ScanActivity.this,
+                    new String[] {Manifest.permission.CAMERA},Utilities.REQUEST_CAMERA_USAGE);
+        }
     }
 
     @Override
@@ -59,7 +60,9 @@ public class ScanActivity extends AppCompatActivity {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 codeScanner.startPreview();
             } else {
-                Toast.makeText(this, "camera permission not granted", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.camera_permission, Toast.LENGTH_LONG).show();
+                //getSupportFragmentManager().popBackStack();
+                finish();
             }
         }
     }

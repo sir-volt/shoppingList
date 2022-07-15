@@ -26,13 +26,15 @@ public class ListViewModel extends AndroidViewModel {
 
     public LiveData<List<ListEntity>> shoppingLists;
 
+    private UserRepository repository;
+
 
     public ListViewModel(@NonNull Application application) {
         super(application);
         Session session = new Session(application);
         //Questo non funziona perchè non è l'istanza di repository nella quale sono state caricate le cose
         Log.d(LOG_TAG, "User ID da cercare: " + session.getUserId());
-        UserRepository repository = new UserRepository(application, session.getUserId());
+        repository = new UserRepository(application, session.getUserId());
         shoppingLists = repository.getAllListsFromUser();
 
     }
@@ -50,4 +52,7 @@ public class ListViewModel extends AndroidViewModel {
         listSelected.setValue(listEntity);
     }
 
+    public void deleteList(ListEntity selectedList) {
+        repository.deleteList(selectedList);
+    }
 }

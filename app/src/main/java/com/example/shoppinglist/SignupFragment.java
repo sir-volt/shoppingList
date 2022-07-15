@@ -105,25 +105,11 @@ public class SignupFragment extends Fragment {
         if(userEntity.getEmail().isEmpty() || userEntity.getName().isEmpty() || userEntity.getPassword().isEmpty()) {
             return false;
         } else {
-            return true;
+            return userEntity.getEmail().trim().length() != 0 && userEntity.getName().trim().length() != 0 && userEntity.getPassword().trim().length() != 0;
         }
     }
 
     private Boolean checkEmail(String email){
-        /*Log.e(LOG_TAG, "Email to lookup: " + email);
-        userEmailList = repository.getUserList();
-        if (userEmailList !=null){
-            if(userEmailList.contains(email)){
-                Log.e(LOG_TAG, "Email was found in database at index" + userEmailList.indexOf(email));
-                return true;
-            } else {
-                Log.e(LOG_TAG, "OK! Email List does not contain " + email);
-                return false;
-            }
-        } else {
-            Log.e(LOG_TAG, "ERROR! Query result for " + email + " was null");
-            return false;
-        }*/
         return repository.isTaken(email);
     }
 

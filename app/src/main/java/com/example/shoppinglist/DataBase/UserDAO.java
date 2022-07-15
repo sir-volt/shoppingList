@@ -31,4 +31,7 @@ public interface UserDAO {
     @Query("SELECT email FROM users")
     List<String> getAllUserEmail();
 
+    @Query("UPDATE users SET name=(:username) WHERE user_id=(:id)")
+    void updateUsername(String username, int id);
+
 }

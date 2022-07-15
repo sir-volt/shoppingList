@@ -52,45 +52,72 @@
         android:background="@drawable/edittext_custom"
         android:textSize="15sp"
 
-        app:layout_constraintBottom_toTopOf="@+id/password_text"
+        app:layout_constraintBottom_toTopOf="@+id/passwordLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username_text" />
 
 
-    <EditText
-        android:id="@+id/password_text"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
 
-        android:background="@drawable/edittext_custom"
-        android:hint="@string/prompt_password"
-        android:inputType="textPassword"
-        android:paddingHorizontal="15dp"
-        android:textSize="15sp"
+        android:padding="0dp"
+        app:boxBackgroundMode="none"
+        app:hintEnabled="false"
+        app:passwordToggleEnabled="true"
 
-        app:layout_constraintBottom_toTopOf="@+id/repassword_text"
+        app:layout_constraintBottom_toTopOf="@+id/repasswordLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_text"/>
+        app:layout_constraintTop_toBottomOf="@+id/email_text">
 
-    <EditText
-        android:id="@+id/repassword_text"
+        <EditText
+            android:id="@+id/password_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/edittext_custom"
+            android:hint="@string/prompt_password"
+            android:inputType="textPassword"
+            android:paddingHorizontal="15dp"
+            android:textSize="15sp"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/repasswordLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
 
-        android:background="@drawable/edittext_custom"
-        android:hint="@string/prompt_confirm_password"
-        android:inputType="textPassword"
-        android:paddingHorizontal="15dp"
-        android:textSize="15sp"
+        android:padding="0dp"
+        app:boxBackgroundMode="none"
+        app:hintEnabled="false"
+        app:passwordToggleEnabled="true"
 
         app:layout_constraintBottom_toTopOf="@+id/signup_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_text"/>
+        app:layout_constraintTop_toBottomOf="@+id/passwordLayout">
+
+        <EditText
+            android:id="@+id/repassword_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/edittext_custom"
+            android:hint="@string/prompt_confirm_password"
+            android:inputType="textPassword"
+            android:paddingHorizontal="15dp"
+            android:textSize="15sp"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
         <Button
@@ -107,7 +134,7 @@
             app:layout_constraintBottom_toTopOf="@id/swipeLeft"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/repassword_text"/>
+            app:layout_constraintTop_toBottomOf="@+id/repasswordLayout"/>
 
         <ImageView
             android:id="@+id/swipeLeft"
