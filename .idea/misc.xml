@@ -14,10 +14,6 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.165" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/drawable/ic_launcher_background.xml" value="0.165" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/drawable/ic_outline_cancel_24.xml" value="0.165" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout-land/home.xml" value="0.21428571428571427" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout-land/list_content.xml" value="0.16265060240963855" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout-land/search_items_to_buy.xml" value="0.1" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout-large/search_items_to_buy.xml" value="0.1" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/activity_login_signup.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/activity_main.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/add_new_item.xml" value="0.22826086956521738" />
@@ -29,14 +25,10 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/fragment_signup.xml" value="0.176" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/home.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/home_old.xml" value="0.1" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/item_in_list_card_layout.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/item_layout.xml" value="0.2" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/list_card_layout.xml" value="0.2" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/list_content.xml" value="0.176" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/modal_bottom_sheet.xml" value="0.11302083333333333" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/modal_bottom_sheets.xml" value="0.2" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/scan_layout.xml" value="0.152" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/search_items_to_buy.xml" value="0.136" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/layout/search_items_to_buy.xml" value="0.264" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList-con-Git/shoppingList/app/src/main/res/menu/top_app_bar.xml" value="0.1" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/ShoppingList/app/src/main/res/layout/card_layout.xml" value="0.22826086956521738" />
@@ -47,6 +39,32 @@
         <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/ShoppingList/app/src/main/res/layout/home.xml" value="0.23007246376811594" />
         <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/ShoppingList/app/src/main/res/layout/topbar.xml" value="0.23007246376811594" />
         <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/ShoppingList/app/src/main/res/menu/top_app_bar.xml" value="0.259375" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout-land/bottombar.xml" value="0.13932291666666666" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout-land/home.xml" value="0.66875" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout-land/search_items_to_buy.xml" value="0.2" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout-large/search_items_to_buy.xml" value="0.10338541666666666" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/activity_user_settings.xml" value="0.6225" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/add_new_item.xml" value="0.8" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/bottombar.xml" value="0.21842105263157896" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/bottombar_proper.xml" value="0.62" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/custom_dialog.xml" value="0.6225" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/fab_add_item_to_list.xml" value="0.5875" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/fab_add_list.xml" value="0.6225" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/fragment_login.xml" value="0.536" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/fragment_signup.xml" value="0.6225" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/home.xml" value="0.6225" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/item_in_list_card_layout.xml" value="0.8" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/item_layout.xml" value="0.6225" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/list_card_layout.xml" value="0.2553846153846154" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/list_content.xml" value="0.5875" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/search_items_to_buy.xml" value="0.2" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/topbar.xml" value="0.6225" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/user_settings.xml" value="0.6" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/layout/user_settings_2.xml" value="0.72" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/menu/bottom_app_bar.xml" value="0.62" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/menu/item_context_menu.xml" value="0.6225" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/menu/list_context_menu.xml" value="0.62" />
+        <entry key="..\:/Users/megab/Documents/AndroidStudioProjects/shoppingList/app/src/main/res/menu/top_app_bar.xml" value="0.5875" />
       </map>
     </option>
   </component>
