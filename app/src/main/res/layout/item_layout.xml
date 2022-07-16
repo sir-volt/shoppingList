@@ -16,11 +16,16 @@
         android:layout_height="match_parent"
         android:background="@color/lightGray">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/list_item_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:contentDescription="@string/image_of_item"
+            android:scaleType="center"
+
+            app:shapeAppearanceOverlay="@style/ImageView.Round"
+
+            android:layout_margin="5dp"
 
             android:src="@drawable/ic_baseline_image_24"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,14 +44,14 @@
             android:id="@+id/list_item_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxLines="1"
+            android:maxLines="2"
             app:autoSizeMaxTextSize="100sp"
-            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMinTextSize="5sp"
             app:autoSizeTextType="uniform"
-            android:layout_marginStart="5dp"
+            android:layout_marginHorizontal="5dp"
             android:paddingTop="10dp"
             android:paddingStart="1dp"
-            android:paddingEnd="16dp"
+            android:paddingEnd="1dp"
             android:text="@string/item_title"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:textColor="@color/black"
@@ -61,11 +66,11 @@
             android:layout_below="@id/list_item_text"
             android:layout_gravity="center_vertical"
             android:layout_toEndOf="@id/list_item_icon"
-            android:paddingEnd="16dp"
+            android:paddingEnd="1dp"
             android:paddingStart="1dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginHorizontal="5dp"
             android:layout_marginBottom="5dp"
-            android:maxLines="2"
+            android:maxLines="1"
             android:text="@string/item_price_2"
             android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
             android:textColor="@color/black"
@@ -80,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.79" />
+            app:layout_constraintGuide_percent="0.85" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/add_or_remove_button"

@@ -11,7 +11,10 @@
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        style="@android:style/Widget.Material.ActionBar">
+        style="@android:style/Widget.Material.ActionBar"
+        app:hideOnScroll="true"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/savebutton"

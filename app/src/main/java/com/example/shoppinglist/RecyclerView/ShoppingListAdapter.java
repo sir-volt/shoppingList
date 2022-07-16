@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shoppinglist.ItemEntity;
 import com.example.shoppinglist.ListEntity;
 import com.example.shoppinglist.R;
 
@@ -24,6 +25,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
     private List<ListEntity> shoppingListsNotFiltered = new ArrayList<>();
     private Activity activity;
     private OnItemListener listener;
+    private int position;
 
     public ShoppingListAdapter(List<ListEntity> shoppingLists, Activity activity) {
         this.shoppingLists = shoppingLists;
@@ -57,16 +59,21 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
     public void onBindViewHolder(@NonNull ShoppingListViewHolder holder, int position) {
         ListEntity currentShoppingList = shoppingLists.get(position);
         holder.listNameTextview.setText(currentShoppingList.getListName());
-        //holder.remainingTextview.setText(currentShoppingList.getRemainingItems() + "/" + currentShoppingList.getTotalItems());
-        holder.remainingTextview.setText(0 + "/" + 0);
-
-        //activity.getApplicationContext().getString(R.string.remaining,currentShoppingList.getRemainingItems(),currentShoppingList.getTotalItems());
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //setPosition(holder.getPosition());
+                Log.d(LOG_TAG, "Long Click on " + holder.getAdapterPosition());
+                setPosition(holder.getAdapterPosition());
+                return false;
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        Log.d(LOG_TAG, "getItemCount: count: " + shoppingLists.size() + " shoppingLists: " + shoppingLists.toString());
+        //Log.d(LOG_TAG, "getItemCount: count: " + shoppingLists.size() + " shoppingLists: " + shoppingLists.toString());
         //String className = new Exception().getStackTrace()[1].getClassName();
         //Log.d(LOG_TAG, "Who called me? " + className);
         return shoppingLists.size();
@@ -162,4 +169,15 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListViewHo
         }
     };
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public ListEntity getItemSelected(int position) {
+        return shoppingLists.get(position);
+    }
 }

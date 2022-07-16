@@ -1,23 +1,40 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ShoppingList" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.ShoppingList" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
+        <item name="colorOnSecondary">@color/secondaryTextColor</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="fontFamily">@font/montserrat_regular</item>
     </style>
 
+    <style name="Theme.App.Toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+    </style>
+
+
+    <!--Non riesco a far funzionare sta roba ma la tengo comunque, non si sa mai-->
     <style name="Theme.App.LoginButton" parent="ThemeOverlay.Material3.Button">
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:startColor">#ff8c19</item>
-        <item name="android:endColor">#ff9cc0</item>
+        <item name="android:startColor">@color/teal_200</item>
+        <item name="android:endColor">@color/purple_700</item>
         <item name="android:radius">50dp</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/lightGray</item>
+    </style>
+
+    <style name="ImageView.Round" parent="">
+        <item name="cornerSize">10%</item>
     </style>
 </resources>

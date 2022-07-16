@@ -9,8 +9,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,6 +53,7 @@ public class AddToListFragment extends Fragment implements OnItemListener{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        //getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         this.listId = getArguments().getInt("listId",0);
         Log.d(LOG_TAG, "ListId ottenuto: " + this.listId);
         itemRepository = ItemRepository.getInstance(getActivity().getApplication());
@@ -109,6 +115,10 @@ public class AddToListFragment extends Fragment implements OnItemListener{
         MenuItem item = menu.findItem(R.id.app_bar_search);
         searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
+        //Queste due righe servono per evitare che la searchView vada a schermo intero
+        // quando abbiamo il dispositivo in orizzontale
+        int options = searchView.getImeOptions();
+        searchView.setImeOptions(options| EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             /*
              * chiamo questo metodo quando utente fa la query, quando preme un bottone sulla tastiera
@@ -157,9 +167,10 @@ public class AddToListFragment extends Fragment implements OnItemListener{
         recyclerView.setAdapter(adapter);*/
         recyclerView = activity.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
+        registerForContextMenu(recyclerView);
         //Nuovo tipo di chiamata a ShoppingListAdapter, che fa uso di un listener
         final OnItemListener listener = this;
-        adapter = new ListAdapter(listener, activity, viewModel);
+        adapter = new ListAdapter(listener, activity);
 
         recyclerView.setAdapter(adapter);
     }
@@ -173,6 +184,38 @@ public class AddToListFragment extends Fragment implements OnItemListener{
             viewModel.setItemSelected(adapter.getItemSelected(position));
 
         }
+    }
+
+    @Override
+    public boolean onItemLongClick(int position) {
+        Log.d(LOG_TAG, "Long Click on " + position);
+        Activity activity = getActivity();
+        if (activity!=null){
+            //int itemSelected = adapter.getItemSelected(position).getId();
+            //iewModel.setItemSelected(adapter.getItemSelected(position));
+
+        }
+        return false;
+    }
+
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        Log.d(LOG_TAG, "Click-> onContextItemSelected");
+        int position = -1;
+        try{
+            position = adapter.getPosition();
+        } catch (Exception e){
+            Log.d(LOG_TAG, e.getLocalizedMessage(), e);
+            return super.onContextItemSelected(item);
+        }
+        if (item.getItemId() == R.id.option_delete_item) {
+            ItemEntity itemToDelete = adapter.getItemSelected(position);
+            Log.d(LOG_TAG, "Deleting item " + itemToDelete.toString());
+            Toast.makeText(getActivity(), getString(R.string.deleting) +" "+ itemToDelete.getItemName(),Toast.LENGTH_SHORT).show();
+            viewModel.deleteItem(itemToDelete);
+        }
+        return super.onContextItemSelected(item);
     }
 
     //searchView viene collassata quando torno indietro dal fragment per

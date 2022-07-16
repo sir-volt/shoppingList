@@ -65,4 +65,5 @@ public class Session {
     public Boolean getLoginStatus(){
         return sharedPreferences.getBoolean(LOGIN_STRING,false);
     }
+
 }

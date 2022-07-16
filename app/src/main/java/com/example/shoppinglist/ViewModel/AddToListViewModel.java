@@ -47,4 +47,8 @@ public class AddToListViewModel extends AndroidViewModel {
     public void insertItemInList(ItemEntity itemEntity){
         //repository addtolist
     }
+
+    public void deleteItem(ItemEntity itemEntity){
+        repository.deleteItem(itemEntity);
+    }
 }

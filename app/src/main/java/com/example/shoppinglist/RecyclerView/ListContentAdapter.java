@@ -2,7 +2,9 @@ package com.example.shoppinglist.RecyclerView;
 
 import android.app.Activity;
 import android.content.ClipData;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppinglist.ItemEntity;
 import com.example.shoppinglist.R;
+import com.example.shoppinglist.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +53,7 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
     @Override
     public ListContentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_in_list_card_layout, parent, false);
-        return new ListContentViewHolder(layoutView,listener);
+        return new ListContentViewHolder(layoutView,listener,this);
     }
 
     //TODO usare i dati del database
@@ -62,12 +65,20 @@ public class ListContentAdapter extends RecyclerView.Adapter<ListContentViewHold
         holder.itemPriceTextView.setText(price);
 
         String image = currentCard.getImageResource();
-        //al momento abbiamo solo drawable, in futuro ci saranno foto, questo if è per mettere i placeholder draawable
+        //Ho fatto questa modifica perché se la stringa è null allora crasha, quindi se è nulla ci metto il placeholder
         if(image==null){
+            image = "ic_baseline_image_not_supported_24";
+        }
+        if(image.contains("ic_")) {
             //if(image.contains("ic_")){
-            int placeholderImageId  = R.drawable.ic_baseline_image_not_supported_24;
-            holder.itemImageView.setImageResource(placeholderImageId);
-
+            Drawable drawable = AppCompatResources.getDrawable(activity, activity.getResources()
+                    .getIdentifier(image, "drawable", activity.getPackageName()));
+            holder.itemImageView.setImageDrawable(drawable);
+        } else{
+            Bitmap bitmap = Utilities.getImageBitmap(activity, Uri.parse(image));
+            if (bitmap != null){
+                holder.itemImageView.setImageBitmap(bitmap);
+            }
         }
     }
 

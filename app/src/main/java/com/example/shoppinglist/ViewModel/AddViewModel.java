@@ -9,6 +9,8 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.shoppinglist.DataBase.ItemRepository;
+import com.example.shoppinglist.ItemEntity;
 import com.example.shoppinglist.R;
 import com.example.shoppinglist.Utilities;
 
@@ -19,10 +21,12 @@ public class AddViewModel extends AndroidViewModel {
      */
     private final MutableLiveData<Bitmap> imageBitMap = new MutableLiveData<>();
     private final Application application;
+    private final ItemRepository repository;
 
     public AddViewModel(@NonNull Application application) {
         super(application);
         this.application = application;
+        repository = ItemRepository.getInstance(application);
     }
 
     /* NON CI SERVE PIU' PERCHÈ ABBIAMO UN IMMAGINE SPECIFICATA NEL LAYOUT
@@ -46,5 +50,9 @@ public class AddViewModel extends AndroidViewModel {
 
     public MutableLiveData<Bitmap> getImageBitMap(){
         return imageBitMap;
+    }
+
+    public void addItem(ItemEntity itemEntity){
+        repository.addItemToDatabase(itemEntity);
     }
 }

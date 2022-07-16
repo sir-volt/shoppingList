@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -64,7 +65,6 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //TODO Prima era Appcompatactivity
         FragmentActivity activity = (AppCompatActivity) getActivity();
         if(activity != null){
             Utilities.setUpToolbar((AppCompatActivity) activity, this.listName);
@@ -105,6 +105,10 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
         MenuItem item = menu.findItem(R.id.app_bar_search);
         searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
+        //Queste due righe servono per evitare che la searchView vada a schermo intero
+        // quando abbiamo il dispositivo in orizzontale
+        int options = searchView.getImeOptions();
+        searchView.setImeOptions(options| EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         //Log.d(LOG_TAG, "Testo inserito nella ricerca: " + searchView.getQuery().toString());
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             /*
@@ -155,12 +159,19 @@ public class ListDetailsFragment extends Fragment implements OnItemListener {
 
     }
 
+    @Override
+    public boolean onItemLongClick(int position) {
+        return false;
+    }
+
     //searchView viene collassata quando torno indietro dal fragment per
     // evitare di vederla ancora sul frammento precetente
     @Override
     public void onDestroy() {
+        if(searchView!=null){
+            searchView.setIconified(true);
+            searchView.setIconified(true);
+        }
         super.onDestroy();
-        searchView.setIconified(true);
-        searchView.setIconified(true);
     }
 }
