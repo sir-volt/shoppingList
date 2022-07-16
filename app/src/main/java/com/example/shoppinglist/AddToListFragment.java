@@ -222,8 +222,10 @@ public class AddToListFragment extends Fragment implements OnItemListener{
     // evitare di vederla ancora sul frammento precetente
     @Override
     public void onDestroy() {
+        if(searchView!=null){
+            searchView.setIconified(true);
+            searchView.setIconified(true);
+        }
         super.onDestroy();
-        searchView.setIconified(true);
-        searchView.setIconified(true);
     }
 }

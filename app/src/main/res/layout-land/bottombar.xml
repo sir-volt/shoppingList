@@ -35,7 +35,6 @@
             android:background="@color/primaryDarkColor"
             android:layout_weight="1"
             android:text="@string/add_new_item"
-            app:autoSizeTextType="uniform"
             app:icon="@drawable/ic_baseline_create_24"
             app:iconTint="@color/white"
             app:iconGravity="textStart"

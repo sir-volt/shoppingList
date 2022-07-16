@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,7 +55,7 @@ public class AddFragment extends Fragment {
     private Double itemPrice;
     private EditText itemNameText, itemPriceText;
     AppCompatActivity activity;
-    private ActivityResultLauncher<String> requestCameraPermissionLauncher, requestStoragePermissionLauncher;
+    private ActivityResultLauncher<String> requestCameraPermissionLauncher, requestStoragePermissionLauncher, requestScannerPermissionLauncher;
     private AddViewModel addViewModel;
 
     @Override
@@ -82,6 +83,7 @@ public class AddFragment extends Fragment {
                     new ActivityResultCallback<Boolean>() {
                         @Override
                         public void onActivityResult(Boolean result) {
+                            Log.d(LOG_TAG, "Permission result: " + result);
                             if (result) {
                                 invokeCamera(activity);
                                 Log.d(LOG_TAG, "CAMERA PERMISSION GRANTED");
@@ -92,11 +94,28 @@ public class AddFragment extends Fragment {
                         }
                     });
 
+            requestScannerPermissionLauncher = registerForActivityResult(
+                    new ActivityResultContracts.RequestPermission(),
+                    new ActivityResultCallback<Boolean>() {
+                        @Override
+                        public void onActivityResult(Boolean result) {
+                            Log.d(LOG_TAG, "Permission result: " + result);
+                            if (result) {
+                                invokeScanActivity(activity);
+                                Log.d(LOG_TAG, "CAMERA PERMISSION GRANTED");
+                            } else {
+                                Log.d(LOG_TAG, "CAMERA PERMISSION NOT GRANTED");
+                                showScannerPermissionRationale();
+                            }
+                        }
+                    });
+
             requestStoragePermissionLauncher = registerForActivityResult(
                     new ActivityResultContracts.RequestPermission(),
                     new ActivityResultCallback<Boolean>() {
                         @Override
                         public void onActivityResult(Boolean result) {
+                            Log.d(LOG_TAG, "Permission result: " + result);
                             if (result) {
                                 Log.d(LOG_TAG, "STORAGE PERMISSION GRANTED");
                             } else {
@@ -190,8 +209,15 @@ public class AddFragment extends Fragment {
             view.findViewById(R.id.scan_item).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent scanIntent = new Intent(activity, ScanActivity.class);
-                    startActivityForResult(scanIntent, REQUEST_CODE);
+                    if(activity.checkSelfPermission(Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED){
+                        invokeScanActivity(activity);
+                    } else if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
+                            Log.d(LOG_TAG, "Showing permission rationale");
+                            showScannerPermissionRationale();
+                        } else {
+                            Log.d(LOG_TAG, "Requesting camera permissions");
+                            requestScannerPermissionLauncher.launch(Manifest.permission.CAMERA);
+                        }
                 }
             });
 
@@ -257,6 +283,7 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA);
+                //activity.startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", activity.getPackageName(), null)));
             }
         });
         builder.setNegativeButton(getString(R.string.cancel),((dialogInterface, i) -> dialogInterface.cancel()));
@@ -279,12 +306,32 @@ public class AddFragment extends Fragment {
         builder.show();
     }
 
+    private void showScannerPermissionRationale() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage(getString(R.string.camera_permission));
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                requestScannerPermissionLauncher.launch(Manifest.permission.CAMERA);
+            }
+        });
+        builder.setNegativeButton(getString(R.string.cancel),((dialogInterface, i) -> dialogInterface.cancel()));
+        builder.create();
+        builder.show();
+    }
+
     private void invokeCamera(AppCompatActivity activity) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         //un if per capire se vi è un activity camera per gestire questo intent
         if(takePictureIntent.resolveActivity(activity.getPackageManager()) != null){
             activity.startActivityForResult(takePictureIntent,Utilities.REQUEST_IMAGE_CAPTURE);
         }
+    }
+
+    private void invokeScanActivity(AppCompatActivity activity){
+        Intent scanIntent = new Intent(activity, ScanActivity.class);
+        startActivityForResult(scanIntent, REQUEST_CODE);
     }
 
     private void saveImage(Bitmap bitmap, Activity activity) throws FileNotFoundException{
